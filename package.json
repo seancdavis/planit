@@ -1,0 +1,16 @@
+{
+  "name": "Planit",
+  "version": "0.0.1",
+  "author": "Sean C Davis",
+  "private" : true,
+
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-cssmin":         "*",
+    "grunt-contrib-sass":           "*",
+    "grunt-contrib-uglify":         "*",
+    "grunt-contrib-coffee":         "*",
+    "grunt-contrib-watch":          "*",
+    "matchdep":                     "*"
+  }
+}
