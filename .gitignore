@@ -1,2 +1,5 @@
 # npm package installations
 node_modules/
+
+# coffee concatenated file
+planit.src.coffee
