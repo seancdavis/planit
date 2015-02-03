@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "planit.js",
+  "sourceRoot": "",
+  "sources": [
+    "planit.src.coffee"
+  ],
+  "names": [],
+  "mappings": "AAAA;AAAA,EAAA,OAAO,CAAC,GAAR,CAAY,MAAZ,CAAA,CAAA;;AAAA,EAEA,OAAO,CAAC,GAAR,CAAY,QAAZ,CAFA,CAAA;AAAA"
+}

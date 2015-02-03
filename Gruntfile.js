@@ -5,6 +5,9 @@ module.exports = function(grunt){
   grunt.initConfig({
       pkg: grunt.file.readJSON('package.json'),
       coffee: {
+        options: {
+          sourceMap: true
+        },
         planit: {
           files: {
             'planit.js': [
@@ -15,9 +18,6 @@ module.exports = function(grunt){
         }
       },
       uglify: {
-        options: {
-          sourceMap: true
-        },
         planit: {
           files: {
             'planit.min.js': ['planit.js']
