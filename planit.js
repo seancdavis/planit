@@ -1,7 +1,7 @@
 (function() {
   console.log('plan');
 
-  console.log('marker');
+  console.log('marker test');
 
 }).call(this);
 
