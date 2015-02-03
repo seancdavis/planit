@@ -10,7 +10,10 @@ module.exports = function(grunt){
       },
       planit: {
         files: {
-          'build/planit.js': ['js/plan.coffee', 'js/marker.coffee']
+          'build/planit.js': [
+            'src/javascripts/plan.coffee', 
+            'src/javascripts/marker.coffee'
+          ]
         }
       }
     },
@@ -27,7 +30,7 @@ module.exports = function(grunt){
       // },
       dist: {
         files: {
-          'build/planit.css': 'scss/planit.scss'
+          'build/planit.css': 'src/stylesheets/planit.scss'
         }
       }
     },
@@ -40,11 +43,11 @@ module.exports = function(grunt){
     },
     watch: {
       scripts: {
-        files: ['js/*.coffee'],
+        files: ['src/javascripts/*.coffee'],
         tasks: ['coffee', 'uglify'],
       },
       styles: {
-        files: ['scss/*.scss'],
+        files: ['src/stylesheets/*.scss'],
         tasks: ['sass', 'cssmin'],
       },
     }
