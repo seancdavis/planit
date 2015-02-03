@@ -2,4 +2,9 @@
 node_modules/
 
 # coffee concatenated file
-planit.src.coffee
+build/planit.src.coffee
+build/planit.css.map
+build/planit.js.map
+
+# sass cache
+.sass-cache/
