@@ -15,12 +15,17 @@ var cssmin = require('gulp-cssmin');
 
 // Coffee
 gulp.task('coffee', function() {
-  gulp.src('source/javascripts/*.coffee')
-    .pipe(concat('planit.coffee'))
+  return gulp.src([
+    'source/javascripts/planit.coffee',
+    'source/javascripts/plan.coffee',
+    'source/javascripts/marker.coffee'
+  ])
+    .pipe(concat('planit-tmp.coffee'))
     .pipe(sourcemaps.init())
     .pipe(coffee({bare: true}).on('error', gutil.log))
     .pipe(sourcemaps.write())
-    .pipe(gulp.dest('./'))
+    .pipe(rename('planit.js'))
+    .pipe(gulp.dest('./'));
 });
 
 // Lint Task
