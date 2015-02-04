@@ -4,4 +4,18 @@
   height: 600px;
   margin: 0 auto;
   background: rgba(#efefef, 80%);
+
+  .planit-markers-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+
+    .planit-marker {
+      position: absolute;
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      background: #abc123;
+    }
+  }
 }

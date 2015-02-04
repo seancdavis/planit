@@ -4,6 +4,7 @@ class Planit
     @options = {} unless @options
     @setOptions()
     @initPlan()
+    @initMarkers()
 
   setOptions: ->
     @setDefaultOptions()
@@ -15,5 +16,12 @@ class Planit
   initPlan: ->
     @plan = new Planit.Plan
       container: @container
+
+  initMarkers: ->
+    @markers = new Planit.Marker
+      plan: @container
+    for marker in @options.markers
+      @markers.add(marker.coords)
+
 
 window.planit = new Planit

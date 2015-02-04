@@ -5,5 +5,5 @@ class Planit.Plan
 
   initContainers: ->
     @options.container.addClass('planit-container')
-    @options.container.append("""<div class="markers-container"></div>""")
+    @options.container.append("""<div class="planit-markers-container"></div>""")
 

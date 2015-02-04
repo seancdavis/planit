@@ -19,7 +19,17 @@
     <script src="../build/planit.js"></script>
 
     <script>
-      planit.new();
+      planit.new({
+        container: 'planit',
+        markers: [
+          {
+            coords: ['12','45']
+          },
+          {
+            coords: ['45','62']
+          }
+        ]
+      });
     </script>
   </body>
 </html>
