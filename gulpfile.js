@@ -36,7 +36,7 @@ gulp.task('jslint', function() {
 });
 
 // Minify JS
-gulp.task('uglify', function() {
+gulp.task('jsdist', function() {
   return gulp.src('./planit.js')
     .pipe(rename('planit.min.js'))
     .pipe(uglify())
@@ -48,7 +48,12 @@ gulp.task('sass', function() {
   return gulp.src('source/stylesheets/*.scss')
     .pipe(sass())
     .pipe(cssbeautify())
-    .pipe(gulp.dest('./'))
+    .pipe(gulp.dest('./'));
+});
+
+// Minify CSS
+gulp.task('cssdist', function() {
+  return gulp.src('./planit.css')
     .pipe(cssmin())
     .pipe(rename('planit.min.css'))
     .pipe(gulp.dest('dist'));
@@ -56,7 +61,7 @@ gulp.task('sass', function() {
 
 // Watch Files For Changes
 gulp.task('watch', function() {
-  gulp.watch('source/javascripts/*.coffee', ['coffee', 'jslint', 'uglify']);
+  gulp.watch('source/javascripts/*.coffee', ['coffee', 'jslint']);
   gulp.watch('source/stylesheets/*.scss', ['sass']);
 });
 
