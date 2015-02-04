@@ -1,1 +1,1 @@
-console.log 'marker test'
+class Planit.Marker

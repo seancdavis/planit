@@ -11,8 +11,10 @@ module.exports = function(grunt){
       planit: {
         files: {
           'build/planit.js': [
+            'source/javascripts/planit.coffee', 
             'source/javascripts/plan.coffee', 
-            'source/javascripts/marker.coffee'
+            'source/javascripts/marker.coffee',
+            'source/javascripts/coordinates.coffee'
           ]
         }
       }

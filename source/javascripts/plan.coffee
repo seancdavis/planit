@@ -1,1 +1,9 @@
-console.log 'plan'
+class Planit.Plan
+
+  constructor: (@options) ->
+    @initContainers()
+
+  initContainers: ->
+    @options.container.addClass('planit-container')
+    @options.container.append("""<div class="markers-container"></div>""")
+
