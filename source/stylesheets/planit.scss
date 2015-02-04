@@ -16,6 +16,13 @@
       height: 15px;
       border-radius: 50%;
       background: #abc123;
+
+      &.draggable {
+        &:hover {
+          cursor: move;
+          opacity: 0.8;
+        }
+      }
     }
   }
 }

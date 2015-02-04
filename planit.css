@@ -19,3 +19,8 @@
     border-radius: 50%;
     background: #abc123;
 }
+
+.planit-container .planit-markers-container .planit-marker.draggable:hover {
+    cursor: move;
+    opacity: 0.8;
+}

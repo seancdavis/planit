@@ -23,5 +23,4 @@ class Planit
     for marker in @options.markers
       @markers.add(marker.coords)
 
-
 window.planit = new Planit
