@@ -11,6 +11,7 @@
     "grunt-contrib-uglify":         "*",
     "grunt-contrib-coffee":         "*",
     "grunt-contrib-watch":          "*",
-    "matchdep":                     "*"
+    "matchdep":                     "*",
+    "draggabilly":                  "*"
   }
 }
