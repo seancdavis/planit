@@ -21,6 +21,6 @@ class Planit
     @markers = new Planit.Marker
       plan: @container
     for marker in @options.markers
-      @markers.add(marker.coords)
+      @markers.add(marker)
 
 window.planit = new Planit

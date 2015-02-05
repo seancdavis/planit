@@ -8,15 +8,17 @@ class Planit.Marker
     @plan = @options.plan
     @markersContainer = @plan.find('.planit-markers-container')
 
-  add: (coords) ->
+  add: (options) ->
     @markersContainer.append($('<div></div>')
-      .addClass('planit-marker draggable')
+      .addClass('planit-marker')
       .css(
-        left: "#{coords[0]}%"
-        top: "#{coords[1]}%"
+        left: "#{options.coords[0]}%"
+        top: "#{options.coords[1]}%"
       )
     )
-    @lastMarker().on('mousedown', @mousedown)
+    if options.draggable
+      @lastMarker().addClass('draggable')
+      @lastMarker().on('mousedown', @mousedown)
 
   mousedown: (e) =>
     $(e.target).addClass('is-dragging')
