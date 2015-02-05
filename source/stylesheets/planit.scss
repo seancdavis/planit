@@ -2,7 +2,7 @@
   display: block;
   width: 600px;
   height: 600px;
-  margin: 0 auto;
+  margin: 25px auto;
   background: rgba(#efefef, 0.8);
 
   .planit-markers-container {
@@ -12,8 +12,8 @@
 
     .planit-marker {
       position: absolute;
-      width: 15px;
-      height: 15px;
+      width: 30px;
+      height: 30px;
       border-radius: 50%;
       background: #abc123;
 
