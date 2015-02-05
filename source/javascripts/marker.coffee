@@ -9,52 +9,48 @@ class Planit.Marker
     @markersContainer = @plan.find('.planit-markers-container')
 
   add: (options) ->
-    @markersContainer.append($('<div></div>')
-      .addClass('planit-marker')
-      .css(
-        left: "#{options.coords[0]}%"
-        top: "#{options.coords[1]}%"
-      )
+    @markersContainer.append(
+      $('<div><div class="planit-marker-content"></div></div>')
+        .addClass('planit-marker')
+        .css
+          left: "#{options.coords[0]}%"
+          top: "#{options.coords[1]}%"
     )
     if options.draggable
       @lastMarker().addClass('draggable')
       @lastMarker().on('mousedown', @mousedown)
     if options.infobox
       id = @randomString(16)
-      @lastMarker().after """
-        <div class="planit-infobox-container" id="info-#{id}">
-          <div class="planit-infobox">
-            #{options.infobox}
-          </div>
-        </div>
+      @lastMarker().find('.planit-marker-content').append """
+        <div class="planit-infobox" id="info-#{id}">#{options.infobox}</div>
           """
       @lastMarker().attr('data-infobox', "info-#{id}")
       infobox = $("##{@lastMarker().attr('data-infobox')}")
-      infobox.on 'mouseleave', (e) =>
-        $(e.target).closest('.planit-infobox-container').hide()
+      infobox.css
+        left: -(infobox.width() / 2)
+        bottom: infobox.outerHeight() + 5
+      @lastMarker().on 'mouseleave', (e) =>
+        marker = $(e.target).closest('.planit-marker')
+        infobox = $("##{marker.attr('data-infobox')}")
+        infobox.removeClass('active')
       @lastMarker().on 'mouseover', (e) =>
         marker = $(e.target).closest('.planit-marker')
         infobox = $("##{marker.attr('data-infobox')}")
         if marker.hasClass('is-dragging') || @draggingMarker().length > 0
-          infobox.hide()
+          infobox.removeClass('active')
         else
-          left = marker.position().left - (infobox.outerWidth() / 2) + 15
-          top = marker.position().top - infobox.outerHeight() - 5
-          infobox.css
-            left: left
-            top: top
-          infobox.show()
-      @lastMarker().on 'mouseout', (e) =>
-        unless $(e.relatedTarget).hasClass('planit-infobox')
-          infoboxID = $(e.target).closest('.planit-marker').attr('data-infobox')
-          $("##{infoboxID}").hide()
+          infobox.addClass('active')
 
   mousedown: (e) =>
-    $(e.target).addClass('is-dragging')
+    marker = $(e.target).closest('.planit-marker')
+    marker.addClass('is-dragging')
     infoboxID = $(e.target).closest('.planit-marker').attr('data-infobox')
-    $("##{infoboxID}").hide()
+    $("##{infoboxID}").removeClass('active')
 
   mouseup: (e) =>
+    if $(e.target).hasClass('planit-marker-content')
+      marker = $(e.target).closest('.planit-marker')
+      $("##{marker.attr('data-infobox')}").addClass('active')
     @draggingMarker().removeClass('is-dragging')
 
   mousemove: (e) =>
