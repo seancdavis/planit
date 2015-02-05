@@ -19,9 +19,40 @@ class Planit.Marker
     if options.draggable
       @lastMarker().addClass('draggable')
       @lastMarker().on('mousedown', @mousedown)
+    if options.infobox
+      id = @randomString(16)
+      @lastMarker().after """
+        <div class="planit-infobox-container" id="info-#{id}">
+          <div class="planit-infobox">
+            #{options.infobox}
+          </div>
+        </div>
+          """
+      @lastMarker().attr('data-infobox', "info-#{id}")
+      infobox = $("##{@lastMarker().attr('data-infobox')}")
+      infobox.on 'mouseleave', (e) =>
+        $(e.target).closest('.planit-infobox-container').hide()
+      @lastMarker().on 'mouseover', (e) =>
+        marker = $(e.target).closest('.planit-marker')
+        infobox = $("##{marker.attr('data-infobox')}")
+        if marker.hasClass('is-dragging') || @draggingMarker().length > 0
+          infobox.hide()
+        else
+          left = marker.position().left - (infobox.outerWidth() / 2) + 15
+          top = marker.position().top - infobox.outerHeight() - 5
+          infobox.css
+            left: left
+            top: top
+          infobox.show()
+      @lastMarker().on 'mouseout', (e) =>
+        unless $(e.relatedTarget).hasClass('planit-infobox')
+          infoboxID = $(e.target).closest('.planit-marker').attr('data-infobox')
+          $("##{infoboxID}").hide()
 
   mousedown: (e) =>
     $(e.target).addClass('is-dragging')
+    infoboxID = $(e.target).closest('.planit-marker').attr('data-infobox')
+    $("##{infoboxID}").hide()
 
   mouseup: (e) =>
     @draggingMarker().removeClass('is-dragging')
@@ -86,3 +117,8 @@ class Planit.Marker
 
   lastMarker: ->
     @markers().last()
+
+  randomString: (length = 16) ->
+    str = Math.random().toString(36).slice(2) 
+    str = str + Math.random().toString(36).slice(2)
+    str.substring(0, length - 1)

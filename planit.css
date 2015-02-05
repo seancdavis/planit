@@ -28,3 +28,41 @@
 .planit-container .planit-markers-container .planit-marker.draggable.is-dragging {
     background: blue;
 }
+
+.planit-container .planit-markers-container .planit-infobox-container {
+    display: none;
+    position: absolute;
+}
+
+.planit-container .planit-markers-container .planit-infobox-container.active {
+    display: inline-block;
+}
+
+.planit-container .planit-markers-container .planit-infobox-container .planit-infobox {
+    position: relative;
+    padding: 5px 15px;
+    background: white;
+    border-radius: 3px;
+}
+
+.planit-container .planit-markers-container .planit-infobox-container .planit-infobox:after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -10px;
+    width: 0;
+    height: 0;
+    border-top: solid 10px white;
+    border-left: solid 10px transparent;
+    border-right: solid 10px transparent;
+}
+
+.planit-container .planit-markers-container .planit-infobox-container .planit-infobox h2 {
+    font-size: 1.15em;
+    margin: 0;
+}
+
+.planit-container .planit-markers-container .planit-infobox-container .planit-infobox p {
+    font-size: 0.85em;
+}
