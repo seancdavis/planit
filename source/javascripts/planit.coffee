@@ -4,22 +4,23 @@ class Planit
     @options = {} unless @options
     @setOptions()
     @initPlan()
-    @initMarkers()
+    $(window).load(@initMarkers)
 
   setOptions: ->
     @setDefaultOptions()
-    @container = $("##{@options.container}") if @options.container
+    @planOptions.container = $("##{@options.container}") if @options.container
+    @planOptions.backgroundImage = @options.backgroundImage if @options.backgroundImage
 
   setDefaultOptions: ->
-    @container = $('#planit')
+    @planOptions =
+      container: $('#planit')
 
   initPlan: ->
-    @plan = new Planit.Plan
-      container: @container
+    @plan = new Planit.Plan(@planOptions)
 
-  initMarkers: ->
+  initMarkers: =>
     @markers = new Planit.Marker
-      plan: @container
+      plan: @planOptions.container
     for marker in @options.markers
       @markers.add(marker)
 

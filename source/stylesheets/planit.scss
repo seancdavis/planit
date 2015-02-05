@@ -1,19 +1,31 @@
 .planit-container {
+  position: relative;
   display: block;
   width: 600px;
   height: 600px;
   margin: 25px auto;
   background: rgba(#efefef, 0.8);
 
+  img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+  }
+
   .planit-markers-container {
     position: relative;
     width: 100%;
     height: 100%;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: top left;
 
     .planit-marker {
       position: absolute;
       width: 30px;
       height: 30px;
+      z-index: 999;
       border-radius: 50%;
       background: #abc123;
       &.draggable {
