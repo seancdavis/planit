@@ -24,3 +24,7 @@
     cursor: move;
     opacity: 0.8;
 }
+
+.planit-container .planit-markers-container .planit-marker.draggable.is-dragging {
+    background: blue;
+}
