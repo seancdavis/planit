@@ -1,28 +1,30 @@
 class Planit.Marker
 
   constructor: (@options) ->
-    @setOptions()
-    @bindDraggable()
 
-  setOptions: ->
+    # default options
     @plan = @options.plan
     @markersContainer = @plan.find('.planit-markers-container')
 
-  add: (options) ->
+    # bind draggable events
+    $(document).on('mousemove', @mousemove)
+    $(document).on('mouseup', @mouseup)
+
+    # add marker
     @markersContainer.append(
       $('<div><div class="planit-marker-content"></div></div>')
         .addClass('planit-marker')
         .css
-          left: "#{options.coords[0]}%"
-          top: "#{options.coords[1]}%"
+          left: "#{@options.coords[0]}%"
+          top: "#{@options.coords[1]}%"
     )
-    if options.draggable
+    if @options.draggable
       @lastMarker().addClass('draggable')
       @lastMarker().on('mousedown', @mousedown)
-    if options.infobox
+    if @options.infobox
       id = @randomString(16)
       @lastMarker().find('.planit-marker-content').append """
-        <div class="planit-infobox" id="info-#{id}">#{options.infobox}</div>
+        <div class="planit-infobox" id="info-#{id}">#{@options.infobox}</div>
           """
       @lastMarker().attr('data-infobox', "info-#{id}")
       infobox = $("##{@lastMarker().attr('data-infobox')}")
@@ -100,10 +102,6 @@ class Planit.Marker
       marker.css
         left: markerX
         top: markerY
-
-  bindDraggable: ->
-    $(document).on('mousemove', @mousemove)
-    $(document).on('mouseup', @mouseup)
 
   markers: ->
     @markersContainer.find('.planit-marker')
