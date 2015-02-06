@@ -19,7 +19,7 @@
     <script src="../planit.js"></script>
 
     <script>
-      planit.new({
+      p = planit.new({
         container: 'planit',
         backgroundImage: 'http://media.giphy.com/media/cw8Nr4u28tVKw/giphy.gif',
         markers: [
@@ -34,6 +34,10 @@
             infobox: "<h2>Dangle</h2><p>It's the other dinkus.</p>"
           }
         ]
+      });
+
+      $(window).load(function() {
+        console.log(JSON.stringify(p.getAllMarkers()));
       });
     </script>
   </body>

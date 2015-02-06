@@ -10,8 +10,10 @@ class Planit
       container: $('#planit')
 
     # Input Options
-    @planOptions.container = $("##{@options.container}") if @options.container
-    @planOptions.backgroundImage = @options.backgroundImage if @options.backgroundImage
+    if @options.container
+      @planOptions.container = $("##{@options.container}")
+    if @options.backgroundImage
+      @planOptions.backgroundImage = @options.backgroundImage
 
     # Initialize Plan
     @plan = new Planit.Plan(@planOptions)
@@ -29,6 +31,11 @@ class Planit
   addMarker: (options) =>
     options.plan = @planOptions.container
     new Planit.Marker(options)
+
+  # ------------------------------------------ Get All Markers
+
+  getAllMarkers: () =>
+    @plan.getAllMarkers()
 
 # set this class to a global `planit` variable
 window.planit = new Planit
