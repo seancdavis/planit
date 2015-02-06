@@ -29,10 +29,10 @@ class Planit.Plan.Events
     if $(e.target).hasClass('planit-marker-content')
       marker = $(e.target).closest('.planit-marker')
       $("##{marker.attr('data-infobox')}").addClass('active')
+    marker = @markersContainer.find('.is-dragging').first()
     if @draggingMarker().length > 0
       m = new Planit.Marker(@container, marker.attr('data-marker'))
       @options.planit.dragEnd(e, m)
-      # @options.planit.dragEnd(e, marker.attr('data-marker'))
       @draggingMarker().removeClass('is-dragging')
 
   mousemove: (e) =>
