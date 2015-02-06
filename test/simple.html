@@ -21,7 +21,7 @@
     <script>
       p = planit.new({
         container: 'planit',
-        backgroundImage: 'http://media.giphy.com/media/cw8Nr4u28tVKw/giphy.gif',
+        // backgroundImage: 'http://media.giphy.com/media/cw8Nr4u28tVKw/giphy.gif',
         markers: [
           {
             coords: ['12','45'],
@@ -33,11 +33,17 @@
             draggable: true,
             infobox: "<h2>Dangle</h2><p>It's the other dinkus.</p>"
           }
-        ]
+        ],
+        dragEnd: function(event, marker) {
+          console.log(marker.position());
+          // console.log(marker.coords());
+        }
       });
 
       $(window).load(function() {
-        console.log(JSON.stringify(p.getAllMarkers()));
+        // console.log(JSON.stringify(p.getAllMarkers()));
+
+
       });
     </script>
   </body>

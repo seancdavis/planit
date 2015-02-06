@@ -17,8 +17,11 @@ var cssmin = require('gulp-cssmin');
 gulp.task('coffee', function() {
   return gulp.src([
     'source/javascripts/planit.coffee',
-    'source/javascripts/plan.coffee',
-    'source/javascripts/marker.coffee'
+    'source/javascripts/planit/plan.coffee',
+    'source/javascripts/planit/plan/events.coffee',
+    'source/javascripts/planit/marker.coffee',
+    'source/javascripts/planit/marker/events.coffee',
+    'source/javascripts/planit/marker/creator.coffee'
   ])
     .pipe(concat('planit-tmp.coffee'))
     .pipe(sourcemaps.init())
@@ -61,7 +64,7 @@ gulp.task('cssdist', function() {
 
 // Watch Files For Changes
 gulp.task('watch', function() {
-  gulp.watch('source/javascripts/*.coffee', ['coffee', 'jslint']);
+  gulp.watch('source/javascripts/**/*.coffee', ['coffee', 'jslint']);
   gulp.watch('source/stylesheets/*.scss', ['sass']);
 });
 
