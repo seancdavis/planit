@@ -6,6 +6,7 @@ class Planit
     @initPlan()
     if @options.markers
       $(window).load(@initMarkers)
+    @
 
   setOptions: ->
     @setDefaultOptions()
