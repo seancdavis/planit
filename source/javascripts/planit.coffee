@@ -4,7 +4,8 @@ class Planit
     @options = {} unless @options
     @setOptions()
     @initPlan()
-    $(window).load(@initMarkers)
+    if @options.markers
+      $(window).load(@initMarkers)
 
   setOptions: ->
     @setDefaultOptions()
