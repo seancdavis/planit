@@ -4,8 +4,7 @@ class Planit
     @options = {} unless @options
     @setOptions()
     @initPlan()
-    if @options.markers
-      $(window).load(@initMarkers)
+    $(window).load(@initMarkers)
     @
 
   setOptions: ->
@@ -23,7 +22,11 @@ class Planit
   initMarkers: =>
     @markers = new Planit.Marker
       plan: @planOptions.container
-    for marker in @options.markers
-      @markers.add(marker)
+    if @options.markers
+      for marker in @options.markers
+        @markers.add(marker)
+
+  addMarker: (options) =>
+    @markers.add(options)
 
 window.planit = new Planit
