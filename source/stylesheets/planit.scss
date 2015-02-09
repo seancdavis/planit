@@ -33,7 +33,6 @@ $marker-background: #FC5B3F;
       background: $marker-background;
       &.draggable {
         &:hover {
-          cursor: move;
           opacity: 0.8;
         }
       }
@@ -42,6 +41,10 @@ $marker-background: #FC5B3F;
         position: relative;
         width: 100%;
         height: 100%;
+
+        &:hover {
+          cursor: move;
+        }
 
         .planit-infobox {
           position: absolute;
@@ -52,6 +55,7 @@ $marker-background: #FC5B3F;
           }
           position: relative;
           padding: 5px 15px;
+          cursor: initial;
           background: white;
           border-radius: 3px;
           &:after {

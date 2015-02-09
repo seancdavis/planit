@@ -33,7 +33,6 @@
 }
 
 .planit-container .planit-markers-container .planit-marker.draggable:hover {
-    cursor: move;
     opacity: 0.8;
 }
 
@@ -43,12 +42,17 @@
     height: 100%;
 }
 
+.planit-container .planit-markers-container .planit-marker .planit-marker-content:hover {
+    cursor: move;
+}
+
 .planit-container .planit-markers-container .planit-marker .planit-marker-content .planit-infobox {
     position: absolute;
     min-width: 200px;
     display: none;
     position: relative;
     padding: 5px 15px;
+    cursor: initial;
     background: white;
     border-radius: 3px;
 }
