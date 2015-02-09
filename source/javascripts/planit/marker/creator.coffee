@@ -8,10 +8,8 @@ class Planit.Marker.Creator
       @options.id = Planit.randomString(20)
 
     # Add Marker
-    left = parseFloat(@options.coords[0])
-    left = left * 100 if left < 1
-    top = parseFloat(@options.coords[1])
-    top = top * 100 if top < 1
+    left = parseFloat(@options.coords[0]) * 100
+    top = parseFloat(@options.coords[1]) * 100
       
     @markersContainer.append(
       $('<div><div class="planit-marker-content"></div></div>')
