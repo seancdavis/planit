@@ -10,11 +10,10 @@ class Planit.Plan
   getAllMarkers: () =>
     markers = []
     for marker in @markersContainer.find('.planit-marker')
-      m = $(marker)
+      m = new Planit.Marker(@container, $(marker).attr('data-marker'))
       marker =
-        coords: [m.position().left, m.position().top]
-      info = m.find('.planit-infobox')
-      if info.length > 0
-        marker.infobox = info.html()
+        # coords: [m.position().left, m.position().top]
+        coords: m.position()
+      marker.infobox = m.infoboxHTML() if m.infoboxHTML()
       markers.push(marker)
     markers

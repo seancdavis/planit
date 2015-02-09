@@ -22,3 +22,9 @@ class Planit.Marker
     xPc = xPx / @container.width()
     yPc = yPx / @container.height()
     [xPc, yPc]
+
+  # ------------------------------------------ Infobox
+
+  infoboxHTML: =>
+    info = @marker.find('.planit-infobox')
+    if info.length > 0 then info.html() else null
