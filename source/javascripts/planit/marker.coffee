@@ -28,3 +28,8 @@ class Planit.Marker
   infoboxHTML: =>
     info = @marker.find('.planit-infobox')
     if info.length > 0 then info.html() else null
+
+  # ------------------------------------------ Dragging
+
+  isDraggable: =>
+    @marker.hasClass('draggable')
