@@ -29,16 +29,12 @@
     height: 30px;
     z-index: 999;
     border-radius: 50%;
-    background: #abc123;
+    background: #FC5B3F;
 }
 
 .planit-container .planit-markers-container .planit-marker.draggable:hover {
     cursor: move;
     opacity: 0.8;
-}
-
-.planit-container .planit-markers-container .planit-marker.draggable.is-dragging {
-    background: blue;
 }
 
 .planit-container .planit-markers-container .planit-marker .planit-marker-content {

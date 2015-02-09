@@ -1,10 +1,13 @@
+$container-background: rgba(#efefef, 0.8);
+$marker-background: #FC5B3F;
+
 .planit-container {
   position: relative;
   display: block;
   width: 600px;
   height: 600px;
   margin: 25px auto;
-  background: rgba(#efefef, 0.8);
+  background: $container-background;
 
   img {
     position: absolute;
@@ -27,14 +30,11 @@
       height: 30px;
       z-index: 999;
       border-radius: 50%;
-      background: #abc123;
+      background: $marker-background;
       &.draggable {
         &:hover {
           cursor: move;
           opacity: 0.8;
-        }
-        &.is-dragging {
-          background: blue;
         }
       }
 

@@ -10,7 +10,8 @@ class Planit.Marker.Creator
     # Add Marker
     left = parseFloat(@options.coords[0]) * 100
     top = parseFloat(@options.coords[1]) * 100
-      
+
+    if @options.color then color = @options.color else color = '#FC5B3F'
     @markersContainer.append(
       $('<div><div class="planit-marker-content"></div></div>')
         .addClass('planit-marker')
@@ -18,6 +19,7 @@ class Planit.Marker.Creator
         .css
           left: "#{left}%"
           top: "#{top}%"
+          backgroundColor: color
     )
 
     # Bind Events (in a separate class)
