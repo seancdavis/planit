@@ -28,6 +28,9 @@ class Planit.Marker
   color: =>
     @marker.css('backgroundColor')
 
+  id: =>
+    @marker.attr('data-marker')
+
   # ------------------------------------------ Infobox
 
   infoboxHTML: =>
@@ -39,7 +42,20 @@ class Planit.Marker
   isDraggable: =>
     @marker.hasClass('draggable')
 
-  # ------------------------------------------ Changes
+  # ------------------------------------------ Actions
+
+  update: (options) =>
+    if options.color
+      @marker.css(backgroundColor: options.color)
+    if options.infobox
+      @marker.find('.planit-infobox').html(options.infobox)
+    if options.draggable
+      @marker.removeClass('draggable')
+      @marker.addClass('draggable') if options.draggable == true
+    if options.coords
+      @marker.css
+        left: "#{parseFloat(options.coords[0]) * 100}%"
+        top: "#{parseFloat(options.coords[1]) * 100}%"
 
   remove: =>
     @marker.remove()
