@@ -19,8 +19,8 @@ class Planit.Marker
     # console.log @marker.outerWidth() / @container.width()
     xPx = @marker.position().left + (@marker.outerWidth() / 2)
     yPx = @marker.position().top + (@marker.outerHeight() / 2)
-    xPc = xPx / @container.width()
-    yPc = yPx / @container.height()
+    xPc = (xPx / @container.width()) * 100
+    yPc = (yPx / @container.height()) * 100
     [xPc, yPc]
 
   # ------------------------------------------ Attributes
@@ -54,8 +54,8 @@ class Planit.Marker
       @marker.addClass('draggable') if options.draggable == true
     if options.coords
       @marker.css
-        left: "#{parseFloat(options.coords[0]) * 100}%"
-        top: "#{parseFloat(options.coords[1]) * 100}%"
+        left: "#{parseFloat(options.coords[0])}%"
+        top: "#{parseFloat(options.coords[1])}%"
 
   remove: =>
     @marker.remove()
