@@ -9,14 +9,16 @@ class Planit.Marker.Creator
 
     # Add Marker
     if @options.color then color = @options.color else color = '#FC5B3F'
-    console.log parseFloat(@options.coords[0])
+
+    left = ((parseFloat(@options.coords[0]) / 100) * @container.width()) - 15
+    top = ((parseFloat(@options.coords[1]) / 100) * @container.height()) - 15
     @markersContainer.append(
       $('<div><div class="planit-marker-content"></div></div>')
         .addClass('planit-marker')
         .attr('data-marker', @options.id)
         .css
-          left: "#{parseFloat(@options.coords[0])}%"
-          top: "#{parseFloat(@options.coords[1])}%"
+          left: "#{left}px"
+          top: "#{top}px"
           backgroundColor: color
     )
 

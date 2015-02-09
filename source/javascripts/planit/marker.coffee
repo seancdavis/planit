@@ -53,9 +53,11 @@ class Planit.Marker
       @marker.removeClass('draggable')
       @marker.addClass('draggable') if options.draggable == true
     if options.coords
+      left = ((parseFloat(options.coords[0]) / 100) * @container.width()) - 15
+      top = ((parseFloat(options.coords[1]) / 100) * @container.height()) - 15
       @marker.css
-        left: "#{parseFloat(options.coords[0])}%"
-        top: "#{parseFloat(options.coords[1])}%"
+        left: "#{left}px"
+        top: "#{top}px"
 
   remove: =>
     @marker.remove()
