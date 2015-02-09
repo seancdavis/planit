@@ -12,9 +12,9 @@ class Planit
   new: (@options = {}) ->
     # Set Options
     if @options.container
-      @options.container = $('#planit') 
-    else
       @options.container = $("##{@options.container}")
+    else
+      @options.container = $('#planit') 
 
     # Initialize Container
     @options.container.addClass('planit-container')
@@ -57,9 +57,9 @@ class Planit
 
   # ------------------------------------------ Get All Markers
 
-  # getAllMarkers: () =>
-  #   console.log @
-  #   @plan.getAllMarkers()
+  getAllMarkers: () =>
+    plan = new Planit.Plan(@container)
+    plan.getAllMarkers()
 
   # ------------------------------------------ Event Callbacks
 
