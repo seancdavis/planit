@@ -33,3 +33,8 @@ class Planit.Marker
 
   isDraggable: =>
     @marker.hasClass('draggable')
+
+  # ------------------------------------------ Changes
+
+  remove: =>
+    @marker.remove()

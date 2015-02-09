@@ -55,7 +55,10 @@ class Planit
     options.container = @container
     new Planit.Marker.Creator(options)
 
-  # ------------------------------------------ Get All Markers
+  # ------------------------------------------ Retrieve Data
+
+  getMarker: (id) =>
+    new Planit.Marker(@container, id)
 
   getAllMarkers: () =>
     plan = new Planit.Plan(@container)
