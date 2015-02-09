@@ -15,10 +15,11 @@ class Planit.Marker.Events
     if @options.draggable
       @lastMarker().addClass('draggable')
       @lastMarker().on 'mousedown', (e) =>
-        marker = $(e.target).closest('.planit-marker')
-        marker.addClass('is-dragging')
-        infoboxID = $(e.target).closest('.planit-marker').attr('data-infobox')
-        $("##{infoboxID}").removeClass('active')
+        if $(e.target).attr('class') == 'planit-marker-content'
+          marker = $(e.target).closest('.planit-marker')
+          marker.addClass('is-dragging')
+          infoboxID = $(e.target).closest('.planit-marker').attr('data-infobox')
+          $("##{infoboxID}").removeClass('active')
 
     # Infobox
     if @options.infobox
