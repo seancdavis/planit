@@ -13,7 +13,7 @@ class Planit.Marker
     # Return this
     @
 
-  # ------------------------------------------ Marker Calcs
+  # ------------------------------------------ Calculations
 
   position: =>
     # console.log @marker.outerWidth() / @container.width()
@@ -22,6 +22,11 @@ class Planit.Marker
     xPc = xPx / @container.width()
     yPc = yPx / @container.height()
     [xPc, yPc]
+
+  # ------------------------------------------ Attributes
+
+  color: =>
+    @marker.css('backgroundColor')
 
   # ------------------------------------------ Infobox
 

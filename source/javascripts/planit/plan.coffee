@@ -15,6 +15,7 @@ class Planit.Plan
         # coords: [m.position().left, m.position().top]
         coords: m.position()
         draggable: m.isDraggable()
+        color: m.color()
       marker.infobox = m.infoboxHTML() if m.infoboxHTML()
       markers.push(marker)
     markers
