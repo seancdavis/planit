@@ -21,6 +21,9 @@
     background-size: 100%;
     background-repeat: no-repeat;
     background-position: top left;
+    -webkit-transition: all 0.35s ease-in-out;
+    -moz-transition: all 0.35s ease-in-out;
+    transition: all 0.35s ease-in-out;
 }
 
 .planit-container .planit-markers-container .planit-marker {

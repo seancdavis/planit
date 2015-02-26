@@ -21,7 +21,10 @@
     <script>
       p = planit.new({
         container: 'planit',
-        // backgroundImage: 'http://media.giphy.com/media/cw8Nr4u28tVKw/giphy.gif',
+        image: {
+          url: 'http://i.kinja-img.com/gawker-media/image/upload/s--odQGlKs_--/18jyfksl1kks0jpg.jpg',
+          zoom: true,
+        },
         markers: [
           {
             coords: ['12','45'],
@@ -35,7 +38,7 @@
           }
         ],
         dragEnd: function(event, marker) {
-          console.log(marker.position());
+          // console.log(marker.position());
           // console.log(marker.coords());
         }
       });

@@ -16,7 +16,6 @@ class Planit.Marker
   # ------------------------------------------ Calculations
 
   position: =>
-    # console.log @marker.outerWidth() / @container.width()
     xPx = @marker.position().left + (@marker.outerWidth() / 2)
     yPx = @marker.position().top + (@marker.outerHeight() / 2)
     xPc = (xPx / @container.width()) * 100

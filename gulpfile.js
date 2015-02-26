@@ -19,6 +19,7 @@ gulp.task('coffee', function() {
     'source/javascripts/planit.coffee',
     'source/javascripts/planit/plan.coffee',
     'source/javascripts/planit/plan/events.coffee',
+    'source/javascripts/planit/plan/zoomable.coffee',
     'source/javascripts/planit/marker.coffee',
     'source/javascripts/planit/marker/events.coffee',
     'source/javascripts/planit/marker/creator.coffee'
@@ -49,7 +50,9 @@ gulp.task('jsdist', function() {
 // Compile Sass
 gulp.task('sass', function() {
   return gulp.src('source/stylesheets/*.scss')
-    .pipe(sass())
+    .pipe(sass({
+      includePaths: require('node-bourbon').includePaths
+    }))
     .pipe(cssbeautify())
     .pipe(gulp.dest('./'));
 });

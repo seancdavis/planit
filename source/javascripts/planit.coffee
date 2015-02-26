@@ -26,15 +26,18 @@ class Planit
     @container = @options.container
     @markersContainer = @container.find(".#{Planit.markerContainerClass}").first()
 
-    # Add Background Image (if necessary)
-    if @options.backgroundImage
-      @container.append("""<img src="#{@options.backgroundImage}">""")
+    # Add image and zoom (if necessary)
+    if @options.image && @options.image.url
+      @container.append("""<img src="#{@options.image.url}">""")
       @markersContainer.css
-        backgroundImage: "url('#{@options.backgroundImage}')"
+        backgroundImage: "url('#{@options.image.url}')"
       $(window).load =>
         @container.css
           height: @container.find('img').first().height()
         @container.find('img').first().remove()
+        if @options.image.zoom
+          new Planit.Plan.Zoomable
+            container: @container
 
     # Add Markers (if necessary)
     if @options.markers
