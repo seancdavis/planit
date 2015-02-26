@@ -33,6 +33,7 @@ class Planit.Plan.Events
     if @draggingMarker().length > 0
       m = new Planit.Marker(@container, marker.attr('data-marker'))
       @options.planit.dragEnd(e, m)
+      m.savePosition()
       @draggingMarker().removeClass('is-dragging')
 
   mousemove: (e) =>

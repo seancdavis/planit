@@ -21,6 +21,7 @@
     background-size: 100%;
     background-repeat: no-repeat;
     background-position: top left;
+    overflow: hidden;
 }
 
 .planit-container .planit-markers-container .planit-marker {

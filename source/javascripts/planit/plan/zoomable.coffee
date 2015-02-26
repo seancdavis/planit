@@ -31,6 +31,19 @@ class Planit.Plan.Zoomable
     @markersContainer.css
       backgroundPosition: "#{@imagePosition.leftPx}px #{@imagePosition.topPx}px"
       backgroundSize: "#{@imagePosition.scale * 100.0}%"
+    @setMarkers()
+
+  setMarkers: =>
+    markers = $('div.planit-marker')
+    if markers.length > 0
+      for marker in markers
+        left = (@imgWidth() * ($(marker).attr('data-xPc') / 100)) - @imgOffsetLeft() - 
+          ($(marker).outerWidth() / 2)
+        top = (@imgHeight() * ($(marker).attr('data-yPc') / 100)) - @imgOffsetTop() - 
+          ($(marker).outerHeight() / 2)
+        $(marker).css
+          left: "#{left}px"
+          top: "#{top}px"
 
   # ------------------------------------------ Calculations
 

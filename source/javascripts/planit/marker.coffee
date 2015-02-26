@@ -18,8 +18,17 @@ class Planit.Marker
   position: =>
     xPx = @marker.position().left + (@marker.outerWidth() / 2)
     yPx = @marker.position().top + (@marker.outerHeight() / 2)
-    xPc = (xPx / @container.width()) * 100
-    yPc = (yPx / @container.height()) * 100
+    if @markersContainer.css('backgroundImage')
+      scale = parseInt(@markersContainer.css('backgroundSize')) / 100
+      wImg = @container.width() * scale
+      hImg = @container.height() * scale
+      xImg = parseInt(@markersContainer.css('backgroundPosition').split(' ')[0])
+      yImg = parseInt(@markersContainer.css('backgroundPosition').split(' ')[1])
+      xPc = ((xPx + Math.abs(xImg)) / wImg) * 100
+      yPc = ((yPx + Math.abs(yImg)) / hImg) * 100
+    else
+      xPc = (xPx / @container.width()) * 100
+      yPc = (yPx / @container.height()) * 100
     [xPc, yPc]
 
   # ------------------------------------------ Attributes
@@ -42,6 +51,12 @@ class Planit.Marker
     @marker.hasClass('draggable')
 
   # ------------------------------------------ Actions
+
+  savePosition: =>
+    coords = @position()
+    @marker.attr
+      'data-xPc': coords[0]
+      'data-yPc': coords[1]
 
   update: (options) =>
     if options.color

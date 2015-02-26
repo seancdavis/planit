@@ -15,7 +15,10 @@ class Planit.Marker.Creator
     @markersContainer.append(
       $('<div><div class="planit-marker-content"></div></div>')
         .addClass('planit-marker')
-        .attr('data-marker', @options.id)
+        .attr
+          'data-marker': @options.id
+          'data-xPc': @options.coords[0]
+          'data-yPc': @options.coords[1]
         .css
           left: "#{left}px"
           top: "#{top}px"

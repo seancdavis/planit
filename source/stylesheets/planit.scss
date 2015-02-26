@@ -26,6 +26,7 @@ $marker-background: #FC5B3F;
     background-repeat: no-repeat;
     background-position: top left;
     // @include transition(all 0.35s ease-in-out);
+    overflow: hidden;
 
     .planit-marker {
       position: absolute;
