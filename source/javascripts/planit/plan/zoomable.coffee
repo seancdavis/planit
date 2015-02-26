@@ -10,6 +10,7 @@ class Planit.Plan.Zoomable
     @markersContainer.attr('data-zoom-id', @zoomId)
     # bind draggable events
     $(@container).on('dblclick', @dblclick)
+    # $(@container).on('mousewheel', $.throttle(250, @scroll))
     # set initial background coordinates
     @imagePosition =
       leftPx:     0
@@ -17,25 +18,34 @@ class Planit.Plan.Zoomable
       width:      @markersContainer.width()
       height:     @markersContainer.height()
       scale:      1
-      increment:  0.1
+      increment:  0.5
     @setBackground()
 
   # ------------------------------------------ Actions
 
   setBackground: =>
-    img = @imagePosition
-    console.log img
     @markersContainer.css
-      backgroundPosition: "#{img.leftPx}px #{img.topPx}px"
-      backgroundSize: "#{img.scale * 100.0}%"
+      backgroundPosition: "#{@imagePosition.leftPx}px #{@imagePosition.topPx}px"
+      backgroundSize: "#{@imagePosition.scale * 100.0}%"
 
   # ------------------------------------------ Calculations
 
   imgWidth: =>
     parseFloat(@imagePosition.width * @imagePosition.scale)
 
-  tmpImgWith: =>
+  tmpImgWidth: =>
     (1 + @imagePosition.increment) * @imagePosition.width()
+
+  imgWidthIncrement: =>
+    parseFloat(@imagePosition.width * @imagePosition.increment)
+
+  containerWidth: =>
+    parseFloat(@markersContainer.width())
+
+  imgOffsetLeft: =>
+    Math.abs(
+      parseFloat(@markersContainer.css('backgroundPosition').split(' ')[0])
+    )
 
   imgHeight: =>
     parseFloat(@imagePosition.height * @imagePosition.scale)
@@ -43,45 +53,41 @@ class Planit.Plan.Zoomable
   tmpImgHeight: =>
     (1 + @imagePosition.increment) * @imagePosition.height()
 
-  imgOverflowLeft: =>
-    Math.abs(
-      parseFloat(@markersContainer.css('backgroundPosition').split(' ')[0])
-    )
+  imgHeightIncrement: =>
+    parseFloat(@imagePosition.height * @imagePosition.increment)
 
-  imgOverflowTop: =>
+  containerHeight: =>
+    parseFloat(@markersContainer.height())
+
+  imgOffsetTop: =>
     Math.abs(
       parseFloat(@markersContainer.css('backgroundPosition').split(' ')[1])
     )
 
-  setOffsetPosition: (e) =>
-    img = @imagePosition
-    mouseInLeft     = e.pageX - @container.offset().left
-    mouseInTop      = e.pageY - @container.offset().top
-    # set event position reference
-    @offset =
-      left: (mouseInLeft + @imgOverflowLeft()) / @imgWidth()
-      top:  (mouseInTop + @imgOverflowTop()) / @imgHeight()
+  getEventContainerPosition: (e) =>
+    left: (e.pageX - @container.offset().left) / @containerWidth()
+    top:  (e.pageY - @container.offset().top) / @containerHeight()
 
   # ------------------------------------------ Events
 
   dblclick: (e) =>
     if $(e.target).attr('data-zoom-id') == @zoomId
-      @setOffsetPosition(e)
-      @zoomIn(@offset.left, @offset.top)
+      click = @getEventContainerPosition(e)
+      @zoomIn(click.left, click.top)
+
+  scroll: (e) =>
+    e.preventDefault()
+    if e.originalEvent.deltaY > 0
+      direction = 'out'
+    else if e.originalEvent.deltaY < 0
+      direction = 'in'
+    console.log direction if direction
 
   # ------------------------------------------ Zooming
 
   zoomIn: (left = 0.5, top = 0.5) =>
-    increment = 0.1
-    @imagePosition.scale = @imagePosition.scale + increment
-    bkgLeft = -((left * @imgWidth()) - (left * @markersContainer.width()))
-    console.log @tmp
-    # console.log @imgOverflowLeft()
-    # console.log left
-    # overflowLeft = left * @imgWidth()
-    # containerLeft = left * @markersContainer.width()
-    # console.log overflowLeft - containerLeft
-    # console.log '--'
-    @imagePosition.leftPx = -((left * @imgWidth()) - (left * @markersContainer.width()))
-    @imagePosition.topPx = -((top * @imgHeight()) - (top * @markersContainer.height()))
+    @imagePosition.scale  = @imagePosition.scale + @imagePosition.increment
+    console.log top
+    @imagePosition.leftPx = - @imgOffsetLeft() - (left * @imgWidthIncrement())
+    @imagePosition.topPx  = - @imgOffsetTop() - (top * @imgHeightIncrement())
     @setBackground()
