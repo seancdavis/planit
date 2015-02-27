@@ -14,6 +14,32 @@
     width: 100%;
 }
 
+.planit-container .planit-controls {
+    display: inline-block;
+    position: absolute;
+    left: 5px;
+    top: 5px;
+    z-index: 999;
+    border: 1px solid #ccc;
+}
+
+.planit-container .planit-controls a.zoom {
+    display: block;
+    width: 15px;
+    height: 15px;
+    padding: 5px 5px;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 600;
+    color: #444;
+    text-align: center;
+    background: white;
+}
+
+.planit-container .planit-controls a.zoom:hover {
+    background: #ccc;
+}
+
 .planit-container .planit-markers-container {
     position: relative;
     width: 100%;

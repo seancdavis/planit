@@ -8,9 +8,21 @@ class Planit.Plan.Zoomable
     @markersContainer = @container.find(".#{Planit.markerContainerClass}")
     @zoomId = Planit.randomString()
     @markersContainer.attr('data-zoom-id', @zoomId)
+    # draw the controls dinkus
+    @container.prepend """
+      <div class="planit-controls">
+        <a href="#" class="zoom" data-action="in">+</a>
+        <a href="#" class="zoom" data-action="out">-</a>
+      </div>
+    """
+    @container.find(".zoom[data-action='in']").click (e) =>
+      e.preventDefault()
+      @zoomIn()
+    @container.find(".zoom[data-action='out']").click (e) =>
+      e.preventDefault()
+      @zoomOut()
     # bind draggable events
-    $(@container).on('dblclick', @dblclick)
-    $(@container).on('mousewheel', @scroll)
+    @container.on('dblclick', @dblclick)
     # set initial background coordinates
     @imagePosition =
       leftPx:         0
@@ -18,19 +30,12 @@ class Planit.Plan.Zoomable
       width:          @markersContainer.width()
       height:         @markersContainer.height()
       scale:          1
-      clickIncrement: 0.5
-      scrollIncrement:  0.1
+      increment: 0.5
     @setBackground()
 
   # ------------------------------------------ Actions
 
   setBackground: =>
-    # @imagePosition.scale = 1 if @imagePosition.scale < 1
-    # @imagePosition.leftPx = 0 if @imagePosition.leftPx > 0
-    # @imagePosition.topPx = 0 if @imagePosition.topPx > 0
-    # unless @hasRightOffset()
-    #   @imagePosition.leftPx = - (@imgWidth() - @containerWidth())
-    # console.log "#{@imagePosition.leftPx} :: #{@imagePosition.topPx}"
     @markersContainer.css
       backgroundPosition: "#{@imagePosition.leftPx}px #{@imagePosition.topPx}px"
       backgroundSize: "#{@imagePosition.scale * 100.0}%"
@@ -56,10 +61,10 @@ class Planit.Plan.Zoomable
     parseFloat(@imagePosition.width * @imagePosition.scale)
 
   tmpImgWidth: =>
-    (1 + @imagePosition.clickIncrement) * @imagePosition.width()
+    (1 + @imagePosition.increment) * @imagePosition.width()
 
   imgWidthClickIncrement: =>
-    parseFloat(@imagePosition.width * @imagePosition.clickIncrement)
+    parseFloat(@imagePosition.width * @imagePosition.increment)
 
   imgWidthScrollIncrement: =>
     parseFloat(@imagePosition.width * @imagePosition.scrollIncrement)
@@ -74,19 +79,16 @@ class Planit.Plan.Zoomable
       parseFloat(@markersContainer.css('backgroundPosition').split(' ')[0])
     )
 
-  # hasRightOffset: =>
-  #   (@imgWidth() - @imgOffsetLeft()) > @containerWidth()
-
   # ---------- Height
 
   imgHeight: =>
     parseFloat(@imagePosition.height * @imagePosition.scale)
 
   tmpImgHeight: =>
-    (1 + @imagePosition.clickIncrement) * @imagePosition.height()
+    (1 + @imagePosition.increment) * @imagePosition.height()
 
   imgHeightClickIncrement: =>
-    parseFloat(@imagePosition.height * @imagePosition.clickIncrement)
+    parseFloat(@imagePosition.height * @imagePosition.increment)
 
   imgHeightScrollIncrement: =>
     parseFloat(@imagePosition.height * @imagePosition.scrollIncrement)
@@ -101,9 +103,6 @@ class Planit.Plan.Zoomable
       parseFloat(@markersContainer.css('backgroundPosition').split(' ')[1])
     )
 
-  hasBottomOffset: =>
-    (@imgHeight() - @imgOffsetTop()) > @containerHeight()
-
   # ---------- Other
 
   getEventContainerPosition: (e) =>
@@ -117,76 +116,17 @@ class Planit.Plan.Zoomable
       click = @getEventContainerPosition(e)
       @zoomIn('click', click.left, click.top)
 
-  scroll: (e) =>
-    # only run any of this if we aren't dragging a marker
-    unless $('div.planit-marker.is-dragging').length > 0
-      e.preventDefault()
-      # init scroll refs the first time this event is fired
-      unless @scrollTime
-        @setScrollTime()
-        @setScrollPoint(e)
-      # difference between now and when scrollTime was last
-      # updated
-      scrollDiff = Date.now() - @scrollTime
-      # we reset the scroll reference point if it's been long
-      # enough that we determine a "new scroll" has begun
-      if scrollDiff > 100
-        @setScrollTime()
-        @setScrollPoint(e)
-        @scrollZoom(e)
-      # otherwise, we set a buffer so the zoom can only
-      # happen every so often
-      else if scrollDiff > 25
-        @setScrollTime()
-        @scrollZoom(e)
-
-  setScrollTime: =>
-    @scrollTime = Date.now()
-
-  setScrollPoint: (e) =>
-    @scrollPosition = @getEventContainerPosition(e)
-
-  scrollZoom: (e) =>
-    if e.originalEvent.deltaY > 0 && @imagePosition.scale > 1
-      @zoomOut('scroll', @scrollPosition.left, @scrollPosition.top)
-    else if e.originalEvent.deltaY < 0
-      @zoomIn('scroll', @scrollPosition.left, @scrollPosition.top)
-
   # ------------------------------------------ Zooming
 
-  zoomIn: (type, left = 0.5, top = 0.5) =>
-    if type == 'click'
-      @imagePosition.scale  = @imagePosition.scale + @imagePosition.clickIncrement
-      @imagePosition.leftPx = - @imgOffsetLeft() - (left * @imgWidthClickIncrement())
-      @imagePosition.topPx  = - @imgOffsetTop() - (top * @imgHeightClickIncrement())
-    else if type == 'scroll'
-      @imagePosition.scale  = @imagePosition.scale + @imagePosition.scrollIncrement
-      @imagePosition.leftPx = - @imgOffsetLeft() - (left * @imgWidthScrollIncrement())
-      @imagePosition.topPx  = - @imgOffsetTop() - (top * @imgHeightScrollIncrement())
+  zoomIn: =>
+    @imagePosition.scale  = @imagePosition.scale + @imagePosition.increment
+    @imagePosition.leftPx = - @imgOffsetLeft() - (@imgWidthClickIncrement() / 2)
+    @imagePosition.topPx  = - @imgOffsetTop() - (@imgHeightClickIncrement() / 2)
     @setBackground()
 
-  zoomOut: (type, left = 0.5, top = 0.5) =>
-    if type == 'click'
-      @imagePosition.scale  = @imagePosition.scale - @imagePosition.clickIncrement
-      @imagePosition.leftPx = - @imgOffsetLeft() + (left * @imgWidthClickIncrement())
-      @imagePosition.topPx  = - @imgOffsetTop() + (top * @imgHeightClickIncrement())
-    else if type == 'scroll'
-      @imagePosition.scale  = @imagePosition.scale - @imagePosition.scrollIncrement
-      @imagePosition.leftPx = - @imgOffsetLeft() + (left * @imgWidthScrollIncrement())
-      console.log @imagePosition.leftPx
-      # console.log @imagePosition.leftPx
-      # console.log "#{@imagePosition.leftPx} > 0 :: #{@imagePosition.leftPx > 0}"
-      if @imagePosition.leftPx > 0
-        @imagePosition.leftPx = 0
-      else if (@imgWidth() - Math.abs(@imagePosition.leftPx)) < @containerWidth()
-        @imagePosition.leftPx = - @imgOffsetLeft() + @imgWidthScrollIncrement()
-      console.log @imagePosition.leftPx
-      @imagePosition.topPx = - @imgOffsetTop() + (left * @imgHeightScrollIncrement())
-      if @imagePosition.topPx > 0
-        @imagePosition.topPx = 0
-      else if (@imgHeight() - Math.abs(@imagePosition.topPx)) < @containerHeight()
-        @imagePosition.topPx = - @imgOffsetTop() + @imgHeightScrollIncrement()
-      console.log @imagePosition.leftPx
-      console.log '---'
-      # console.log "#{@imagePosition.leftPx} :: #{@imagePosition.topPx}"
-    @setBackground()
+  zoomOut: (left = 0.5, top = 0.5) =>
+    if @imagePosition.scale > 1
+      @imagePosition.scale  = @imagePosition.scale - @imagePosition.increment
+      @imagePosition.leftPx = - @imgOffsetLeft() + (@imgWidthClickIncrement() / 2)
+      @imagePosition.topPx  = - @imgOffsetTop() + (@imgHeightClickIncrement() / 2)
+      @setBackground()

@@ -18,6 +18,30 @@ $marker-background: #FC5B3F;
     width: 100%;
   }
 
+  .planit-controls {
+    display: inline-block;
+    position: absolute;
+    left: 5px;
+    top: 5px;
+    z-index: 999;
+    border: 1px solid #ccc;
+    a.zoom {
+      display: block;
+      width: 15px;
+      height: 15px;
+      padding: 5px 5px;
+      text-decoration: none;
+      font-size: 18px;
+      font-weight: 600;
+      color: #444;
+      text-align: center;
+      background: white;
+      &:hover {
+        background: #ccc
+      }
+    }
+  }
+
   .planit-markers-container {
     position: relative;
     width: 100%;
