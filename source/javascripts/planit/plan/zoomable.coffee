@@ -45,13 +45,14 @@ class Planit.Plan.Zoomable
     markers = $('div.planit-marker')
     if markers.length > 0
       for marker in markers
-        left = (@imgWidth() * ($(marker).attr('data-xPc') / 100)) - @imgOffsetLeft() - 
-          ($(marker).outerWidth() / 2)
-        top = (@imgHeight() * ($(marker).attr('data-yPc') / 100)) - @imgOffsetTop() - 
-          ($(marker).outerHeight() / 2)
-        $(marker).css
+        left = (@imgWidth() * ($(marker).attr('data-xPc') / 100)) + 
+          @imagePosition.leftPx - ($(marker).outerWidth() / 2)
+        top = (@imgHeight() * ($(marker).attr('data-yPc') / 100)) + 
+          @imagePosition.topPx - ($(marker).outerHeight() / 2)
+        $(marker).animate
           left: "#{left}px"
           top: "#{top}px"
+        , 250
 
   # ------------------------------------------ Calculations
 
