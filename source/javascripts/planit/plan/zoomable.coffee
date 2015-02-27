@@ -23,6 +23,9 @@ class Planit.Plan.Zoomable
       @zoomOut()
     # bind draggable events
     @container.on('dblclick', @dblclick)
+    @container.on('mousedown', @mousedown)
+    $(document).on('mousemove', @mousemove)
+    $(document).on('mouseup', @mouseup)
     # set initial background coordinates
     @imagePosition =
       leftPx:         0
@@ -49,10 +52,9 @@ class Planit.Plan.Zoomable
           @imagePosition.leftPx - ($(marker).outerWidth() / 2)
         top = (@imgHeight() * ($(marker).attr('data-yPc') / 100)) + 
           @imagePosition.topPx - ($(marker).outerHeight() / 2)
-        $(marker).animate
+        $(marker).css
           left: "#{left}px"
           top: "#{top}px"
-        , 250
 
   # ------------------------------------------ Calculations
 
@@ -116,6 +118,42 @@ class Planit.Plan.Zoomable
     if $(e.target).attr('data-zoom-id') == @zoomId
       click = @getEventContainerPosition(e)
       @zoomIn('click', click.left, click.top)
+
+  mousedown: (e) =>
+    if $(e.target).attr('data-zoom-id') == @zoomId
+      @isDragging = true
+      @dragCoords = 
+        pointRef: @getEventContainerPosition(e)
+        imgRef:
+          left: 0 - @imgOffsetLeft()
+          top: 0 - @imgOffsetTop()
+
+  mousemove: (e) =>
+    if @isDragging
+      coords = @getEventContainerPosition(e)
+      left = (coords.left - @dragCoords.pointRef.left) * @containerWidth()
+      top = (coords.top - @dragCoords.pointRef.top) * @containerHeight()
+      leftPx = @dragCoords.imgRef.left + left
+      topPx = @dragCoords.imgRef.top + top
+      console.log "#{@dragCoords.imgRef.left} + #{left}"
+      if @imgWidth() - Math.abs(leftPx) < @containerWidth()
+        @imagePosition.leftPx = - (@imgWidth() - @containerWidth())
+      else if leftPx <= 0
+        @imagePosition.leftPx = leftPx
+      else
+        @imagePosition.leftPx = 0
+      if @imgHeight() - Math.abs(topPx) < @containerHeight()
+        @imagePosition.topPx = - (@imgHeight() - @containerHeight())
+      else if topPx <= 0
+        @imagePosition.topPx = topPx
+      else 
+        @imagePosition.topPx = 0
+      @setBackground()
+    true
+
+  mouseup: (e) =>
+    @isDragging = false
+    true
 
   # ------------------------------------------ Zooming
 
