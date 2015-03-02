@@ -122,32 +122,32 @@ class Planit.Plan.Zoomable
   mousedown: (e) =>
     if $(e.target).attr('data-zoom-id') == @zoomId
       @isDragging = true
+      coords = @getEventContainerPosition(e)
       @dragCoords = 
-        pointRef: @getEventContainerPosition(e)
+        pointRef: coords
         imgRef:
           left: 0 - @imgOffsetLeft()
           top: 0 - @imgOffsetTop()
+        max:
+          right: (coords.left * @containerWidth()) + @imgOffsetLeft()
+          left: (coords.left * @containerWidth()) - (@imgWidth() - 
+                      (@containerWidth() + @imgOffsetLeft()))
+          bottom: (coords.top * @containerHeight()) + @imgOffsetTop()
+          top: (coords.top * @containerHeight()) - (@imgHeight() - 
+                      (@containerHeight() + @imgOffsetTop()))
+    true
 
   mousemove: (e) =>
     if @isDragging
       coords = @getEventContainerPosition(e)
-      left = (coords.left - @dragCoords.pointRef.left) * @containerWidth()
-      top = (coords.top - @dragCoords.pointRef.top) * @containerHeight()
-      leftPx = @dragCoords.imgRef.left + left
-      topPx = @dragCoords.imgRef.top + top
-      console.log "#{@dragCoords.imgRef.left} + #{left}"
-      if @imgWidth() - Math.abs(leftPx) < @containerWidth()
-        @imagePosition.leftPx = - (@imgWidth() - @containerWidth())
-      else if leftPx <= 0
-        @imagePosition.leftPx = leftPx
-      else
-        @imagePosition.leftPx = 0
-      if @imgHeight() - Math.abs(topPx) < @containerHeight()
-        @imagePosition.topPx = - (@imgHeight() - @containerHeight())
-      else if topPx <= 0
-        @imagePosition.topPx = topPx
-      else 
-        @imagePosition.topPx = 0
+      dragLeft = coords.left * @containerWidth()
+      dragTop = coords.top * @containerHeight()
+      if dragLeft >= @dragCoords.max.left && dragLeft <= @dragCoords.max.right
+        left = (coords.left - @dragCoords.pointRef.left) * @containerWidth()
+        @imagePosition.leftPx = @dragCoords.imgRef.left + left
+      if dragTop >= @dragCoords.max.top && dragTop <= @dragCoords.max.bottom
+        top = (coords.top - @dragCoords.pointRef.top) * @containerHeight()
+        @imagePosition.topPx = @dragCoords.imgRef.top + top
       @setBackground()
     true
 
