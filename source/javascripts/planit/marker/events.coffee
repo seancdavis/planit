@@ -10,11 +10,12 @@ class Planit.Marker.Events
     @marker = @markersContainer.find(
       ".#{Planit.markerClass}[data-marker='#{@options.id}']"
     ).first()
+    @markerObj = new Planit.Marker(@container, @options.id)
 
     # Draggable
     if @options.draggable
-      @lastMarker().addClass('draggable')
-      @lastMarker().on 'mousedown', (e) =>
+      @marker.addClass('draggable')
+      @marker.on 'mousedown', (e) =>
         if $(e.target).attr('class') == 'planit-marker-content'
           marker = $(e.target).closest('.planit-marker')
           marker.addClass('is-dragging')
@@ -24,19 +25,16 @@ class Planit.Marker.Events
     # Infobox
     if @options.infobox
       id = Planit.randomString(16)
-      @lastMarker().find('.planit-marker-content').append """
+      @container.find(".#{Planit.infoboxContainerClass}").append """
         <div class="planit-infobox" id="info-#{id}">#{@options.infobox}</div>
           """
-      @lastMarker().attr('data-infobox', "info-#{id}")
-      infobox = $("##{@lastMarker().attr('data-infobox')}")
-      infobox.css
-        left: -(infobox.width() / 2)
-        bottom: infobox.outerHeight() + 5
-      @lastMarker().on 'mouseleave', (e) =>
+      @marker.attr('data-infobox', "info-#{id}")
+      @markerObj.positionInfobox()
+      @marker.on 'mouseleave', (e) =>
         marker = $(e.target).closest('.planit-marker')
         infobox = $("##{marker.attr('data-infobox')}")
         infobox.removeClass('active')
-      @lastMarker().on 'mouseover', (e) =>
+      @marker.on 'mouseover', (e) =>
         marker = $(e.target).closest('.planit-marker')
         infobox = $("##{marker.attr('data-infobox')}")
         if marker.hasClass('is-dragging') || @draggingMarker().length > 0
@@ -50,5 +48,5 @@ class Planit.Marker.Events
   draggingMarker: ->
     @markersContainer.find('.planit-marker.is-dragging')
 
-  lastMarker: ->
-    @markers().last()
+  # lastMarker: ->
+  #   @markers().last()

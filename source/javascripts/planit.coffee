@@ -6,6 +6,7 @@ class Planit
   @markerContainerClass:  'planit-markers-container'
   @markerClass:           'planit-marker'
   @markerContentClass:    'planit-marker-content'
+  @infoboxContainerClass: 'planit-infobox-container'
 
   # ------------------------------------------ Default Options
 
@@ -19,6 +20,7 @@ class Planit
     # Initialize Container
     @options.container.addClass('planit-container')
     @options.container.append """
+      <div class="#{Planit.infoboxContainerClass}"></div>
       <div class="#{Planit.markerContainerClass}"></div>
         """
 

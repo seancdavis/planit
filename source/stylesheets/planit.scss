@@ -73,32 +73,39 @@ $marker-background: #FC5B3F;
         &:hover {
           cursor: move;
         }
+      }
+    }
+  }
 
-        .planit-infobox {
-          position: absolute;
-          min-width: 200px;
-          display: none;
-          &.active {
-            display: inline-block;
-          }
-          position: relative;
-          padding: 5px 15px;
-          cursor: initial;
-          background: white;
-          border-radius: 3px;
-          &:after {
-            content:'';
-            position: absolute;
-            top: 100%;
-            left: 50%;
-            margin-left: -10px;
-            width: 0;
-            height: 0;
-            border-top: solid 10px white;
-            border-left: solid 10px transparent;
-            border-right: solid 10px transparent;
-          }
-        }
+  .planit-infobox-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+
+    .planit-infobox {
+      position: absolute;
+      display: block;
+      min-width: 200px;
+      z-index: 999999;
+      display: none;
+      padding: 5px 15px;
+      cursor: initial;
+      background: white;
+      border-radius: 3px;
+      &.active {
+        display: inline-block;
+      }
+      &:after {
+        content:'';
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        margin-left: -10px;
+        width: 0;
+        height: 0;
+        border-top: solid 10px white;
+        border-left: solid 10px transparent;
+        border-right: solid 10px transparent;
       }
     }
   }

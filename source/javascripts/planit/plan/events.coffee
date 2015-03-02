@@ -20,9 +20,6 @@ class Planit.Plan.Events
   draggingMarker: =>
     @markersContainer.find('.planit-marker.is-dragging')
 
-  lastMarker: =>
-    @markers().last()
-
   # ------------------------------------------ Events
 
   mouseup: (e) =>
@@ -34,6 +31,7 @@ class Planit.Plan.Events
       m = new Planit.Marker(@container, marker.attr('data-marker'))
       @options.planit.dragEnd(e, m)
       m.savePosition()
+      m.positionInfobox()
       @draggingMarker().removeClass('is-dragging')
 
   mousemove: (e) =>

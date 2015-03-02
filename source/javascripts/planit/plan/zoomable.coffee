@@ -56,6 +56,12 @@ class Planit.Plan.Zoomable
           left: "#{left}px"
           top: "#{top}px"
 
+  positionInfoboxes: =>
+    for marker in @container.find('.planit-marker')
+      m = new Planit.Marker(@container, $(marker).attr('data-marker'))
+      m.positionInfobox()
+    true
+
   # ------------------------------------------ Calculations
 
   # ---------- Image Width
@@ -161,6 +167,7 @@ class Planit.Plan.Zoomable
 
   mouseup: (e) =>
     @isDragging = false
+    @positionInfoboxes()
     true
 
   # ------------------------------------------ Zooming
@@ -170,6 +177,7 @@ class Planit.Plan.Zoomable
     @imagePosition.leftPx = - @imgOffsetLeft() - (@imgWidthClickIncrement() / 2)
     @imagePosition.topPx  = - @imgOffsetTop() - (@imgHeightClickIncrement() / 2)
     @setBackground()
+    @positionInfoboxes()
 
   zoomOut: (left = 0.5, top = 0.5) =>
     if @imagePosition.scale > 1
@@ -185,3 +193,4 @@ class Planit.Plan.Zoomable
       else if topPx < @containerHeight() - @imgHeight()
         @imagePosition.topPx = @containerHeight() - @imgHeight()
       @setBackground()
+      @positionInfoboxes()
