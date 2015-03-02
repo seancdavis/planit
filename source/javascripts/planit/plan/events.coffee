@@ -26,7 +26,7 @@ class Planit.Plan.Events
     marker = @markersContainer.find('.is-dragging').first()
     if @draggingMarker().length > 0
       m = new Planit.Marker(@container, marker.attr('data-marker'))
-      @options.planit.dragEnd(e, m)
+      @options.planit.markerDragEnd(e, m)
       m.savePosition()
       m.positionInfobox()
       @draggingMarker().removeClass('is-dragging')

@@ -71,9 +71,9 @@ class Planit
 
   # ------------------------------------------ Event Callbacks
 
-  dragEnd: (event, marker) =>
-    if @options.dragEnd
-      @options.dragEnd(event, marker)
+  markerDragEnd: (event, marker) =>
+    if @options.markerDragEnd
+      @options.markerDragEnd(event, marker)
 
   # ------------------------------------------ Class Methods
 
