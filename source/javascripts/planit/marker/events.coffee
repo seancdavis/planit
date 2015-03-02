@@ -16,11 +16,11 @@ class Planit.Marker.Events
     if @options.draggable
       @marker.addClass('draggable')
       @marker.on 'mousedown', (e) =>
-        if $(e.target).attr('class') == 'planit-marker-content'
-          marker = $(e.target).closest('.planit-marker')
-          marker.addClass('is-dragging')
-          infoboxID = $(e.target).closest('.planit-marker').attr('data-infobox')
-          $("##{infoboxID}").removeClass('active')
+        marker = $(e.target).closest('.planit-marker')
+        marker.addClass('is-dragging')
+        marker.attr
+          'data-drag-start-x': e.pageX
+          'data-drag-start-y': e.pageY
 
     # Infobox
     if @options.infobox
@@ -30,23 +30,16 @@ class Planit.Marker.Events
           """
       @marker.attr('data-infobox', "info-#{id}")
       @markerObj.positionInfobox()
-      @marker.on 'mouseleave', (e) =>
-        marker = $(e.target).closest('.planit-marker')
-        infobox = $("##{marker.attr('data-infobox')}")
-        infobox.removeClass('active')
-      @marker.on 'mouseover', (e) =>
-        marker = $(e.target).closest('.planit-marker')
-        infobox = $("##{marker.attr('data-infobox')}")
-        if marker.hasClass('is-dragging') || @draggingMarker().length > 0
-          infobox.removeClass('active')
-        else
-          infobox.addClass('active')
+      @marker.click (e) =>
+        if(
+          Math.abs(e.pageX - @marker.attr('data-drag-start-x')) < 1 &&
+          Math.abs(e.pageY - @marker.attr('data-drag-start-y')) < 1
+        )
+          marker = $(e.target).closest('.planit-marker')
+          $("##{marker.attr('data-infobox')}").toggleClass('active')
 
   markers: ->
     @markersContainer.find('.planit-marker')
 
   draggingMarker: ->
     @markersContainer.find('.planit-marker.is-dragging')
-
-  # lastMarker: ->
-  #   @markers().last()

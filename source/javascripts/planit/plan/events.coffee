@@ -23,9 +23,6 @@ class Planit.Plan.Events
   # ------------------------------------------ Events
 
   mouseup: (e) =>
-    if $(e.target).hasClass('planit-marker-content')
-      marker = $(e.target).closest('.planit-marker')
-      $("##{marker.attr('data-infobox')}").addClass('active')
     marker = @markersContainer.find('.is-dragging').first()
     if @draggingMarker().length > 0
       m = new Planit.Marker(@container, marker.attr('data-marker'))
@@ -36,12 +33,21 @@ class Planit.Plan.Events
 
   mousemove: (e) =>
     markers = @markersContainer.find('.planit-marker.is-dragging')
+
     if markers.length > 0
 
       # only use first marker in case there are more than
       # one dragging
       # 
       marker = markers.first()
+
+      # we hide the infobox while dragging
+      # 
+      if(
+        Math.abs(e.pageX - marker.attr('data-drag-start-x')) > 0 || 
+        Math.abs(e.pageY - marker.attr('data-drag-start-y')) > 0
+      )
+        $("##{marker.attr('data-infobox')}").removeClass('active')
 
       # calculate positions
       # 
