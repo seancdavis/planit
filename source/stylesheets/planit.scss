@@ -56,7 +56,7 @@ $marker-background: #FC5B3F;
       position: absolute;
       width: 30px;
       height: 30px;
-      z-index: 999;
+      z-index: 99;
       border-radius: 50%;
       background: $marker-background;
       &.draggable {
@@ -86,7 +86,7 @@ $marker-background: #FC5B3F;
       position: absolute;
       display: block;
       min-width: 200px;
-      z-index: 999999;
+      z-index: 99;
       display: none;
       padding: 5px 15px;
       cursor: initial;
