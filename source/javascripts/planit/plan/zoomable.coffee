@@ -145,9 +145,17 @@ class Planit.Plan.Zoomable
       if dragLeft >= @dragCoords.max.left && dragLeft <= @dragCoords.max.right
         left = (coords.left - @dragCoords.pointRef.left) * @containerWidth()
         @imagePosition.leftPx = @dragCoords.imgRef.left + left
+      else if dragLeft < @dragCoords.max.left
+        @imagePosition.leftPx = @containerWidth() - @imgWidth()
+      else if dragLeft > @dragCoords.max.right
+        @imagePosition.leftPx = 0
       if dragTop >= @dragCoords.max.top && dragTop <= @dragCoords.max.bottom
         top = (coords.top - @dragCoords.pointRef.top) * @containerHeight()
         @imagePosition.topPx = @dragCoords.imgRef.top + top
+      else if dragTop < @dragCoords.max.top
+        @imagePosition.topPx = @containerHeight() - @imgHeight()
+      else if dragTop > @dragCoords.max.bottom
+        @imagePosition.topPx = 0
       @setBackground()
     true
 
@@ -166,6 +174,14 @@ class Planit.Plan.Zoomable
   zoomOut: (left = 0.5, top = 0.5) =>
     if @imagePosition.scale > 1
       @imagePosition.scale  = @imagePosition.scale - @imagePosition.increment
-      @imagePosition.leftPx = - @imgOffsetLeft() + (@imgWidthClickIncrement() / 2)
-      @imagePosition.topPx  = - @imgOffsetTop() + (@imgHeightClickIncrement() / 2)
+      leftPx = - @imgOffsetLeft() + (@imgWidthClickIncrement() / 2)
+      topPx  = - @imgOffsetTop() + (@imgHeightClickIncrement() / 2)
+      if leftPx > 0
+        @imagePosition.leftPx = 0
+      else if leftPx < @containerWidth() - @imgWidth()
+        @imagePosition.leftPx = @containerWidth() - @imgWidth()
+      if topPx > 0
+        @imagePosition.topPx = 0
+      else if topPx < @containerHeight() - @imgHeight()
+        @imagePosition.topPx = @containerHeight() - @imgHeight()
       @setBackground()
