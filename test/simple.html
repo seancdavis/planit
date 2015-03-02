@@ -38,7 +38,11 @@
           }
         ],
         markerDragEnd: function(event, marker) {
-          console.log(marker.position());
+          // console.log(marker.position());
+          // console.log(marker.coords());
+        },
+        canvasClick: function(event, coords) {
+          console.log(coords);
           // console.log(marker.coords());
         }
       });

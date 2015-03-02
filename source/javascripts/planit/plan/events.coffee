@@ -20,9 +20,34 @@ class Planit.Plan.Events
   draggingMarker: =>
     @markersContainer.find('.planit-marker.is-dragging')
 
+  getEventPosition: (e) =>
+    # container dimensions
+    wCont = parseFloat(@markersContainer.width())
+    hCont = parseFloat(@markersContainer.height())
+    if(
+      @markersContainer.css('backgroundImage') &&
+      @markersContainer.css('backgroundImage') != 'none'
+    )
+      # if there is an image, we need to calculate with image in mind
+      xPx = e.pageX - @container.offset().left
+      yPx = e.pageY - @container.offset().top
+      scale = parseInt(@markersContainer.css('backgroundSize')) / 100
+      wImg = @container.width() * scale
+      hImg = @container.height() * scale
+      xImg = parseInt(@markersContainer.css('backgroundPosition').split(' ')[0])
+      yImg = parseInt(@markersContainer.css('backgroundPosition').split(' ')[1])
+      xPc = ((xPx + Math.abs(xImg)) / wImg) * 100
+      yPc = ((yPx + Math.abs(yImg)) / hImg) * 100
+    else
+      # or we can just look at the container
+      xPc = (e.pageX - @container.offset().left) / wCont
+      yPc =  (e.pageY - @container.offset().top) / hCont
+    [xPc, yPc]
+
   # ------------------------------------------ Events
 
   mouseup: (e) =>
+    # dealing with markers, esp. dragging markers
     marker = @markersContainer.find('.is-dragging').first()
     if @draggingMarker().length > 0
       m = new Planit.Marker(@container, marker.attr('data-marker'))
@@ -30,6 +55,10 @@ class Planit.Plan.Events
       m.savePosition()
       m.positionInfobox()
       @draggingMarker().removeClass('is-dragging')
+    # if click is on the container
+    if $(e.target).hasClass(Planit.markerContainerClass)
+      @options.planit.canvasClick(e, @getEventPosition(e))
+    true
 
   mousemove: (e) =>
     markers = @markersContainer.find('.planit-marker.is-dragging')
