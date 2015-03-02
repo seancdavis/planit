@@ -184,13 +184,13 @@ class Planit.Plan.Zoomable
       @imagePosition.scale  = @imagePosition.scale - @imagePosition.increment
       leftPx = - @imgOffsetLeft() + (@imgWidthClickIncrement() / 2)
       topPx  = - @imgOffsetTop() + (@imgHeightClickIncrement() / 2)
-      if leftPx > 0
+      if leftPx + @imgWidthClickIncrement() > 0
         @imagePosition.leftPx = 0
-      else if leftPx < @containerWidth() - @imgWidth()
+      else if leftPx - @imgWidthClickIncrement() < @containerWidth() - @imgWidth()
         @imagePosition.leftPx = @containerWidth() - @imgWidth()
-      if topPx > 0
+      if topPx + @imgHeightClickIncrement() > 0
         @imagePosition.topPx = 0
-      else if topPx < @containerHeight() - @imgHeight()
+      else if topPx - @imgHeightClickIncrement() < @containerHeight() - @imgHeight()
         @imagePosition.topPx = @containerHeight() - @imgHeight()
       @setBackground()
       @positionInfoboxes()
