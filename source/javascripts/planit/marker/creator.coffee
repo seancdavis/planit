@@ -4,8 +4,8 @@ class Planit.Marker.Creator
     # Set Options
     @container = @options.container
     @markersContainer = @container.find(".#{Planit.markerContainerClass}").first()
-    unless @options.id
-      @options.id = Planit.randomString(20)
+    unless @options.planitID
+      @options.planitID = Planit.randomString(20)
 
     # Add Marker
     if @options.color then color = @options.color else color = '#FC5B3F'
@@ -16,7 +16,7 @@ class Planit.Marker.Creator
       $('<div><div class="planit-marker-content"></div></div>')
         .addClass('planit-marker')
         .attr
-          'data-marker': @options.id
+          'data-marker': @options.planitID
           'data-xPc': @options.coords[0]
           'data-yPc': @options.coords[1]
         .css
@@ -24,9 +24,12 @@ class Planit.Marker.Creator
           top: "#{top}px"
           backgroundColor: color
     )
+    if @options.id
+      @markersContainer.find('.planit-marker').last().attr
+        'data-id', @options.id
 
     # Bind Events (in a separate class)
     new Planit.Marker.Events(@options)
 
     # Return a new instance of this marker
-    new Planit.Marker(@container, @options.id)
+    new Planit.Marker(@container, @options.planitID)
