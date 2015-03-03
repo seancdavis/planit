@@ -58,6 +58,17 @@ class Planit.Plan.Events
     # if click is on the container
     if $(e.target).hasClass(Planit.markerContainerClass)
       @options.planit.canvasClick(e, @getEventPosition(e))
+    # if click is on the markers
+    if(
+      $(e.target).hasClass(Planit.markerClass) || 
+      $(e.target).parents(".#{Planit.markerClass}").length > 0
+    )
+      if $(e.target).hasClass(Planit.markerClass)
+        marker = $(e.target)
+      else
+        marker = $(e.target).parents(".#{Planit.markerClass}").first()
+      m = new Planit.Marker(@container, marker.attr('data-marker'))
+      @options.planit.markerClick(e, m)
     true
 
   mousemove: (e) =>

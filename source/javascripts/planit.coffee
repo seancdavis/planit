@@ -91,6 +91,10 @@ class Planit
     if @options.markerDragEnd
       @options.markerDragEnd(event, marker)
 
+  markerClick: (event, marker) =>
+    if @options.markerClick
+      @options.markerClick(event, marker)
+
   canvasClick: (event, coords) =>
     if @options.canvasClick
       @options.canvasClick(event, coords)
