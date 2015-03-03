@@ -8,9 +8,9 @@ class Planit.Marker.Events
 
     # Find Marker
     @marker = @markersContainer.find(
-      ".#{Planit.markerClass}[data-marker='#{@options.id}']"
+      ".#{Planit.markerClass}[data-marker='#{@options.planitID}']"
     ).first()
-    @markerObj = new Planit.Marker(@container, @options.id)
+    @markerObj = new Planit.Marker(@container, @options.planitID)
 
     # Draggable
     if @options.draggable
