@@ -60,6 +60,7 @@ class Planit.Plan.Zoomable
         $(marker).css
           left: "#{left}px"
           top: "#{top}px"
+      @positionInfoboxes()
 
   positionInfoboxes: =>
     for marker in @container.find('.planit-marker')
@@ -207,7 +208,6 @@ class Planit.Plan.Zoomable
     @imagePosition.leftPx = - @imgOffsetLeft() - (@imgWidthClickIncrement() / 2)
     @imagePosition.topPx  = - @imgOffsetTop() - (@imgHeightClickIncrement() / 2)
     @setBackground()
-    @positionInfoboxes()
 
   zoomOut: () =>
     if @imagePosition.scale > 1
@@ -223,4 +223,3 @@ class Planit.Plan.Zoomable
       else if topPx - @imgHeightClickIncrement() < @containerHeight() - @imgHeight()
         @imagePosition.topPx = @containerHeight() - @imgHeight()
       @setBackground()
-      @positionInfoboxes()
