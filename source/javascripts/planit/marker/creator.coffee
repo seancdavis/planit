@@ -31,6 +31,10 @@ class Planit.Marker.Creator
       marker.addClass(@options.class)
     if @options.html
       marker.html(@options.html)
+    if @options.size
+      marker.css
+        width: "#{@options.size}px"
+        height: "#{@options.size}px"
 
     # Bind Events (in a separate class)
     new Planit.Marker.Events(@options)
