@@ -26,8 +26,13 @@ class Planit.Marker.Events
     # Infobox
     if @options.infobox
       id = Planit.randomString(16)
+      unless @options.infobox.position
+        @options.infobox.position = 'top'
       @container.find(".#{Planit.infoboxContainerClass}").append """
-        <div class="planit-infobox" id="info-#{id}">#{@options.infobox}</div>
+        <div class="planit-infobox #{@options.infobox.position}" 
+          id="info-#{id}" data-position="#{@options.infobox.position}">
+            #{@options.infobox.html}
+        </div>
           """
       @marker.attr('data-infobox', "info-#{id}")
       @markerObj.positionInfobox()

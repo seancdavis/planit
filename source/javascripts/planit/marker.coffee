@@ -59,11 +59,34 @@ class Planit.Marker
     infobox = $("##{@marker.attr('data-infobox')}")
     markerCenterX = (parseFloat(@relativePosition()[0] / 100) * @container.width())
     markerCenterY = (parseFloat(@relativePosition()[1] / 100) * @container.height())
-    infoLeft = markerCenterX - (infobox.outerWidth() / 2)
-    infoBottom = @container.height() - markerCenterY + (@marker.height() / 2) + 5
+    switch infobox.attr('data-position')
+      when 'top'
+        infoTop = 'auto'
+        infoRight = 'auto'
+        infoBottom = @container.height() - markerCenterY + (@marker.outerHeight() / 2) + 5
+        infoLeft = markerCenterX - (infobox.outerWidth() / 2)
+      when 'right'
+        infoTop = markerCenterY - (infobox.outerHeight() / 2)
+        infoRight = @container.width() - markerCenterX - infobox.outerWidth() - 
+          (@marker.outerWidth() / 2) - 5
+        infoBottom = 'auto'
+        infoLeft = 'auto'
+      when 'bottom'
+        infoTop = markerCenterY + (@marker.outerHeight() / 2) + 5
+        infoRight = 'auto'
+        infoBottom = 'auto'
+        infoLeft = markerCenterX - (infobox.outerWidth() / 2)
+      when 'left'
+        infoTop = markerCenterY - (infobox.outerHeight() / 2)
+        infoRight = 'auto'
+        infoBottom = 'auto'
+        infoLeft = markerCenterX - infobox.outerWidth() - 
+          (@marker.outerWidth() / 2) - 5
     infobox.css
-      left: infoLeft
+      top: infoTop
+      right: infoRight
       bottom: infoBottom
+      left: infoLeft
     @position()
 
   # ------------------------------------------ Dragging

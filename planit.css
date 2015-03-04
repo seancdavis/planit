@@ -80,11 +80,10 @@
 
 .planit-container .planit-infobox-container .planit-infobox {
     position: absolute;
-    display: block;
+    display: none;
     min-width: 200px;
     max-width: 80%;
     z-index: 998;
-    display: none;
     padding: 5px 15px;
     cursor: initial;
     background: white;
@@ -98,12 +97,42 @@
 .planit-container .planit-infobox-container .planit-infobox:after {
     content: '';
     position: absolute;
+    width: 0;
+    height: 0;
+}
+
+.planit-container .planit-infobox-container .planit-infobox.top:after {
     top: 100%;
     left: 50%;
     margin-left: -10px;
-    width: 0;
-    height: 0;
     border-top: solid 10px white;
     border-left: solid 10px transparent;
     border-right: solid 10px transparent;
+}
+
+.planit-container .planit-infobox-container .planit-infobox.right:after {
+    top: 50%;
+    right: 100%;
+    margin-top: -10px;
+    border-right: solid 10px white;
+    border-top: solid 10px transparent;
+    border-bottom: solid 10px transparent;
+}
+
+.planit-container .planit-infobox-container .planit-infobox.bottom:after {
+    bottom: 100%;
+    left: 50%;
+    margin-left: -10px;
+    border-bottom: solid 10px white;
+    border-left: solid 10px transparent;
+    border-right: solid 10px transparent;
+}
+
+.planit-container .planit-infobox-container .planit-infobox.left:after {
+    top: 50%;
+    left: 100%;
+    margin-top: -10px;
+    border-left: solid 10px white;
+    border-top: solid 10px transparent;
+    border-bottom: solid 10px transparent;
 }

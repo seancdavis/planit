@@ -29,7 +29,10 @@
           {
             coords: ['12','45'],
             draggable: true,
-            infobox: "<h2>Dingle</h2><p>It's the dinkus.</p>",
+            infobox: {
+              html: "<h2>Dingle</h2><p>It's the dinkus.</p>",
+              position: 'left'
+            },
             class: "cheese bucket",
             // html: "<h1>Hello</h1>",
             color: "#CEA052",
@@ -38,12 +41,18 @@
           {
             coords: ['45','62'],
             draggable: true,
-            infobox: "<h2>Dangle</h2><p>It's the other dinkus.</p>"
+            infobox: {
+              html: "<h2>Dangle</h2><p>It's the other dinkus.</p>",
+              position: 'right'
+            }
           },
           {
             coords: ['64.21','22'],
             draggable: true,
-            infobox: "<h2>Dangle</h2><p>It's the other dinkus.</p>"
+            infobox: {
+              html: "<h2>Dangle</h2><p>It's the other dinkus.</p>",
+              position: 'bottom'
+            }
           }
         ],
         markerDragEnd: function(event, marker) {
@@ -52,7 +61,7 @@
         },
         markerClick: function(event, marker) {
           // console.log(marker.position());
-          p.centerOn(marker.position());
+          // p.centerOn(marker.position());
           // console.log(marker.position());
         },
         canvasClick: function(event, coords) {
