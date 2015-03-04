@@ -8,6 +8,20 @@ class Planit.Plan.Zoomable
     @markersContainer = @container.find(".#{Planit.markerContainerClass}")
     @zoomId = Planit.randomString()
     @markersContainer.attr('data-zoom-id', @zoomId)
+    # set initial background coordinates
+    @imagePosition =
+      leftPx:         0
+      topPx:          0
+      width:          @markersContainer.width()
+      height:         @markersContainer.height()
+      scale:          1
+      increment: 0.5
+    @setBackground()
+
+  # this only gets run if the user specifies zoomable --
+  # otherwise we at least have the class initialized
+  # 
+  new: =>
     # draw the controls dinkus
     @container.prepend """
       <div class="planit-controls">
@@ -26,15 +40,6 @@ class Planit.Plan.Zoomable
     @container.on('mousedown', @mousedown)
     $(document).on('mousemove', @mousemove)
     $(document).on('mouseup', @mouseup)
-    # set initial background coordinates
-    @imagePosition =
-      leftPx:         0
-      topPx:          0
-      width:          @markersContainer.width()
-      height:         @markersContainer.height()
-      scale:          1
-      increment: 0.5
-    @setBackground()
 
   # ------------------------------------------ Actions
 
@@ -61,6 +66,26 @@ class Planit.Plan.Zoomable
       m = new Planit.Marker(@container, $(marker).attr('data-marker'))
       m.positionInfobox()
     true
+
+  centerOn: (coords) =>
+    if coords[0] >= 50 then x = 100 - coords[0] else x = coords[0]
+    if coords[1] >= 50 then y = 100 - coords[1] else y = coords[1]
+    wMin = 50 * (@containerWidth() / x)
+    hMin = 50 * (@containerHeight() / y)
+    if (@imgWidth() >= wMin) && (@imgHeight() >= hMin)
+      @imagePosition.leftPx = - (
+        (@imgWidth() * (coords[0] / 100)) - (@containerWidth() / 2)
+      )
+      @imagePosition.topPx = - (
+        (@imgHeight() * (coords[1] / 100)) - (@containerHeight() / 2)
+      )
+      @setBackground()
+      # hides other active infoboxes, but will still show
+      # this infobox
+      $('.planit-infobox').removeClass('active')
+    else
+      @zoomIn()
+      @centerOn(coords)
 
   # ------------------------------------------ Calculations
 

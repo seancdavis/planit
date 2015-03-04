@@ -54,9 +54,10 @@ class Planit
       @container.css
         height: imgHeight
       img.remove()
+      @zoomable = new Planit.Plan.Zoomable
+        container: @container
       if @options.image.zoom
-        new Planit.Plan.Zoomable
-          container: @container
+        @zoomable.new()
       @imgLoaded = true
     else
       setTimeout(@initBackgroundImage, 250)
@@ -84,6 +85,11 @@ class Planit
   getAllMarkers: () =>
     plan = new Planit.Plan(@container)
     plan.getAllMarkers()
+
+  # ------------------------------------------ Plan Actions
+
+  centerOn: (coords) ->
+    @zoomable.centerOn(coords)
 
   # ------------------------------------------ Event Callbacks
 
