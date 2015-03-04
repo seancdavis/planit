@@ -33,8 +33,12 @@ class Planit.Marker.Events
       @markerObj.positionInfobox()
       @marker.click (e) =>
         if(
-          Math.abs(e.pageX - @marker.attr('data-drag-start-x')) < 1 &&
-          Math.abs(e.pageY - @marker.attr('data-drag-start-y')) < 1
+          !@marker.attr('data-drag-start-x') || 
+          !@marker.attr('data-drag-start-y') ||
+          (
+            Math.abs(e.pageX - @marker.attr('data-drag-start-x')) < 1 &&
+            Math.abs(e.pageY - @marker.attr('data-drag-start-y')) < 1
+          )
         )
           marker = $(e.target).closest('.planit-marker')
           $("##{marker.attr('data-infobox')}").toggleClass('active')
