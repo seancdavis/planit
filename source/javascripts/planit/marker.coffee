@@ -70,6 +70,10 @@ class Planit.Marker
     mHeight = @marker.outerHeight()
     mHalfHeight = mHeight / 2
     buffer = 5
+    offsetX = parseInt(infobox.attr('data-offset-x'))
+    offsetX = 0 unless offsetX
+    offsetY = parseInt(infobox.attr('data-offset-y'))
+    offsetY = 0 unless offsetY
     switch infobox.attr('data-position')
       when 'top'
         infoLeft = markerCenterX - iHalfWidth
@@ -96,8 +100,8 @@ class Planit.Marker
         infoLeft = markerCenterX + mHalfWidth - buffer
         infoTop = markerCenterY + mHalfHeight - buffer
     infobox.css
-      left: infoLeft
-      top: infoTop
+      left: "#{infoLeft + offsetX}px"
+      top: "#{infoTop + offsetY}px"
     @position()
 
   # ------------------------------------------ Dragging

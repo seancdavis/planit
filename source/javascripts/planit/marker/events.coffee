@@ -38,6 +38,12 @@ class Planit.Marker.Events
             #{options.html}
         </div>
           """
+      if options.offsetX
+        @container.find('.planit-infobox').last().attr
+          'data-offset-x': options.offsetX
+      if options.offsetY
+        @container.find('.planit-infobox').last().attr
+          'data-offset-y': options.offsetY
       @marker.attr('data-infobox', "info-#{id}")
       @markerObj.positionInfobox()
       @marker.click (e) =>
