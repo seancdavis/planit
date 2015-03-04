@@ -27,6 +27,8 @@ class Planit.Marker.Creator
     if @options.id
       @markersContainer.find('.planit-marker').last().attr
         'data-id': @options.id
+    if @options.class
+      @markersContainer.find('.planit-marker').last().addClass(@options.class)
 
     # Bind Events (in a separate class)
     new Planit.Marker.Events(@options)
