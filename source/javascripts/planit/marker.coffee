@@ -59,34 +59,45 @@ class Planit.Marker
     infobox = $("##{@marker.attr('data-infobox')}")
     markerCenterX = (parseFloat(@relativePosition()[0] / 100) * @container.width())
     markerCenterY = (parseFloat(@relativePosition()[1] / 100) * @container.height())
+    iWidth = infobox.outerWidth()
+    iHalfWidth = iWidth / 2
+    iHeight = infobox.outerHeight()
+    iHalfHeight = iHeight / 2
+    cWidth = @container.width()
+    cHeight = @container.height()
+    mWidth = @marker.outerWidth()
+    mHalfWidth = mWidth / 2
+    mHeight = @marker.outerHeight()
+    mHalfHeight = mHeight / 2
+    buffer = 5
     switch infobox.attr('data-position')
       when 'top'
-        infoTop = 'auto'
-        infoRight = 'auto'
-        infoBottom = @container.height() - markerCenterY + (@marker.outerHeight() / 2) + 5
-        infoLeft = markerCenterX - (infobox.outerWidth() / 2)
+        infoLeft = markerCenterX - iHalfWidth
+        infoTop = markerCenterY - iHeight - mHalfHeight - buffer
       when 'right'
-        infoTop = markerCenterY - (infobox.outerHeight() / 2)
-        infoRight = @container.width() - markerCenterX - infobox.outerWidth() - 
-          (@marker.outerWidth() / 2) - 5
-        infoBottom = 'auto'
-        infoLeft = 'auto'
+        infoLeft = markerCenterX + mHalfWidth + buffer
+        infoTop = markerCenterY - iHalfHeight
       when 'bottom'
-        infoTop = markerCenterY + (@marker.outerHeight() / 2) + 5
-        infoRight = 'auto'
-        infoBottom = 'auto'
-        infoLeft = markerCenterX - (infobox.outerWidth() / 2)
+        infoLeft = markerCenterX - iHalfWidth
+        infoTop = markerCenterY + mHalfHeight + buffer
       when 'left'
-        infoTop = markerCenterY - (infobox.outerHeight() / 2)
-        infoRight = 'auto'
-        infoBottom = 'auto'
-        infoLeft = markerCenterX - infobox.outerWidth() - 
-          (@marker.outerWidth() / 2) - 5
+        infoLeft = markerCenterX - iWidth - mHalfWidth - buffer
+        infoTop = markerCenterY - iHalfHeight
+      when 'top-left'
+        infoLeft = markerCenterX - iWidth - mHalfWidth + buffer
+        infoTop = markerCenterY - iHeight - mHalfHeight + buffer
+      when 'top-right'
+        infoLeft = markerCenterX + mHalfWidth - buffer
+        infoTop = markerCenterY - iHeight - mHalfHeight + buffer
+      when 'bottom-left'
+        infoLeft = markerCenterX - iWidth - mHalfWidth + buffer
+        infoTop = markerCenterY + mHalfHeight - buffer
+      when 'bottom-right'
+        infoLeft = markerCenterX + mHalfWidth - buffer
+        infoTop = markerCenterY + mHalfHeight - buffer
     infobox.css
-      top: infoTop
-      right: infoRight
-      bottom: infoBottom
       left: infoLeft
+      top: infoTop
     @position()
 
   # ------------------------------------------ Dragging

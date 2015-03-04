@@ -86,7 +86,7 @@
     z-index: 998;
     padding: 5px 15px;
     cursor: initial;
-    background: white;
+    background: #efefef;
     border-radius: 3px;
 }
 
@@ -101,7 +101,7 @@
     height: 0;
 }
 
-.planit-container .planit-infobox-container .planit-infobox.top:after {
+.planit-container .planit-infobox-container .planit-infobox.arrow.top:after {
     top: 100%;
     left: 50%;
     margin-left: -10px;
@@ -110,7 +110,7 @@
     border-right: solid 10px transparent;
 }
 
-.planit-container .planit-infobox-container .planit-infobox.right:after {
+.planit-container .planit-infobox-container .planit-infobox.arrow.right:after {
     top: 50%;
     right: 100%;
     margin-top: -10px;
@@ -119,7 +119,7 @@
     border-bottom: solid 10px transparent;
 }
 
-.planit-container .planit-infobox-container .planit-infobox.bottom:after {
+.planit-container .planit-infobox-container .planit-infobox.arrow.bottom:after {
     bottom: 100%;
     left: 50%;
     margin-left: -10px;
@@ -128,7 +128,7 @@
     border-right: solid 10px transparent;
 }
 
-.planit-container .planit-infobox-container .planit-infobox.left:after {
+.planit-container .planit-infobox-container .planit-infobox.arrow.left:after {
     top: 50%;
     left: 100%;
     margin-top: -10px;

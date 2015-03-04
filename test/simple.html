@@ -31,10 +31,10 @@
             draggable: true,
             infobox: {
               html: "<h2>Dingle</h2><p>It's the dinkus.</p>",
-              position: 'left'
+              position: 'top-left',
+              arrow: true
             },
             class: "cheese bucket",
-            // html: "<h1>Hello</h1>",
             color: "#CEA052",
             size: 40
           },
@@ -43,7 +43,8 @@
             draggable: true,
             infobox: {
               html: "<h2>Dangle</h2><p>It's the other dinkus.</p>",
-              position: 'right'
+              position: 'bottom-left',
+              arrow: true
             }
           },
           {
@@ -51,9 +52,56 @@
             draggable: true,
             infobox: {
               html: "<h2>Dangle</h2><p>It's the other dinkus.</p>",
-              position: 'bottom'
+              position: 'top-right'
+            }
+          },
+          {
+            coords: ['64.21','72'],
+            draggable: true,
+            infobox: {
+              html: "<h2>Dangle</h2><p>It's the other dinkus.</p>",
+              position: 'bottom-right'
             }
           }
+          // {
+          //   coords: ['12','45'],
+          //   draggable: true,
+          //   infobox: {
+          //     html: "<h2>Dingle</h2><p>It's the dinkus.</p>",
+          //     position: 'top',
+          //     arrow: true
+          //   },
+          //   class: "cheese bucket",
+          //   color: "#CEA052",
+          //   size: 40
+          // },
+          // {
+          //   coords: ['45','62'],
+          //   draggable: true,
+          //   infobox: {
+          //     html: "<h2>Dangle</h2><p>It's the other dinkus.</p>",
+          //     position: 'left',
+          //     arrow: true
+          //   }
+          // },
+          // {
+          //   coords: ['64.21','22'],
+          //   draggable: true,
+          //   infobox: {
+          //     html: "<h2>Dangle</h2><p>It's the other dinkus.</p>",
+          //     position: 'bottom',
+          //     arrow: true
+          //   }
+          // },
+          // {
+          //   coords: ['64.21','72'],
+          //   draggable: true,
+          //   infobox: {
+          //     html: "<h2>Dangle</h2><p>It's the other dinkus.</p>",
+          //     position: 'right',
+          //     arrow: true
+          //   }
+          // }
         ],
         markerDragEnd: function(event, marker) {
           // console.log(marker.position());

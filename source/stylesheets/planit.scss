@@ -89,7 +89,7 @@ $marker-background: #FC5B3F;
       z-index: 998;
       padding: 5px 15px;
       cursor: initial;
-      background: white;
+      background: #efefef;
       border-radius: 3px;
       &.active {
         display: inline-block;
@@ -100,44 +100,46 @@ $marker-background: #FC5B3F;
         width: 0;
         height: 0;
       }
-      &.top {
-        &:after {
-          top: 100%;
-          left: 50%;
-          margin-left: -10px;
-          border-top: solid 10px white;
-          border-left: solid 10px transparent;
-          border-right: solid 10px transparent;
+      &.arrow {
+        &.top {
+          &:after {
+            top: 100%;
+            left: 50%;
+            margin-left: -10px;
+            border-top: solid 10px white;
+            border-left: solid 10px transparent;
+            border-right: solid 10px transparent;
+          }
         }
-      }
-      &.right {
-        &:after {
-          top: 50%;
-          right: 100%;
-          margin-top: -10px;
-          border-right: solid 10px white;
-          border-top: solid 10px transparent;
-          border-bottom: solid 10px transparent;
+        &.right {
+          &:after {
+            top: 50%;
+            right: 100%;
+            margin-top: -10px;
+            border-right: solid 10px white;
+            border-top: solid 10px transparent;
+            border-bottom: solid 10px transparent;
+          }
         }
-      }
-      &.bottom {
-        &:after {
-          bottom: 100%;
-          left: 50%;
-          margin-left: -10px;
-          border-bottom: solid 10px white;
-          border-left: solid 10px transparent;
-          border-right: solid 10px transparent;
+        &.bottom {
+          &:after {
+            bottom: 100%;
+            left: 50%;
+            margin-left: -10px;
+            border-bottom: solid 10px white;
+            border-left: solid 10px transparent;
+            border-right: solid 10px transparent;
+          }
         }
-      }
-      &.left {
-        &:after {
-          top: 50%;
-          left: 100%;
-          margin-top: -10px;
-          border-left: solid 10px white;
-          border-top: solid 10px transparent;
-          border-bottom: solid 10px transparent;
+        &.left {
+          &:after {
+            top: 50%;
+            left: 100%;
+            margin-top: -10px;
+            border-left: solid 10px white;
+            border-top: solid 10px transparent;
+            border-bottom: solid 10px transparent;
+          }
         }
       }
     }

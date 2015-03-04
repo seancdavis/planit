@@ -26,12 +26,16 @@ class Planit.Marker.Events
     # Infobox
     if @options.infobox
       id = Planit.randomString(16)
-      unless @options.infobox.position
-        @options.infobox.position = 'top'
+      # set style options on infobox
+      options = @options.infobox
+      if options.position then position = options.position else position = 'top'
+      if options.arrow then arrow = true else arrow = false
+      if arrow == true then arrowClass = 'arrow' else arrowClass = ''
+      classes = "planit-infobox #{position} #{arrowClass}"
       @container.find(".#{Planit.infoboxContainerClass}").append """
-        <div class="planit-infobox #{@options.infobox.position}" 
-          id="info-#{id}" data-position="#{@options.infobox.position}">
-            #{@options.infobox.html}
+        <div class="#{classes}" id="info-#{id}" 
+          data-position="#{position}">
+            #{options.html}
         </div>
           """
       @marker.attr('data-infobox', "info-#{id}")
