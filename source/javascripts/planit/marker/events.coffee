@@ -16,11 +16,12 @@ class Planit.Marker.Events
     if @options.draggable
       @marker.addClass('draggable')
       @marker.on 'mousedown', (e) =>
-        marker = $(e.target).closest('.planit-marker')
-        marker.addClass('is-dragging')
-        marker.attr
-          'data-drag-start-x': e.pageX
-          'data-drag-start-y': e.pageY
+        if e.which == 1
+          marker = $(e.target).closest('.planit-marker')
+          marker.addClass('is-dragging')
+          marker.attr
+            'data-drag-start-x': e.pageX
+            'data-drag-start-y': e.pageY
 
     # Infobox
     if @options.infobox
