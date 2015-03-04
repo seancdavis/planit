@@ -87,6 +87,11 @@ class Planit.Plan.Zoomable
       @zoomIn()
       @centerOn(coords)
 
+  zoomTo: (level) =>
+    i = @imagePosition.increment
+    @imagePosition.scale = (level * i) + 1 + i
+    @zoomOut()
+
   # ------------------------------------------ Calculations
 
   # ---------- Image Width
@@ -204,7 +209,7 @@ class Planit.Plan.Zoomable
     @setBackground()
     @positionInfoboxes()
 
-  zoomOut: (left = 0.5, top = 0.5) =>
+  zoomOut: () =>
     if @imagePosition.scale > 1
       @imagePosition.scale  = @imagePosition.scale - @imagePosition.increment
       leftPx = - @imgOffsetLeft() + (@imgWidthClickIncrement() / 2)

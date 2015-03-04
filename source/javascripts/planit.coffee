@@ -91,6 +91,9 @@ class Planit
   centerOn: (coords) ->
     @zoomable.centerOn(coords)
 
+  zoomTo: (level) ->
+    @zoomable.zoomTo(level)
+
   # ------------------------------------------ Event Callbacks
 
   markerDragEnd: (event, marker) =>
