@@ -13,7 +13,7 @@ class Planit.Marker.Creator
     left = ((parseFloat(@options.coords[0]) / 100) * @container.width()) - 15
     top = ((parseFloat(@options.coords[1]) / 100) * @container.height()) - 15
     @markersContainer.append(
-      $('<div><div class="planit-marker-content"></div></div>')
+      $('<div></div>')
         .addClass('planit-marker')
         .attr
           'data-marker': @options.planitID
@@ -24,11 +24,13 @@ class Planit.Marker.Creator
           top: "#{top}px"
           backgroundColor: color
     )
+    marker = @markersContainer.find('.planit-marker').last()
     if @options.id
-      @markersContainer.find('.planit-marker').last().attr
-        'data-id': @options.id
+      marker.attr('data-id': @options.id)
     if @options.class
-      @markersContainer.find('.planit-marker').last().addClass(@options.class)
+      marker.addClass(@options.class)
+    if @options.html
+      marker.html(@options.html)
 
     # Bind Events (in a separate class)
     new Planit.Marker.Events(@options)
