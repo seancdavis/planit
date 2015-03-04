@@ -43,8 +43,11 @@ class Planit.Marker
   color: =>
     @marker.css('backgroundColor')
 
-  id: =>
+  planitID: =>
     @marker.attr('data-marker')
+
+  id: =>
+    @marker.attr('data-id')
 
   # ------------------------------------------ Infobox
 
