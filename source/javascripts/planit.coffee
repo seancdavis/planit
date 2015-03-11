@@ -15,7 +15,7 @@ class Planit
     if @options.container
       @options.container = $("##{@options.container}")
     else
-      @options.container = $('#planit') 
+      @options.container = $('#planit')
 
     # Initialize Container
     @options.container.addClass('planit-container')
@@ -30,9 +30,13 @@ class Planit
 
     # Add image and zoom (if necessary)
     if @options.image && @options.image.url
-      @container.append("""<img src="#{@options.image.url}">""")
-      @markersContainer.css
-        backgroundImage: "url('#{@options.image.url}')"
+      @container.prepend """
+        <div class="image-container">
+          <img src="#{@options.image.url}">
+        </div>
+      """
+      # @markersContainer.css
+      #   backgroundImage: "url('#{@options.image.url}')"
       @initBackgroundImage()
 
     # Add Markers (if necessary)
@@ -53,7 +57,7 @@ class Planit
     if imgHeight > 0 && img.width() > 0
       @container.css
         height: imgHeight
-      img.remove()
+      # img.remove()
       @zoomable = new Planit.Plan.Zoomable
         container: @container
       if @options.image.zoom
@@ -111,7 +115,7 @@ class Planit
   # ------------------------------------------ Class Methods
 
   @randomString: (length = 16) ->
-    str = Math.random().toString(36).slice(2) 
+    str = Math.random().toString(36).slice(2)
     str = str + Math.random().toString(36).slice(2)
     str.substring(0, length - 1)
 

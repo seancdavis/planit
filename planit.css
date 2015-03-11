@@ -5,9 +5,24 @@
     height: 600px;
     margin: 25px auto;
     background: rgba(239, 239, 239, 0.8);
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
-.planit-container img {
+.planit-container .image-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.planit-container .image-container img {
     position: absolute;
     top: 0;
     left: 0;
@@ -45,9 +60,6 @@
     position: relative;
     width: 100%;
     height: 100%;
-    background-size: 100%;
-    background-repeat: no-repeat;
-    background-position: top left;
     overflow: hidden;
 }
 

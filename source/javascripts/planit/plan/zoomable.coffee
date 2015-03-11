@@ -6,21 +6,22 @@ class Planit.Plan.Zoomable
     # default options
     @container = @options.container
     @markersContainer = @container.find(".#{Planit.markerContainerClass}")
+    @image = @container.find('img').first()
     @zoomId = Planit.randomString()
     @markersContainer.attr('data-zoom-id', @zoomId)
     # set initial background coordinates
     @imagePosition =
       leftPx:         0
       topPx:          0
-      width:          @markersContainer.width()
-      height:         @markersContainer.height()
+      width:          @image.width()
+      height:         @image.height()
       scale:          1
       increment: 0.5
     @setBackground()
 
   # this only gets run if the user specifies zoomable --
   # otherwise we at least have the class initialized
-  # 
+  #
   new: =>
     # draw the controls dinkus
     @container.prepend """
@@ -44,18 +45,20 @@ class Planit.Plan.Zoomable
   # ------------------------------------------ Actions
 
   setBackground: =>
-    @markersContainer.css
-      backgroundPosition: "#{@imagePosition.leftPx}px #{@imagePosition.topPx}px"
-      backgroundSize: "#{@imagePosition.scale * 100.0}%"
+    @image.css
+      left: "#{@imagePosition.leftPx}px"
+      top: "#{@imagePosition.topPx}px"
+      width: "#{@imagePosition.scale * 100.0}%"
+      height: 'auto'
     @setMarkers()
 
   setMarkers: =>
     markers = $('div.planit-marker')
     if markers.length > 0
       for marker in markers
-        left = (@imgWidth() * ($(marker).attr('data-xPc') / 100)) + 
+        left = (@imgWidth() * ($(marker).attr('data-xPc') / 100)) +
           @imagePosition.leftPx - ($(marker).outerWidth() / 2)
-        top = (@imgHeight() * ($(marker).attr('data-yPc') / 100)) + 
+        top = (@imgHeight() * ($(marker).attr('data-yPc') / 100)) +
           @imagePosition.topPx - ($(marker).outerHeight() / 2)
         $(marker).css
           left: "#{left}px"
@@ -115,9 +118,7 @@ class Planit.Plan.Zoomable
   # ---------- Left / Right
 
   imgOffsetLeft: =>
-    Math.abs(
-      parseFloat(@markersContainer.css('backgroundPosition').split(' ')[0])
-    )
+    Math.abs(parseFloat(@image.css('left')))
 
   # ---------- Height
 
@@ -139,9 +140,7 @@ class Planit.Plan.Zoomable
   # ---------- Top / Bottom
 
   imgOffsetTop: =>
-    Math.abs(
-      parseFloat(@markersContainer.css('backgroundPosition').split(' ')[1])
-    )
+    Math.abs(parseFloat(@image.css('top')))
 
   # ---------- Other
 
@@ -160,17 +159,17 @@ class Planit.Plan.Zoomable
     if $(e.target).attr('data-zoom-id') == @zoomId
       @isDragging = true
       coords = @getEventContainerPosition(e)
-      @dragCoords = 
+      @dragCoords =
         pointRef: coords
         imgRef:
           left: 0 - @imgOffsetLeft()
           top: 0 - @imgOffsetTop()
         max:
           right: (coords.left * @containerWidth()) + @imgOffsetLeft()
-          left: (coords.left * @containerWidth()) - (@imgWidth() - 
+          left: (coords.left * @containerWidth()) - (@imgWidth() -
                       (@containerWidth() + @imgOffsetLeft()))
           bottom: (coords.top * @containerHeight()) + @imgOffsetTop()
-          top: (coords.top * @containerHeight()) - (@imgHeight() - 
+          top: (coords.top * @containerHeight()) - (@imgHeight() -
                       (@containerHeight() + @imgOffsetTop()))
     true
 

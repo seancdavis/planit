@@ -4,6 +4,8 @@ class Planit.Marker
 
     # Set Options
     @markersContainer = @container.find(".#{Planit.markerContainerClass}")
+    if @container.find('.image-container > img').length > 0
+      @image = @container.find('.image-container > img').first()
 
     # Find Marker
     @marker = @markersContainer.find(
@@ -18,12 +20,11 @@ class Planit.Marker
   position: =>
     xPx = @marker.position().left + (@marker.outerWidth() / 2)
     yPx = @marker.position().top + (@marker.outerHeight() / 2)
-    if @markersContainer.css('backgroundImage')
-      scale = parseInt(@markersContainer.css('backgroundSize')) / 100
-      wImg = @container.width() * scale
-      hImg = @container.height() * scale
-      xImg = parseInt(@markersContainer.css('backgroundPosition').split(' ')[0])
-      yImg = parseInt(@markersContainer.css('backgroundPosition').split(' ')[1])
+    if @image
+      wImg = @image.width()
+      hImg = @image.height()
+      xImg = parseInt(@image.css('left'))
+      yImg = parseInt(@image.css('top'))
       xPc = ((xPx + Math.abs(xImg)) / wImg) * 100
       yPc = ((yPx + Math.abs(yImg)) / hImg) * 100
     else

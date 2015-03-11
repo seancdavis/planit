@@ -33,7 +33,7 @@ class Planit.Marker.Events
       if arrow == true then arrowClass = 'arrow' else arrowClass = ''
       classes = "planit-infobox #{position} #{arrowClass}"
       @container.find(".#{Planit.infoboxContainerClass}").append """
-        <div class="#{classes}" id="info-#{id}" 
+        <div class="#{classes}" id="info-#{id}"
           data-position="#{position}">
             #{options.html}
         </div>
@@ -48,7 +48,7 @@ class Planit.Marker.Events
       @markerObj.positionInfobox()
       @marker.click (e) =>
         if(
-          !@marker.attr('data-drag-start-x') || 
+          !@marker.attr('data-drag-start-x') ||
           !@marker.attr('data-drag-start-y') ||
           (
             Math.abs(e.pageX - @marker.attr('data-drag-start-x')) < 1 &&

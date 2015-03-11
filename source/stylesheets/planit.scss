@@ -1,5 +1,14 @@
 @import 'bourbon';
 
+@mixin no-select {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
 $container-background: rgba(#efefef, 0.8);
 $marker-background: #FC5B3F;
 
@@ -10,12 +19,20 @@ $marker-background: #FC5B3F;
   height: 600px;
   margin: 25px auto;
   background: $container-background;
-
-  img {
+  @include no-select;
+  .image-container {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
+    height: 100%;
+    overflow: hidden;
+    img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+    }
   }
 
   .planit-controls {
@@ -47,9 +64,9 @@ $marker-background: #FC5B3F;
     position: relative;
     width: 100%;
     height: 100%;
-    background-size: 100%;
-    background-repeat: no-repeat;
-    background-position: top left;
+    // background-size: 100%;
+    // background-repeat: no-repeat;
+    // background-position: top left;
     overflow: hidden;
 
     .planit-marker {
