@@ -112,6 +112,10 @@
     display: inline-block;
 }
 
+.planit-container .planit-infobox-container .planit-infobox.hidden {
+    display: none;
+}
+
 .planit-container .planit-infobox-container .planit-infobox:after {
     content: '';
     position: absolute;

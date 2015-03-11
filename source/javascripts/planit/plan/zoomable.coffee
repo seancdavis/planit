@@ -52,8 +52,17 @@ class Planit.Plan.Zoomable
       height: 'auto'
     @setMarkers()
 
+  animateBackground: =>
+    @image.animate
+      left: "#{@imagePosition.leftPx}px"
+      top: "#{@imagePosition.topPx}px"
+      width: "#{@imagePosition.scale * 100.0}%"
+      height: 'auto'
+    , 250
+    @animateMarkers()
+
   setMarkers: =>
-    markers = $('div.planit-marker')
+    markers = @container.find('div.planit-marker')
     if markers.length > 0
       for marker in markers
         left = (@imgWidth() * ($(marker).attr('data-xPc') / 100)) +
@@ -65,10 +74,34 @@ class Planit.Plan.Zoomable
           top: "#{top}px"
       @positionInfoboxes()
 
+  animateMarkers: =>
+    markers = @container.find('div.planit-marker')
+    if markers.length > 0
+      for marker in markers
+        m = new Planit.Marker(@container, $(marker).attr('data-marker'))
+        m.hideInfobox()
+        left = (@imgWidth() * ($(marker).attr('data-xPc') / 100)) +
+          @imagePosition.leftPx - ($(marker).outerWidth() / 2)
+        top = (@imgHeight() * ($(marker).attr('data-yPc') / 100)) +
+          @imagePosition.topPx - ($(marker).outerHeight() / 2)
+        do (m) ->
+          $(marker).animate
+            left: "#{left}px"
+            top: "#{top}px"
+          , 250, () =>
+            m.positionInfobox()
+            m.showInfobox()
+
   positionInfoboxes: =>
     for marker in @container.find('.planit-marker')
       m = new Planit.Marker(@container, $(marker).attr('data-marker'))
       m.positionInfobox()
+    true
+
+  animateInfoboxes: =>
+    for marker in @container.find('.planit-marker')
+      m = new Planit.Marker(@container, $(marker).attr('data-marker'))
+      m.animateInfobox()
     true
 
   centerOn: (coords) =>
@@ -206,7 +239,8 @@ class Planit.Plan.Zoomable
     @imagePosition.scale  = @imagePosition.scale + @imagePosition.increment
     @imagePosition.leftPx = - @imgOffsetLeft() - (@imgWidthClickIncrement() / 2)
     @imagePosition.topPx  = - @imgOffsetTop() - (@imgHeightClickIncrement() / 2)
-    @setBackground()
+    # @setBackground()
+    @animateBackground()
 
   zoomOut: () =>
     if @imagePosition.scale > 1
@@ -221,4 +255,5 @@ class Planit.Plan.Zoomable
         @imagePosition.topPx = 0
       else if topPx - @imgHeightClickIncrement() < @containerHeight() - @imgHeight()
         @imagePosition.topPx = @containerHeight() - @imgHeight()
-      @setBackground()
+      # @setBackground()
+      @animateBackground()

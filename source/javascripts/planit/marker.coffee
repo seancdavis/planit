@@ -52,11 +52,23 @@ class Planit.Marker
 
   # ------------------------------------------ Infobox
 
-  infoboxHTML: =>
-    info = @marker.find('.planit-infobox')
-    if info.length > 0 then info.html() else null
+  infobox: =>
+    infobox = @container.find("##{@marker.attr('data-infobox')}")
+    if infobox.length > 0 then infobox else null
 
-  positionInfobox: =>
+  infoboxHTML: =>
+    if @infobox().length > 0 then infobox.html() else null
+
+  infoboxVisible: =>
+    @infobox() && @infobox().hasClass('active')
+
+  hideInfobox: =>
+    @infobox().addClass('hidden') if @infoboxVisible()
+
+  showInfobox: =>
+    @infobox().removeClass('hidden') if @infoboxVisible()
+
+  infoboxCoords: =>
     infobox = $("##{@marker.attr('data-infobox')}")
     markerCenterX = (parseFloat(@relativePosition()[0] / 100) * @container.width())
     markerCenterY = (parseFloat(@relativePosition()[1] / 100) * @container.height())
@@ -100,10 +112,23 @@ class Planit.Marker
       when 'bottom-right'
         infoLeft = markerCenterX + mHalfWidth - buffer
         infoTop = markerCenterY + mHalfHeight - buffer
-    infobox.css
-      left: "#{infoLeft + offsetX}px"
-      top: "#{infoTop + offsetY}px"
+    left: infoLeft + offsetX
+    top: infoTop + offsetY
+
+  positionInfobox: =>
+    coords = @infoboxCoords()
+    $("##{@marker.attr('data-infobox')}").css
+      left: "#{coords.left}px"
+      top: "#{coords.top}px"
     @position()
+
+  animateInfobox: =>
+    coords = @infoboxCoords()
+    $("##{@marker.attr('data-infobox')}").animate
+      left: "#{coords.left}px"
+      top: "#{coords.top}px"
+    , 250, () =>
+      return @position()
 
   # ------------------------------------------ Dragging
 

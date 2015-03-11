@@ -117,6 +117,9 @@ $marker-background: #FC5B3F;
       &.active {
         display: inline-block;
       }
+      &.hidden {
+        display: none;
+      }
       &:after {
         content:'';
         position: absolute;
