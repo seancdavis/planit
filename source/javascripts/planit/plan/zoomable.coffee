@@ -53,6 +53,8 @@ class Planit.Plan.Zoomable
     @setMarkers()
 
   animateBackground: =>
+    console.log @imagePosition.topPx
+    console.log '---'
     @image.animate
       left: "#{@imagePosition.leftPx}px"
       top: "#{@imagePosition.topPx}px"
@@ -189,7 +191,7 @@ class Planit.Plan.Zoomable
       @zoomIn('click', click.left, click.top)
 
   mousedown: (e) =>
-    if $(e.target).attr('data-zoom-id') == @zoomId
+    if $(e.target).attr('data-zoom-id') == @zoomId && e.which == 1
       @isDragging = true
       coords = @getEventContainerPosition(e)
       @dragCoords =
@@ -239,7 +241,6 @@ class Planit.Plan.Zoomable
     @imagePosition.scale  = @imagePosition.scale + @imagePosition.increment
     @imagePosition.leftPx = - @imgOffsetLeft() - (@imgWidthClickIncrement() / 2)
     @imagePosition.topPx  = - @imgOffsetTop() - (@imgHeightClickIncrement() / 2)
-    # @setBackground()
     @animateBackground()
 
   zoomOut: () =>
@@ -247,13 +248,16 @@ class Planit.Plan.Zoomable
       @imagePosition.scale  = @imagePosition.scale - @imagePosition.increment
       leftPx = - @imgOffsetLeft() + (@imgWidthClickIncrement() / 2)
       topPx  = - @imgOffsetTop() + (@imgHeightClickIncrement() / 2)
-      if leftPx + @imgWidthClickIncrement() > 0
+      if leftPx > 0
         @imagePosition.leftPx = 0
-      else if leftPx - @imgWidthClickIncrement() < @containerWidth() - @imgWidth()
+      else if leftPx < @containerWidth() - @imgWidth()
         @imagePosition.leftPx = @containerWidth() - @imgWidth()
-      if topPx + @imgHeightClickIncrement() > 0
+      else
+        @imagePosition.leftPx = leftPx
+      if topPx > 0
         @imagePosition.topPx = 0
-      else if topPx - @imgHeightClickIncrement() < @containerHeight() - @imgHeight()
+      else if topPx < @containerHeight() - @imgHeight()
         @imagePosition.topPx = @containerHeight() - @imgHeight()
-      # @setBackground()
+      else
+        @imagePosition.topPx = topPx
       @animateBackground()
