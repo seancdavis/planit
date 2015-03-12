@@ -149,6 +149,8 @@ class Planit.Marker
     @marker.css
       left: "#{left}px"
       top: "#{top}px"
+    @positionInfobox()
+    [left, top]
 
   savePosition: =>
     coords = @position()
