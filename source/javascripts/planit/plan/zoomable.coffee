@@ -53,8 +53,6 @@ class Planit.Plan.Zoomable
     @setMarkers()
 
   animateBackground: =>
-    console.log @imagePosition.topPx
-    console.log '---'
     @image.animate
       left: "#{@imagePosition.leftPx}px"
       top: "#{@imagePosition.topPx}px"
