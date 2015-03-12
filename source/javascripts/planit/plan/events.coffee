@@ -7,6 +7,8 @@ class Planit.Plan.Events
     # default options
     @container = @options.container
     @markersContainer = @container.find(".#{Planit.markerContainerClass}")
+    if @container.find('.image-container > img').length > 0
+      @image = @container.find('.image-container > img').first()
 
     # bind draggable events
     $(document).on('mousemove', @mousemove)
@@ -20,32 +22,77 @@ class Planit.Plan.Events
   draggingMarker: =>
     @markersContainer.find('.planit-marker.is-dragging')
 
-  lastMarker: =>
-    @markers().last()
+  getEventPosition: (e) =>
+    # container dimensions
+    wCont = parseFloat(@markersContainer.width())
+    hCont = parseFloat(@markersContainer.height())
+    # if(
+    #   @markersContainer.css('backgroundImage') &&
+    #   @markersContainer.css('backgroundImage') != 'none'
+    # )
+    if @image
+      # if there is an image, we need to calculate with image in mind
+      xPx = e.pageX - @container.offset().left
+      yPx = e.pageY - @container.offset().top
+      wImg = @image.width()
+      hImg = @image.height()
+      xImg = parseInt(@image.css('left'))
+      yImg = parseInt(@image.css('top'))
+      xPc = ((xPx + Math.abs(xImg)) / wImg) * 100
+      yPc = ((yPx + Math.abs(yImg)) / hImg) * 100
+    else
+      # or we can just look at the container
+      xPc = (e.pageX - @container.offset().left) / wCont
+      yPc =  (e.pageY - @container.offset().top) / hCont
+    [xPc, yPc]
 
   # ------------------------------------------ Events
 
   mouseup: (e) =>
-    if $(e.target).hasClass('planit-marker-content')
-      marker = $(e.target).closest('.planit-marker')
-      $("##{marker.attr('data-infobox')}").addClass('active')
+    # dealing with markers, esp. dragging markers
     marker = @markersContainer.find('.is-dragging').first()
     if @draggingMarker().length > 0
       m = new Planit.Marker(@container, marker.attr('data-marker'))
-      @options.planit.dragEnd(e, m)
+      @options.planit.markerDragEnd(e, m)
+      m.savePosition()
+      m.positionInfobox()
       @draggingMarker().removeClass('is-dragging')
+    # if click is on the container
+    if $(e.target).hasClass(Planit.markerContainerClass)
+      @options.planit.canvasClick(e, @getEventPosition(e))
+    # if click is on the markers
+    if(
+      $(e.target).hasClass(Planit.markerClass) ||
+      $(e.target).parents(".#{Planit.markerClass}").length > 0
+    )
+      if $(e.target).hasClass(Planit.markerClass)
+        marker = $(e.target)
+      else
+        marker = $(e.target).parents(".#{Planit.markerClass}").first()
+      m = new Planit.Marker(@container, marker.attr('data-marker'))
+      @options.planit.markerClick(e, m)
+    true
 
   mousemove: (e) =>
     markers = @markersContainer.find('.planit-marker.is-dragging')
+
     if markers.length > 0
 
       # only use first marker in case there are more than
       # one dragging
-      # 
+      #
       marker = markers.first()
 
+      # we hide the infobox while dragging
+      #
+      if(
+        Math.abs(e.pageX - marker.attr('data-drag-start-x')) > 0 ||
+        Math.abs(e.pageY - marker.attr('data-drag-start-y')) > 0
+      )
+        $("##{marker.attr('data-infobox')}").removeClass('active')
+
       # calculate positions
-      # 
+      #
       mouseLeft     = e.pageX - @container.offset().left
       mouseTop      = e.pageY - @container.offset().top
       planRight     = @container.width()
@@ -59,7 +106,7 @@ class Planit.Plan.Events
 
       # find the left position of the marker based on
       # position of the mouse relative to the plan
-      # 
+      #
       if markerLeft <= 0
         markerX = 0
       else if markerRight < planRight
@@ -69,7 +116,7 @@ class Planit.Plan.Events
 
       # find the left position of the marker based on
       # position of the mouse relative to the plan
-      # 
+      #
       if markerTop <= 0
         markerY = 0
       else if markerBottom < planBottom
@@ -78,7 +125,7 @@ class Planit.Plan.Events
         markerY = planBottom - markerHeight
 
       # set the position of the marker
-      # 
+      #
       marker.css
         left: markerX
         top: markerY

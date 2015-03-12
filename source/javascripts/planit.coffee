@@ -6,6 +6,7 @@ class Planit
   @markerContainerClass:  'planit-markers-container'
   @markerClass:           'planit-marker'
   @markerContentClass:    'planit-marker-content'
+  @infoboxContainerClass: 'planit-infobox-container'
 
   # ------------------------------------------ Default Options
 
@@ -14,11 +15,12 @@ class Planit
     if @options.container
       @options.container = $("##{@options.container}")
     else
-      @options.container = $('#planit') 
+      @options.container = $('#planit')
 
     # Initialize Container
     @options.container.addClass('planit-container')
     @options.container.append """
+      <div class="#{Planit.infoboxContainerClass}"></div>
       <div class="#{Planit.markerContainerClass}"></div>
         """
 
@@ -26,28 +28,54 @@ class Planit
     @container = @options.container
     @markersContainer = @container.find(".#{Planit.markerContainerClass}").first()
 
-    # Add Background Image (if necessary)
-    if @options.backgroundImage
-      @container.append("""<img src="#{@options.backgroundImage}">""")
-      @markersContainer.css
-        backgroundImage: "url('#{@options.backgroundImage}')"
-      $(window).load =>
-        @container.css
-          height: @container.find('img').first().height()
-        @container.find('img').first().remove()
+    # Add image and zoom (if necessary)
+    if @options.image && @options.image.url
+      @container.prepend """
+        <div class="image-container">
+          <img src="#{@options.image.url}">
+        </div>
+      """
+      # @markersContainer.css
+      #   backgroundImage: "url('#{@options.image.url}')"
+      @initBackgroundImage()
 
     # Add Markers (if necessary)
-    if @options.markers
-      $(window).load () =>
-        @addMarker(marker) for marker in @options.markers
+    if @options.markers && @options.markers.length > 0
+      @initMarkers()
 
     # Bind Document Events
     new Planit.Plan.Events
       container: @container
       planit: @
 
+    $(window).resize(@resize)
+
     # Return this Planit object
     @
+
+  initBackgroundImage: =>
+    img = @container.find('img').first()
+    imgHeight = img.height()
+    if imgHeight > 0 && img.width() > 0
+      @container.css
+        height: imgHeight
+      # img.remove()
+      @zoomable = new Planit.Plan.Zoomable
+        container: @container
+      if @options.image.zoom
+        @zoomable.new()
+      @imgLoaded = true
+    else
+      setTimeout(@initBackgroundImage, 250)
+
+  initMarkers: =>
+    if @options.image && @options.image.url
+      if @imgLoaded == true
+        @addMarker(marker) for marker in @options.markers
+      else
+        setTimeout(@initMarkers, 250)
+    else
+      @addMarker(marker) for marker in @options.markers
 
   # ------------------------------------------ Add A Marker
 
@@ -64,16 +92,43 @@ class Planit
     plan = new Planit.Plan(@container)
     plan.getAllMarkers()
 
+  # ------------------------------------------ Plan Actions
+
+  centerOn: (coords) ->
+    @zoomable.centerOn(coords)
+
+  zoomTo: (level) ->
+    @zoomable.zoomTo(level)
+
+  resize: (e) =>
+    # @zoomTo(0)
+    # console.log @zoomable.imagePosition
+    image = @container.find('.image-container > img').first()
+    @zoomable.resetImage()
+    if image
+      @container.height(image.height())
+    for marker in @markersContainer.find('.planit-marker')
+      m = new Planit.Marker(@container, $(marker).attr('data-marker'))
+      m.set()
+
   # ------------------------------------------ Event Callbacks
 
-  dragEnd: (event, marker) =>
-    if @options.dragEnd
-      @options.dragEnd(event, marker)
+  markerDragEnd: (event, marker) =>
+    if @options.markerDragEnd
+      @options.markerDragEnd(event, marker)
+
+  markerClick: (event, marker) =>
+    if @options.markerClick
+      @options.markerClick(event, marker)
+
+  canvasClick: (event, coords) =>
+    if @options.canvasClick
+      @options.canvasClick(event, coords)
 
   # ------------------------------------------ Class Methods
 
   @randomString: (length = 16) ->
-    str = Math.random().toString(36).slice(2) 
+    str = Math.random().toString(36).slice(2)
     str = str + Math.random().toString(36).slice(2)
     str.substring(0, length - 1)
 

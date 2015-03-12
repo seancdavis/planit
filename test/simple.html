@@ -10,6 +10,12 @@
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="../planit.css">
     <script src="js/modernizr-2.8.3.min.js"></script>
+
+    <style>
+      #planit {
+        width: 90%;
+      }
+    </style>
   </head>
   <body>
 
@@ -21,22 +27,113 @@
     <script>
       p = planit.new({
         container: 'planit',
-        // backgroundImage: 'http://media.giphy.com/media/cw8Nr4u28tVKw/giphy.gif',
+        image: {
+          url: 'http://i.kinja-img.com/gawker-media/image/upload/s--odQGlKs_--/18jyfksl1kks0jpg.jpg',
+          zoom: true,
+        },
         markers: [
+          // {
+          //   coords: ['12','45'],
+          //   draggable: true,
+          //   infobox: {
+          //     html: "<h2>Dingle</h2><p>It's the dinkus.</p>",
+          //     position: 'top-left',
+          //     arrow: true
+          //   },
+          //   class: "cheese bucket",
+          //   color: "#CEA052",
+          //   size: 40
+          // },
+          // {
+          //   coords: ['45','62'],
+          //   draggable: true,
+          //   infobox: {
+          //     html: "<h2>Dangle</h2><p>It's the other dinkus.</p>",
+          //     position: 'bottom-left',
+          //     arrow: true
+          //   }
+          // },
+          // {
+          //   coords: ['64.21','22'],
+          //   draggable: true,
+          //   infobox: {
+          //     html: "<h2>Dangle</h2><p>It's the other dinkus.</p>",
+          //     position: 'top-right'
+          //   }
+          // },
+          // {
+          //   coords: ['64.21','72'],
+          //   draggable: true,
+          //   infobox: {
+          //     html: "<h2>Dangle</h2><p>It's the other dinkus.</p>",
+          //     position: 'bottom-right'
+          //   }
+          // }
           {
             coords: ['12','45'],
             draggable: true,
-            infobox: "<h2>Dingle</h2><p>It's the dinkus.</p>"
+            infobox: {
+              html: "<h2>Dingle</h2><p>It's the dinkus.</p>",
+              position: 'top',
+              arrow: true
+            },
+            class: "cheese bucket",
+            color: "#CEA052",
+            size: 40
           },
           {
             coords: ['45','62'],
             draggable: true,
-            infobox: "<h2>Dangle</h2><p>It's the other dinkus.</p>"
+            infobox: {
+              html: "<h2>Dangle</h2><p>It's the other dinkus.</p>",
+              position: 'left',
+              arrow: true
+            }
+          },
+          {
+            coords: ['64.21','22'],
+            draggable: true,
+            infobox: {
+              html: "<h2>Dangle</h2><p>It's the other dinkus.</p>",
+              position: 'bottom',
+              arrow: true
+            }
+          },
+          // {
+          //   coords: ['64.21','72'],
+          //   draggable: true,
+          //   infobox: {
+          //     html: "<h2>Dangle</h2><p>It's the other dinkus.</p>",
+          //     position: 'right',
+          //     arrow: true
+          //   }
+          // }
+          {
+            coords: ['64.21','72'],
+            draggable: true,
+            infobox: {
+              html: "<h2>Dangle</h2><p>It's the other dinkus.</p>",
+              position: 'bottom-right',
+              arrow: false,
+              offsetX: -10,
+              offsetY: -10
+            }
           }
         ],
-        dragEnd: function(event, marker) {
-          console.log(marker.position());
+        markerDragEnd: function(event, marker) {
+          // console.log(marker.position());
           // console.log(marker.coords());
+        },
+        markerClick: function(event, marker) {
+          // console.log(marker.position());
+          p.centerOn(marker.position());
+          setTimeout(marker.showInfobox, 250);
+          // console.log(marker.position());
+        },
+        canvasClick: function(event, coords) {
+          // console.log(coords);
+          // console.log(marker.coords());
+          p.zoomTo(0);
         }
       });
 
