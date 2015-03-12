@@ -48,6 +48,8 @@ class Planit
       container: @container
       planit: @
 
+    $(window).resize(@resize)
+
     # Return this Planit object
     @
 
@@ -97,6 +99,17 @@ class Planit
 
   zoomTo: (level) ->
     @zoomable.zoomTo(level)
+
+  resize: (e) =>
+    # @zoomTo(0)
+    # console.log @zoomable.imagePosition
+    image = @container.find('.image-container > img').first()
+    @zoomable.resetImage()
+    if image
+      @container.height(image.height())
+    for marker in @markersContainer.find('.planit-marker')
+      m = new Planit.Marker(@container, $(marker).attr('data-marker'))
+      m.set()
 
   # ------------------------------------------ Event Callbacks
 

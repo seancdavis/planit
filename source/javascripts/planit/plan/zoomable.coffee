@@ -42,6 +42,16 @@ class Planit.Plan.Zoomable
     $(document).on('mousemove', @mousemove)
     $(document).on('mouseup', @mouseup)
 
+  resetImage: =>
+    @imagePosition =
+      leftPx:         0
+      topPx:          0
+      width:          @image.width()
+      height:         @image.height()
+      scale:          1
+      increment: 0.5
+    @setBackground()
+
   # ------------------------------------------ Actions
 
   setBackground: =>
