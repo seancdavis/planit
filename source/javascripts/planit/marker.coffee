@@ -57,7 +57,7 @@ class Planit.Marker
     if infobox.length > 0 then infobox else null
 
   infoboxHTML: =>
-    if @infobox().length > 0 then infobox.html() else null
+    if @infobox() && @infobox().length > 0 then @infobox().html() else null
 
   infoboxVisible: =>
     @infobox() && @infobox().hasClass('active')
@@ -66,7 +66,7 @@ class Planit.Marker
     @infobox().addClass('hidden') if @infoboxVisible()
 
   showInfobox: =>
-    @infobox().addClass('active') unless @infoboxVisible()
+    @infobox().addClass('active') if @infobox() && !@infoboxVisible()
     @unhideInfobox()
 
   unhideInfobox: =>
@@ -164,4 +164,5 @@ class Planit.Marker
         top: "#{top}px"
 
   remove: =>
+    @infobox().remove() if @infobox()
     @marker.remove()

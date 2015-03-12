@@ -17,5 +17,5 @@ class Planit.Plan
         draggable: m.isDraggable()
         color: m.color()
       marker.infobox = m.infoboxHTML() if m.infoboxHTML()
-      markers.push(marker)
+      markers.push(m)
     markers
