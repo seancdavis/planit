@@ -90,7 +90,7 @@ class Planit.Plan.Zoomable
             top: "#{top}px"
           , 250, () =>
             m.positionInfobox()
-            m.showInfobox()
+            m.unhideInfobox()
 
   positionInfoboxes: =>
     for marker in @container.find('.planit-marker')
@@ -109,25 +109,33 @@ class Planit.Plan.Zoomable
     if coords[1] >= 50 then y = 100 - coords[1] else y = coords[1]
     wMin = 50 * (@containerWidth() / x)
     hMin = 50 * (@containerHeight() / y)
-    if (@imgWidth() >= wMin) && (@imgHeight() >= hMin)
+    # hides other active infoboxes, but will still show
+    # this infobox
+    @container.find('.planit-infobox').removeClass('active')
+    # keep theoretically making the image bigger until it is
+    # large enough to center on our point
+    @imagePosition.scale  = @imagePosition.scale + @imagePosition.increment
+    @imagePosition.leftPx = - (
+      (@imgWidth() * (coords[0] / 100)) - (@containerWidth() / 2)
+    )
+    @imagePosition.topPx = - (
+      (@imgHeight() * (coords[1] / 100)) - (@containerHeight() / 2)
+    )
+    while (@imgWidth() < wMin) || (@imgHeight() < hMin)
+      @imagePosition.scale  = @imagePosition.scale + @imagePosition.increment
       @imagePosition.leftPx = - (
         (@imgWidth() * (coords[0] / 100)) - (@containerWidth() / 2)
       )
       @imagePosition.topPx = - (
         (@imgHeight() * (coords[1] / 100)) - (@containerHeight() / 2)
       )
-      @setBackground()
-      # hides other active infoboxes, but will still show
-      # this infobox
-      $('.planit-infobox').removeClass('active')
-    else
-      @zoomIn()
-      @centerOn(coords)
+    @animateBackground()
 
   zoomTo: (level) =>
     i = @imagePosition.increment
-    @imagePosition.scale = (level * i) + 1 + i
-    @zoomOut()
+    unless ((level * i) + 1) == @imagePosition.scale
+      @imagePosition.scale = (level * i) + 1 + i
+      @zoomOut()
 
   # ------------------------------------------ Calculations
 

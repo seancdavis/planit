@@ -66,6 +66,10 @@ class Planit.Marker
     @infobox().addClass('hidden') if @infoboxVisible()
 
   showInfobox: =>
+    @infobox().addClass('active') unless @infoboxVisible()
+    @unhideInfobox()
+
+  unhideInfobox: =>
     @infobox().removeClass('hidden') if @infoboxVisible()
 
   infoboxCoords: =>

@@ -120,12 +120,14 @@
         },
         markerClick: function(event, marker) {
           // console.log(marker.position());
-          // p.centerOn(marker.position());
+          p.centerOn(marker.position());
+          setTimeout(marker.showInfobox, 250);
           // console.log(marker.position());
         },
         canvasClick: function(event, coords) {
-          console.log(coords);
+          // console.log(coords);
           // console.log(marker.coords());
+          p.zoomTo(0);
         }
       });
 

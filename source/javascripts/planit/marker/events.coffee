@@ -46,17 +46,17 @@ class Planit.Marker.Events
           'data-offset-y': options.offsetY
       @marker.attr('data-infobox', "info-#{id}")
       @markerObj.positionInfobox()
-      @marker.click (e) =>
-        if(
-          !@marker.attr('data-drag-start-x') ||
-          !@marker.attr('data-drag-start-y') ||
-          (
-            Math.abs(e.pageX - @marker.attr('data-drag-start-x')) < 1 &&
-            Math.abs(e.pageY - @marker.attr('data-drag-start-y')) < 1
-          )
-        )
-          marker = $(e.target).closest('.planit-marker')
-          $("##{marker.attr('data-infobox')}").toggleClass('active')
+      # @marker.click (e) =>
+      #   if(
+      #     !@marker.attr('data-drag-start-x') ||
+      #     !@marker.attr('data-drag-start-y') ||
+      #     (
+      #       Math.abs(e.pageX - @marker.attr('data-drag-start-x')) < 1 &&
+      #       Math.abs(e.pageY - @marker.attr('data-drag-start-y')) < 1
+      #     )
+      #   )
+      #     marker = $(e.target).closest('.planit-marker')
+      #     $("##{marker.attr('data-infobox')}").toggleClass('active')
 
   markers: ->
     @markersContainer.find('.planit-marker')
