@@ -14,6 +14,8 @@ class Planit.Plan.Events
     $(document).on('mousemove', @mousemove)
     $(document).on('mouseup', @mouseup)
 
+    $(window).resize(@resize)
+
   # ------------------------------------------ Refs
 
   markers: =>
@@ -129,3 +131,10 @@ class Planit.Plan.Events
       marker.css
         left: markerX
         top: markerY
+
+  resize: (e) =>
+    if @image
+      @container.height(@image.height())
+    for marker in @markersContainer.find('.planit-marker')
+      m = new Planit.Marker(@container, $(marker).attr('data-marker'))
+      m.set()
