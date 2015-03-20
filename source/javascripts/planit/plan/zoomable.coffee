@@ -122,15 +122,15 @@ class Planit.Plan.Zoomable
     # hides other active infoboxes, but will still show
     # this infobox
     @container.find('.planit-infobox').removeClass('active')
-    # keep theoretically making the image bigger until it is
-    # large enough to center on our point
-    @imagePosition.scale  = @imagePosition.scale + @imagePosition.increment
+    # Get our initial position
     @imagePosition.leftPx = - (
       (@imgWidth() * (coords[0] / 100)) - (@containerWidth() / 2)
     )
     @imagePosition.topPx = - (
       (@imgHeight() * (coords[1] / 100)) - (@containerHeight() / 2)
     )
+    # keep theoretically making the image bigger until it is
+    # large enough to center on our point
     while (@imgWidth() < wMin) || (@imgHeight() < hMin)
       @imagePosition.scale  = @imagePosition.scale + @imagePosition.increment
       @imagePosition.leftPx = - (
