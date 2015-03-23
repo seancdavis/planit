@@ -18,6 +18,7 @@ gulp.task('coffee', function() {
   return gulp.src([
     'source/javascripts/planit.coffee',
     'source/javascripts/planit/plan.coffee',
+    'source/javascripts/planit/plan/creator.coffee',
     'source/javascripts/planit/plan/events.coffee',
     'source/javascripts/planit/plan/zoomable.coffee',
     'source/javascripts/planit/marker.coffee',
