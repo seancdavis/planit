@@ -73,7 +73,7 @@ class Planit.Marker
     @infobox().removeClass('hidden') if @infoboxVisible()
 
   infoboxCoords: =>
-    infobox = $("##{@marker.attr('data-infobox')}")
+    infobox = @container.find("##{@marker.attr('data-infobox')}")
     markerCenterX = (parseFloat(@relativePosition()[0] / 100) * @container.width())
     markerCenterY = (parseFloat(@relativePosition()[1] / 100) * @container.height())
     iWidth = infobox.outerWidth()
@@ -121,14 +121,14 @@ class Planit.Marker
 
   positionInfobox: =>
     coords = @infoboxCoords()
-    $("##{@marker.attr('data-infobox')}").css
+    @container.find("##{@marker.attr('data-infobox')}").css
       left: "#{coords.left}px"
       top: "#{coords.top}px"
     @position()
 
   animateInfobox: =>
     coords = @infoboxCoords()
-    $("##{@marker.attr('data-infobox')}").animate
+    @container.find("##{@marker.attr('data-infobox')}").animate
       left: "#{coords.left}px"
       top: "#{coords.top}px"
     , 250, () =>

@@ -89,7 +89,7 @@ class Planit.Plan.Events
         Math.abs(e.pageX - marker.attr('data-drag-start-x')) > 0 ||
         Math.abs(e.pageY - marker.attr('data-drag-start-y')) > 0
       )
-        $("##{marker.attr('data-infobox')}").removeClass('active')
+        @container.find("##{marker.attr('data-infobox')}").removeClass('active')
 
       # calculate positions
       #
