@@ -1,5 +1,5 @@
 // Include gulp
-var gulp = require('gulp'); 
+var gulp = require('gulp');
 
 // Include Our Plugins
 var gutil = require('gulp-util');
@@ -18,9 +18,9 @@ gulp.task('coffee', function() {
   return gulp.src([
     'source/javascripts/planit.coffee',
     'source/javascripts/planit/plan.coffee',
-    'source/javascripts/planit/plan/creator.coffee',
     'source/javascripts/planit/plan/events.coffee',
     'source/javascripts/planit/plan/zoomable.coffee',
+    'source/javascripts/planit/plan/creator.coffee',
     'source/javascripts/planit/marker.coffee',
     'source/javascripts/planit/marker/events.coffee',
     'source/javascripts/planit/marker/creator.coffee'

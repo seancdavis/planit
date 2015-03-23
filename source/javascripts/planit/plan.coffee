@@ -2,10 +2,15 @@ class Planit.Plan
 
   # ------------------------------------------ Setup
 
-  constructor: (@container) ->
+  constructor: (@options) ->
+    @container = @options.container
+    @zoomable = new Planit.Plan.Zoomable(@container)
     @markersContainer = @container.find(".#{Planit.markerContainerClass}").first()
 
   # ------------------------------------------ Get All Markers
+
+  getMarker: (id) =>
+    return new Planit.Marker(@container, id)
 
   getAllMarkers: () =>
     markers = []
@@ -19,3 +24,20 @@ class Planit.Plan
       marker.infobox = m.infoboxHTML() if m.infoboxHTML()
       markers.push(m)
     markers
+
+  # ------------------------------------------ Plan Actions
+
+  centerOn: (coords) ->
+    @zoomable.centerOn(coords)
+
+  zoomTo: (level) ->
+    @zoomable.zoomTo(level)
+
+  resize: (e) =>
+    image = @container.find(".#{Planit.imageContainer} > img").first()
+    @zoomable.resetImage()
+    if image
+      @container.height(image.height())
+    for marker in @markersContainer.find(".#{Planit.markerClass}")
+      m = new Planit.Marker(@container, $(marker).attr('data-marker'))
+      m.set()

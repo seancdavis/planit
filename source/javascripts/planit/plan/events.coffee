@@ -3,8 +3,6 @@ class Planit.Plan.Events
   # ------------------------------------------ Setup
 
   constructor: (@options) ->
-
-    # default options
     @container = @options.container
     @markersContainer = @container.find(".#{Planit.markerContainerClass}")
     if @container.find(".#{Planit.imageContainer} > img").length > 0
@@ -53,13 +51,13 @@ class Planit.Plan.Events
     marker = @markersContainer.find(".#{Planit.draggingClass}").first()
     if @draggingMarker().length > 0
       m = new Planit.Marker(@container, marker.attr('data-marker'))
-      @options.planit.markerDragEnd(e, m)
+      @options.markerDragEnd(e, m)
       m.savePosition()
       m.positionInfobox()
       @draggingMarker().removeClass(Planit.draggingClass)
     # if click is on the container
     if $(e.target).hasClass(Planit.markerContainerClass)
-      @options.planit.canvasClick(e, @getEventPosition(e))
+      @options.canvasClick(e, @getEventPosition(e))
     # if click is on the markers
     if(
       $(e.target).hasClass(Planit.markerClass) ||
@@ -70,7 +68,7 @@ class Planit.Plan.Events
       else
         marker = $(e.target).parents(".#{Planit.markerClass}").first()
       m = new Planit.Marker(@container, marker.attr('data-marker'))
-      @options.planit.markerClick(e, m)
+      @options.markerClick(e, m)
     true
 
   mousemove: (e) =>
@@ -129,3 +127,17 @@ class Planit.Plan.Events
       marker.css
         left: markerX
         top: markerY
+
+  # ------------------------------------------ Event Callbacks
+
+  markerDragEnd: (event, marker) =>
+    if @options.markerDragEnd
+      @options.markerDragEnd(event, marker)
+
+  markerClick: (event, marker) =>
+    if @options.markerClick
+      @options.markerClick(event, marker)
+
+  canvasClick: (event, coords) =>
+    if @options.canvasClick
+      @options.canvasClick(event, coords)

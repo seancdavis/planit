@@ -5,7 +5,7 @@ class Planit.Plan.Creator
   constructor: (@options = {}) ->
     method.call(@) for method in initMethods()
     # Return a new instance of a Plan
-    new Planit.Plan(@container)
+    return new Planit.Plan(@options)
 
   # (private) Methods (in order) needed to instantiate this
   # object
@@ -54,10 +54,9 @@ class Planit.Plan.Creator
     if img.height() > 0 && img.width() > 0
       @container.css
         height: img.height()
-      @zoomable = new Planit.Plan.Zoomable
-        container: @container
+      zoomable = new Planit.Plan.Zoomable(@container)
       if @options.image.zoom
-        @zoomable.new()
+        zoomable.init()
       @imgLoaded = true
     else
       setTimeout(@initBackgroundImage, 250)
@@ -88,6 +87,4 @@ class Planit.Plan.Creator
   # (private) Bind events to the plan
   #
   initEvents = ->
-    new Planit.Plan.Events
-      container: @container
-      planit: @
+    new Planit.Plan.Events(@options)

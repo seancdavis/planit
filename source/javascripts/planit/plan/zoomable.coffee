@@ -2,27 +2,26 @@ class Planit.Plan.Zoomable
 
   # ------------------------------------------ Setup
 
-  constructor: (@options) ->
+  constructor: (@container) ->
     # default options
-    @container = @options.container
     @markersContainer = @container.find(".#{Planit.markerContainerClass}")
     @image = @container.find('img').first()
     @zoomId = Planit.randomString()
     @markersContainer.attr('data-zoom-id', @zoomId)
     # set initial background coordinates
     @imagePosition =
-      leftPx:         0
-      topPx:          0
-      width:          @image.width()
-      height:         @image.height()
-      scale:          1
-      increment: 0.5
+      leftPx:         parseFloat(@image.css('left'))
+      topPx:          parseFloat(@image.css('top'))
+      width:          @containerWidth()
+      height:         @containerHeight()
+      scale:          @image.width() / @containerWidth()
+      increment:      0.5
     @setBackground()
 
   # this only gets run if the user specifies zoomable --
   # otherwise we at least have the class initialized
   #
-  new: =>
+  init: =>
     # draw the controls dinkus
     @container.prepend """
       <div class="planit-controls">
@@ -95,6 +94,7 @@ class Planit.Plan.Zoomable
         top = (@imgHeight() * ($(marker).attr('data-yPc') / 100)) +
           @imagePosition.topPx - ($(marker).outerHeight() / 2)
         do (m) ->
+          console.log left
           $(marker).animate
             left: "#{left}px"
             top: "#{top}px"
@@ -154,9 +154,6 @@ class Planit.Plan.Zoomable
   imgWidth: =>
     parseFloat(@imagePosition.width * @imagePosition.scale)
 
-  tmpImgWidth: =>
-    (1 + @imagePosition.increment) * @imagePosition.width()
-
   imgWidthClickIncrement: =>
     parseFloat(@imagePosition.width * @imagePosition.increment)
 
@@ -175,9 +172,6 @@ class Planit.Plan.Zoomable
 
   imgHeight: =>
     parseFloat(@imagePosition.height * @imagePosition.scale)
-
-  tmpImgHeight: =>
-    (1 + @imagePosition.increment) * @imagePosition.height()
 
   imgHeightClickIncrement: =>
     parseFloat(@imagePosition.height * @imagePosition.increment)
