@@ -4,9 +4,12 @@ class Planit
 
   @containerClass:        'planit-container'
   @markerContainerClass:  'planit-markers-container'
-  @markerClass:           'planit-marker'
   @markerContentClass:    'planit-marker-content'
+  @markerClass:           'planit-marker'
+  @draggingClass:         'is-dragging'
   @infoboxContainerClass: 'planit-infobox-container'
+  @infoboxClass:          'planit-infobox'
+  @imageContainer:        'planit-image-container'
 
   # ------------------------------------------ Default Options
 
@@ -18,7 +21,7 @@ class Planit
       @options.container = $('#planit')
 
     # Initialize Container
-    @options.container.addClass('planit-container')
+    @options.container.addClass(Planit.containerClass)
     @options.container.append """
       <div class="#{Planit.infoboxContainerClass}"></div>
       <div class="#{Planit.markerContainerClass}"></div>
@@ -31,7 +34,7 @@ class Planit
     # Add image and zoom (if necessary)
     if @options.image && @options.image.url
       @container.prepend """
-        <div class="image-container">
+        <div class="#{Planit.imageContainer}">
           <img src="#{@options.image.url}">
         </div>
       """
@@ -59,7 +62,6 @@ class Planit
     if imgHeight > 0 && img.width() > 0
       @container.css
         height: imgHeight
-      # img.remove()
       @zoomable = new Planit.Plan.Zoomable
         container: @container
       if @options.image.zoom
@@ -101,13 +103,11 @@ class Planit
     @zoomable.zoomTo(level)
 
   resize: (e) =>
-    # @zoomTo(0)
-    # console.log @zoomable.imagePosition
-    image = @container.find('.image-container > img').first()
+    image = @container.find(".#{Planit.imageContainer} > img").first()
     @zoomable.resetImage()
     if image
       @container.height(image.height())
-    for marker in @markersContainer.find('.planit-marker')
+    for marker in @markersContainer.find(".#{Planit.markerClass}")
       m = new Planit.Marker(@container, $(marker).attr('data-marker'))
       m.set()
 

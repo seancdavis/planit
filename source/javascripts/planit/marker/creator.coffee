@@ -14,7 +14,7 @@ class Planit.Marker.Creator
     top = ((parseFloat(@options.coords[1]) / 100) * @container.height()) - 15
     @markersContainer.append(
       $('<div></div>')
-        .addClass('planit-marker')
+        .addClass(Planit.markerClass)
         .attr
           'data-marker': @options.planitID
           'data-xPc': @options.coords[0]
@@ -24,7 +24,7 @@ class Planit.Marker.Creator
           top: "#{top}px"
           backgroundColor: color
     )
-    marker = @markersContainer.find('.planit-marker').last()
+    marker = @markersContainer.find(".#{Planit.markerClass}").last()
     if @options.id
       marker.attr('data-id': @options.id)
     if @options.class

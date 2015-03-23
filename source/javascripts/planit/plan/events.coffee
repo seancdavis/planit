@@ -7,8 +7,8 @@ class Planit.Plan.Events
     # default options
     @container = @options.container
     @markersContainer = @container.find(".#{Planit.markerContainerClass}")
-    if @container.find('.image-container > img').length > 0
-      @image = @container.find('.image-container > img').first()
+    if @container.find(".#{Planit.imageContainer} > img").length > 0
+      @image = @container.find(".#{Planit.imageContainer} > img").first()
 
     # bind draggable events
     $(document).on('mousemove', @mousemove)
@@ -17,10 +17,10 @@ class Planit.Plan.Events
   # ------------------------------------------ Refs
 
   markers: =>
-    @markersContainer.find('.planit-marker')
+    @markersContainer.find(".#{Planit.markerClass}")
 
   draggingMarker: =>
-    @markersContainer.find('.planit-marker.is-dragging')
+    @markersContainer.find(".#{Planit.markerClass}.#{Planit.draggingClass}")
 
   getEventPosition: (e) =>
     # container dimensions
@@ -50,13 +50,13 @@ class Planit.Plan.Events
 
   mouseup: (e) =>
     # dealing with markers, esp. dragging markers
-    marker = @markersContainer.find('.is-dragging').first()
+    marker = @markersContainer.find(".#{Planit.draggingClass}").first()
     if @draggingMarker().length > 0
       m = new Planit.Marker(@container, marker.attr('data-marker'))
       @options.planit.markerDragEnd(e, m)
       m.savePosition()
       m.positionInfobox()
-      @draggingMarker().removeClass('is-dragging')
+      @draggingMarker().removeClass(Planit.draggingClass)
     # if click is on the container
     if $(e.target).hasClass(Planit.markerContainerClass)
       @options.planit.canvasClick(e, @getEventPosition(e))
@@ -74,7 +74,7 @@ class Planit.Plan.Events
     true
 
   mousemove: (e) =>
-    markers = @markersContainer.find('.planit-marker.is-dragging')
+    markers = @markersContainer.find(".#{Planit.markerClass}.#{Planit.draggingClass}")
 
     if markers.length > 0
 

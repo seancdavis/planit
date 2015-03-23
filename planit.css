@@ -13,7 +13,7 @@
     user-select: none;
 }
 
-.planit-container .image-container {
+.planit-container .planit-image-container {
     position: absolute;
     top: 0;
     left: 0;
@@ -22,7 +22,7 @@
     overflow: hidden;
 }
 
-.planit-container .image-container img {
+.planit-container .planit-image-container img {
     position: absolute;
     top: 0;
     left: 0;

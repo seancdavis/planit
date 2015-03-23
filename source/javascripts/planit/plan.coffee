@@ -9,7 +9,7 @@ class Planit.Plan
 
   getAllMarkers: () =>
     markers = []
-    for marker in @markersContainer.find('.planit-marker')
+    for marker in @markersContainer.find(".#{Planit.markerClass}")
       m = new Planit.Marker(@container, $(marker).attr('data-marker'))
       marker =
         # coords: [m.position().left, m.position().top]

@@ -4,8 +4,8 @@ class Planit.Marker
 
     # Set Options
     @markersContainer = @container.find(".#{Planit.markerContainerClass}")
-    if @container.find('.image-container > img').length > 0
-      @image = @container.find('.image-container > img').first()
+    if @container.find(".#{Planit.imageContainer} > img").length > 0
+      @image = @container.find(".#{Planit.imageContainer} > img").first()
 
     # Find Marker
     @marker = @markersContainer.find(
@@ -162,7 +162,7 @@ class Planit.Marker
     if options.color
       @marker.css(backgroundColor: options.color)
     if options.infobox
-      @marker.find('.planit-infobox').html(options.infobox)
+      @marker.find(".#{Planit.infoboxClass}").html(options.infobox)
       @positionInfobox()
     if options.draggable
       @marker.removeClass('draggable')

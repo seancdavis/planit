@@ -72,7 +72,7 @@ class Planit.Plan.Zoomable
     @animateMarkers()
 
   setMarkers: =>
-    markers = @container.find('div.planit-marker')
+    markers = @container.find(".#{Planit.markerClass}")
     if markers.length > 0
       for marker in markers
         left = (@imgWidth() * ($(marker).attr('data-xPc') / 100)) +
@@ -85,7 +85,7 @@ class Planit.Plan.Zoomable
       @positionInfoboxes()
 
   animateMarkers: =>
-    markers = @container.find('div.planit-marker')
+    markers = @container.find(".#{Planit.markerClass}")
     if markers.length > 0
       for marker in markers
         m = new Planit.Marker(@container, $(marker).attr('data-marker'))
@@ -103,13 +103,13 @@ class Planit.Plan.Zoomable
             m.unhideInfobox()
 
   positionInfoboxes: =>
-    for marker in @container.find('.planit-marker')
+    for marker in @container.find(".#{Planit.markerClass}")
       m = new Planit.Marker(@container, $(marker).attr('data-marker'))
       m.positionInfobox()
     true
 
   animateInfoboxes: =>
-    for marker in @container.find('.planit-marker')
+    for marker in @container.find(".#{Planit.markerClass}")
       m = new Planit.Marker(@container, $(marker).attr('data-marker'))
       m.animateInfobox()
     true
@@ -121,7 +121,7 @@ class Planit.Plan.Zoomable
     hMin = 50 * (@containerHeight() / y)
     # hides other active infoboxes, but will still show
     # this infobox
-    @container.find('.planit-infobox').removeClass('active')
+    @container.find(".#{Planit.infoboxClass}").removeClass('active')
     # Get our initial position
     @imagePosition.leftPx = - (
       (@imgWidth() * (coords[0] / 100)) - (@containerWidth() / 2)

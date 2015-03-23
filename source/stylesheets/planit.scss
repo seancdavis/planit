@@ -20,7 +20,7 @@ $marker-background: #FC5B3F;
   margin: 25px auto;
   background: $container-background;
   @include no-select;
-  .image-container {
+  .planit-image-container {
     position: absolute;
     top: 0;
     left: 0;
