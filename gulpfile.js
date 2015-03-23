@@ -16,14 +16,17 @@ var cssmin = require('gulp-cssmin');
 // Coffee
 gulp.task('coffee', function() {
   return gulp.src([
+    // Planit
     'source/javascripts/planit.coffee',
+    // Plan
     'source/javascripts/planit/plan.coffee',
-    'source/javascripts/planit/plan/events.coffee',
+    'source/javascripts/planit/plan/init.coffee',
     'source/javascripts/planit/plan/zoomable.coffee',
-    'source/javascripts/planit/plan/creator.coffee',
+    'source/javascripts/planit/plan/events.coffee',
+    // Marker
     'source/javascripts/planit/marker.coffee',
-    'source/javascripts/planit/marker/events.coffee',
-    'source/javascripts/planit/marker/creator.coffee'
+    // Init
+    'source/javascripts/planit/init.coffee'
   ])
     .pipe(concat('planit-tmp.coffee'))
     .pipe(sourcemaps.init())

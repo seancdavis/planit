@@ -1,3 +1,16 @@
+class Planit.Plan.Events
+
+  # ------------------------------------------ Setup
+
+  constructor: (@options) ->
+    @container = @options.container
+    @markersContainer = @container.find(".#{Planit.markerContainerClass}")
+    if @container.find(".#{Planit.imageContainer} > img").length > 0
+      @image = @container.find(".#{Planit.imageContainer} > img").first()
+
+    # bind draggable events
+    $(document).on('mousemove', @mousemove)
+    $(document).on('mouseup', @mouseup)
 
   # ------------------------------------------ Refs
 

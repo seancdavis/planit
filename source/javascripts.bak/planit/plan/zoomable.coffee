@@ -1,9 +1,46 @@
+class Planit.Plan.Zoomable
 
-  # ======================================================== Setting Image
+  # ------------------------------------------ Setup
 
-  # Zooma the image out all the way and sets the markers
-  # appropriately
+  constructor: (@container) ->
+    # default options
+    @markersContainer = @container.find(".#{Planit.markerContainerClass}")
+    @image = @container.find('img').first()
+    @zoomId = Planit.randomString()
+    @markersContainer.attr('data-zoom-id', @zoomId)
+    # set initial background coordinates
+    @imagePosition =
+      leftPx:         parseFloat(@image.css('left'))
+      topPx:          parseFloat(@image.css('top'))
+      width:          @containerWidth()
+      height:         @containerHeight()
+      scale:          @image.width() / @containerWidth()
+      increment:      0.5
+    @setBackground()
+
+  # this only gets run if the user specifies zoomable --
+  # otherwise we at least have the class initialized
   #
+  init: =>
+    # draw the controls dinkus
+    @container.prepend """
+      <div class="planit-controls">
+        <a href="#" class="zoom" data-action="in">+</a>
+        <a href="#" class="zoom" data-action="out">-</a>
+      </div>
+    """
+    @container.find(".zoom[data-action='in']").click (e) =>
+      e.preventDefault()
+      @zoomIn()
+    @container.find(".zoom[data-action='out']").click (e) =>
+      e.preventDefault()
+      @zoomOut()
+    # bind draggable events
+    @container.on('dblclick', @dblclick)
+    @container.on('mousedown', @mousedown)
+    $(document).on('mousemove', @mousemove)
+    $(document).on('mouseup', @mouseup)
+
   resetImage: =>
     @imagePosition =
       leftPx:         0
@@ -11,39 +48,29 @@
       width:          @image.width()
       height:         @image.height()
       scale:          1
-      increment:      0.5
-    setBackground.call(@)
+      increment: 0.5
+    @setBackground()
 
-  # (private) Moves the background and markers without
-  # animation to the location set by the imagePosition
-  # property
-  #
-  setBackground = ->
+  # ------------------------------------------ Actions
+
+  setBackground: =>
     @image.css
       left: "#{@imagePosition.leftPx}px"
       top: "#{@imagePosition.topPx}px"
       width: "#{@imagePosition.scale * 100.0}%"
       height: 'auto'
-    setMarkers.call(@)
+    @setMarkers()
 
-  # (private) Equivalent to setBackground, but with
-  # animation
-  #
-  animateBackground = ->
+  animateBackground: =>
     @image.animate
       left: "#{@imagePosition.leftPx}px"
       top: "#{@imagePosition.topPx}px"
       width: "#{@imagePosition.scale * 100.0}%"
       height: 'auto'
     , 250
-    animateMarkers.call(@)
+    @animateMarkers()
 
-  # ======================================================== Setting Markers
-
-  # (private) Sets markers in correct location, based on
-  # image position
-  #
-  setMarkers = ->
+  setMarkers: =>
     markers = @container.find(".#{Planit.markerClass}")
     if markers.length > 0
       for marker in markers
@@ -54,11 +81,9 @@
         $(marker).css
           left: "#{left}px"
           top: "#{top}px"
-      positionInfoboxes.call(@)
+      @positionInfoboxes()
 
-  # (private) Equivalent to setMarkers, but with animation
-  #
-  animateMarkers = ->
+  animateMarkers: =>
     markers = @container.find(".#{Planit.markerClass}")
     if markers.length > 0
       for marker in markers
@@ -69,6 +94,7 @@
         top = (@imgHeight() * ($(marker).attr('data-yPc') / 100)) +
           @imagePosition.topPx - ($(marker).outerHeight() / 2)
         do (m) ->
+          console.log left
           $(marker).animate
             left: "#{left}px"
             top: "#{top}px"
@@ -76,23 +102,18 @@
             m.positionInfobox()
             m.unhideInfobox()
 
-  # ======================================================== Setting Infoboxes
-
-  # (private) Appropriately position the infobox on every
-  # marker, the logic for which is in the Marker class
-  #
-  positionInfoboxes = ->
+  positionInfoboxes: =>
     for marker in @container.find(".#{Planit.markerClass}")
       m = new Planit.Marker(@container, $(marker).attr('data-marker'))
       m.positionInfobox()
     true
 
-  # ======================================================== Move Actions
+  animateInfoboxes: =>
+    for marker in @container.find(".#{Planit.markerClass}")
+      m = new Planit.Marker(@container, $(marker).attr('data-marker'))
+      m.animateInfobox()
+    true
 
-  # Will center the image on the given coordinates as [x,y]
-  # in floated percentages. Ensures there is enough image on
-  # each side by zooming in if necessary.
-  #
   centerOn: (coords) =>
     if coords[0] >= 50 then x = 100 - coords[0] else x = coords[0]
     if coords[1] >= 50 then y = 100 - coords[1] else y = coords[1]
@@ -118,18 +139,13 @@
       @imagePosition.topPx = - (
         (@imgHeight() * (coords[1] / 100)) - (@containerHeight() / 2)
       )
-    animateBackground.call(@)
-    coords
+    @animateBackground()
 
-  # Zooms the image to a specific "level" which is an
-  # incremented integer starting at zero
-  #
   zoomTo: (level) =>
     i = @imagePosition.increment
     unless ((level * i) + 1) == @imagePosition.scale
       @imagePosition.scale = (level * i) + 1 + i
       @zoomOut()
-    level
 
   # ------------------------------------------ Calculations
 
@@ -221,12 +237,12 @@
         @imagePosition.topPx = @containerHeight() - @imgHeight()
       else if dragTop > @dragCoords.max.bottom
         @imagePosition.topPx = 0
-      setBackground.call(@)
+      @setBackground()
     true
 
   mouseup: (e) =>
     @isDragging = false
-    positionInfoboxes.call(@)
+    @positionInfoboxes()
     true
 
   # ------------------------------------------ Zooming
@@ -235,7 +251,7 @@
     @imagePosition.scale  = @imagePosition.scale + @imagePosition.increment
     @imagePosition.leftPx = - @imgOffsetLeft() - (@imgWidthClickIncrement() / 2)
     @imagePosition.topPx  = - @imgOffsetTop() - (@imgHeightClickIncrement() / 2)
-    animateBackground.call(@)
+    @animateBackground()
 
   zoomOut: () =>
     if @imagePosition.scale > 1
@@ -254,4 +270,4 @@
         @imagePosition.topPx = @containerHeight() - @imgHeight()
       else
         @imagePosition.topPx = topPx
-      animateBackground.call(@)
+      @animateBackground()
