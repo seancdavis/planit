@@ -131,9 +131,7 @@
       @zoomOut()
     level
 
-  # ------------------------------------------ Calculations
-
-  # ---------- Image Width
+  # ======================================================== Calculations
 
   imgWidth: =>
     parseFloat(@imagePosition.width * @imagePosition.scale)
