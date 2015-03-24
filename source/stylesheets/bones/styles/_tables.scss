@@ -1,0 +1,21 @@
+/* Standard Tables
+============================ */
+table {
+  width: $table-default-width;
+  border: $table-default-border;
+  th, td {
+    padding: $table-cell-padding;
+  }
+  thead tr {
+    background: $table-header-background;
+    th {
+      color: $table-header-color;
+      font-weight: $table-header-fontWeight;
+    }
+  }
+  tbody tr {
+    &:nth-child(even) {
+      background: $table-cell-altBackground;
+    }
+  }
+}

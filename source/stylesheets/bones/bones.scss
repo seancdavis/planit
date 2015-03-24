@@ -1,0 +1,68 @@
+/*! Bones CSS Framework | v1.0 | Sean C. Davis | MIT License | git.io/imidoQ */
+
+/*
+ * Welcome to Bones CSS Framework!
+ * 
+ * This is the manifest file for Bones' CSS. It brings all files 
+ * together.
+ *
+ * To add or remove modules, simply comment or uncomment and then 
+ * use Compass to recompile and compress.
+ *
+ * Files are noted as recommended and required where applicable.
+ *
+ * Refer to the ../docs/ directory for more detailed instruction.
+ * 
+ */
+
+/* Vendor
+============================ */
+@import 'vendor/normalize'; // highly recommended for cross-browser consistency
+  
+/* Config
+============================ */
+/*
+ * These are your configuration files. You should always 
+ * load all of these files, as the variable values are
+ * resolved and do not contribute any size to the final
+ * bones.css file.
+ *
+ */
+@import 'config/colors';
+@import 'config/__default';
+@import 'config/wireframe';
+@import 'config/typography';
+@import 'config/buttons';
+@import 'config/forms';
+@import 'config/tables';
+@import 'config/nav';
+@import 'config/images';
+@import 'config/components';
+@import 'config/helpers';
+
+/* Main Styles
+============================ */
+@import 'styles/__default'; // required
+@import 'styles/wireframe';
+@import 'styles/typography';
+// @import 'styles/icons';
+@import 'styles/buttons';
+@import 'styles/forms';
+@import 'styles/tables';
+@import 'styles/nav';
+@import 'styles/images';
+@import 'styles/components';
+
+/* Helpers
+============================ */
+// @import 'styles/helpers/margin';
+// @import 'styles/helpers/padding';
+// @import 'styles/helpers/positioning';
+// @import 'styles/helpers/color';
+// @import 'styles/helpers/background';
+// @import 'styles/helpers/border';
+// @import 'styles/helpers/size';
+
+/* Plugins
+============================ */
+// @import 'styles/plugins/syntax_highlighting';

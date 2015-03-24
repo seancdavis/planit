@@ -1,0 +1,227 @@
+/* Headings
+============================ */
+@mixin heading($size) {
+  font-size: $size;
+  margin: $type-heading-margin;
+  color: $type-heading-color;
+  font-weight: $type-heading-fontWeight;
+  text-transform: $type-heading-textTransform;
+}
+
+h1 {
+  @include heading($type-h1-fontSize);
+}
+
+h2 {
+  @include heading($type-h2-fontSize);
+}
+
+h3 {
+  @include heading($type-h3-fontSize);
+}
+
+h4 {
+  @include heading($type-h4-fontSize);
+}
+
+h5 {
+  @include heading($type-h5-fontSize);
+}
+
+h6 {
+  @include heading($type-h6-fontSize);
+}
+
+/* Subheadings
+============================ */
+@mixin subheading($size) {
+  font-size: $size * $type-subheading-sizeFactor;
+  font-weight: $type-subheading-fontWeight;
+  color: $type-subheading-color;
+}
+
+h1.subheading {
+  @include subheading($type-h1-fontSize);
+}
+
+h2.subheading {
+  @include subheading($type-h2-fontSize);
+}
+
+h3.subheading {
+  @include subheading($type-h3-fontSize);
+}
+
+h4.subheading {
+  @include subheading($type-h4-fontSize);
+}
+
+h5.subheading {
+  @include subheading($type-h5-fontSize);
+}
+
+h6.subheading {
+  @include subheading($type-h6-fontSize);
+}
+
+/* Block-Level Elements
+============================ */
+p {
+  font-weight: $type-paragraph-fontWeight;
+  margin: $type-paragraph-margin;
+  line-height: $type-paragraph-lineHeight;
+  color: $type-paragraph-color;
+}
+
+blockquote {
+  padding: $type-blockquote-padding;
+  margin: $type-blockquote-margin;
+  background: $type-blockquote-background;
+  border-left: $type-blockquote-borderLeft;
+  font-size: $type-blockquote-fontSize;
+  code {
+    border: none;
+    background: transparent;
+    font-size: $type-blockquote-fontSize;
+  }
+}
+
+pre {
+  margin: $type-codeBlock-margin;
+  padding: $type-codeBlock-padding;
+  font-family: $type-codeBlock-fontFamily;
+  background: $type-codeBlock-background;
+  color: $type-codeBlock-color;
+  @include border($type-codeBlock-border);
+  font-size: $type-codeBlock-fontSize;
+  line-height: $type-codeBlock-lineHeight;
+  display: block;
+  white-space: pre;
+  overflow: auto;
+  code {
+    color: $type-codeBlock-color;
+    background: transparent;
+    padding: 0;
+    border: none;
+  }
+  span {
+    font-family: $type-codeBlock-fontFamily;
+    font-size: $type-codeBlock-fontSize;
+  }
+}
+
+/* Inline Elements
+============================ */
+a {
+  color: $type-link-color;
+  @if $type-link-underline == true {
+    text-decoration: underline;
+  }
+  @else {
+    text-decoration: none;
+  }
+  &:hover {
+    color: $type-link-color-hover;
+    @if $type-link-underline-hover == true {
+      text-decoration: underline;
+    }
+    @else {
+      text-decoration: none;
+    }
+  }
+}
+
+code {
+  font-family: $type-code-font-family;
+  color: $type-code-color;
+  font-size: $type-code-fontSize;
+  background: $type-code-background;
+  padding: $type-code-padding;
+  @include border($type-code-border)
+}
+
+small {
+  font-size: $type-small-fontFactor;
+}
+
+big {
+  font-size: $type-big-fontFactor;
+}
+
+em {
+  font-style: italic;
+}
+
+strong {
+  font-weight: $type-strong-fontWeight;
+}
+
+/* Lists
+============================ */
+@mixin unordered-list($list-type) {
+  list-style-type: $list-type;
+  ul, ul ul {
+    list-style-type: $list-type;
+  }
+}
+
+ul {
+  margin-left: $type-ul-marginLeft-1;
+  list-style-type: $type-ul-styleType;
+  ul, ul ul {
+    margin-left: $type-ul-marginLeft-2;
+  }
+  li {
+    line-height: $type-ul-lineHeight;
+  }
+}
+
+ol {
+  margin: 0;
+  margin-left: $type-ol-marginLeft-1;
+  ol, ol ol {
+    margin-left: $type-ol-marginLeft-2;
+  }
+  li {
+    line-height: $type-ol-lineHeight;
+  }
+}
+
+ul.disc {
+  @include unordered-list(disc);
+}
+
+ul.circle {
+  @include unordered-list(circle);
+}
+
+ul.square {
+  @include unordered-list(square);
+}
+
+ul.no-bullet {
+  @include unordered-list(none);
+  margin-left: $type-ul-marginLeft-1 - 20px;
+  ul, ul ul {
+    margin-left: $type-ul-marginLeft-2 - 20px;
+  }
+}
+
+ul.horizontal {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  li {
+    display: inline-block;
+    padding: 0 1em;
+  }
+}
+
+/* Horizontal Rule
+============================ */
+hr {
+  border: none;
+  background: $type-hr-color;
+  margin: $type-hr-margin;
+  height: $type-hr-height;
+}

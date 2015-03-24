@@ -1,0 +1,93 @@
+/* Color Palette
+============================ */
+$color-1: #178141;
+$color-2: #F2FFF7;
+$color-3: #B6E3C1;
+$color-4: #E8DDCE;
+$color-5: #EDB2A6;
+$color-dark: #444444; // designed to be a dark color
+$color-light: #efefef; // designed to be a light color
+
+// used primarily for notifications:
+$color-warning: #CCA300;
+$color-danger: #CC0000;
+$color-success: #008A2E;
+
+/* Tones
+============================ */
+// color factors -- to increase tone
+$color-factor-1: 5%;
+$color-factor-2: 15%;
+$color-factor-3: 25%;
+
+/*
+ * These tone calculations are performed automatically.
+ * They provide you with a light, lighter, lightest, 
+ * dark, darker, darkest variations of your palette.
+ *
+ * You don't need to change anything below, but can
+ * if you'd like, or you can add new variations.
+ */
+$color-1-light:     lighten($color-1, $color-factor-1);
+$color-1-lighter:   lighten($color-1, $color-factor-2);
+$color-1-lightest:  lighten($color-1, $color-factor-3);
+$color-1-dark:      darken($color-1, $color-factor-1);
+$color-1-darker:    darken($color-1, $color-factor-2);
+$color-1-darkest:   darken($color-1, $color-factor-3);
+
+$color-2-light:     lighten($color-2, $color-factor-1);
+$color-2-lighter:   lighten($color-2, $color-factor-2);
+$color-2-lightest:  lighten($color-2, $color-factor-3);
+$color-2-dark:      darken($color-2, $color-factor-1);
+$color-2-darker:    darken($color-2, $color-factor-2);
+$color-2-darkest:   darken($color-2, $color-factor-3);
+
+$color-3-light:     lighten($color-3, $color-factor-1);
+$color-3-lighter:   lighten($color-3, $color-factor-2);
+$color-3-lightest:  lighten($color-3, $color-factor-3);
+$color-3-dark:      darken($color-3, $color-factor-1);
+$color-3-darker:    darken($color-3, $color-factor-2);
+$color-3-darkest:   darken($color-3, $color-factor-3);
+
+$color-4-light:     lighten($color-4, $color-factor-1);
+$color-4-lighter:   lighten($color-4, $color-factor-2);
+$color-4-lightest:  lighten($color-4, $color-factor-3);
+$color-4-dark:      darken($color-4, $color-factor-1);
+$color-4-darker:    darken($color-4, $color-factor-2);
+$color-4-darkest:   darken($color-4, $color-factor-3);
+
+$color-5-light:     lighten($color-5, $color-factor-1);
+$color-5-lighter:   lighten($color-5, $color-factor-2);
+$color-5-lightest:  lighten($color-5, $color-factor-3);
+$color-5-dark:      darken($color-5, $color-factor-1);
+$color-5-darker:    darken($color-5, $color-factor-2);
+$color-5-darkest:   darken($color-5, $color-factor-3);
+
+$color-dark-light:     lighten($color-dark, $color-factor-1);
+$color-dark-lighter:   lighten($color-dark, $color-factor-2);
+$color-dark-lightest:  lighten($color-dark, $color-factor-3);
+
+$color-light-dark:      darken($color-light, $color-factor-1);
+$color-light-darker:    darken($color-light, $color-factor-2);
+$color-light-darkest:   darken($color-light, $color-factor-3);
+
+$color-success-light:     lighten($color-success, $color-factor-1);
+$color-success-lighter:   lighten($color-success, $color-factor-2);
+$color-success-lightest:  lighten($color-success, $color-factor-3);
+$color-success-dark:      darken($color-success, $color-factor-1);
+$color-success-darker:    darken($color-success, $color-factor-2);
+$color-success-darkest:   darken($color-success, $color-factor-3);
+
+$color-warning-light:     lighten($color-warning, $color-factor-1);
+$color-warning-lighter:   lighten($color-warning, $color-factor-2);
+$color-warning-lightest:  lighten($color-warning, $color-factor-3);
+$color-warning-dark:      darken($color-warning, $color-factor-1);
+$color-warning-darker:    darken($color-warning, $color-factor-2);
+$color-warning-darkest:   darken($color-warning, $color-factor-3);
+
+$color-danger-light:     lighten($color-danger, $color-factor-1);
+$color-danger-lighter:   lighten($color-danger, $color-factor-2);
+$color-danger-lightest:  lighten($color-danger, $color-factor-3);
+$color-danger-dark:      darken($color-danger, $color-factor-1);
+$color-danger-darker:    darken($color-danger, $color-factor-2);
+$color-danger-darkest:   darken($color-danger, $color-factor-3);

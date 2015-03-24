@@ -1,0 +1,69 @@
+/* Sizes
+============================ */
+img {
+  margin: 0;
+  padding: 0;
+  height: auto;
+  &.thumb {
+    width: $img-thumb-width;
+  }
+  &.medium {
+    width: $img-medium-width;
+  }
+  &.large {
+    width: $img-large-width;
+  }
+}
+
+/* Styles
+============================ */
+img {
+  &.frame {
+    border: $img-frame-width solid $img-frame-color;
+    outline: $img-frame-outline;
+  }
+  &.polaroid {
+    border: $img-polaroid-frameWidth solid $img-polaroid-frameColor;
+    outline: $img-polaroid-outline;
+    border-bottom-width: $img-polaroid-bottomHeight;
+  }
+  &.center {
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+  }
+}
+
+div.panoramic {
+  width: 100%;
+  height: $img-panoramic-height;
+  overflow: hidden;
+  box-sizing: border-box;
+  position: relative;
+  img {
+    width: 100%;
+    position: absolute;
+    top: $img-panoramic-top;
+  }
+}
+
+@mixin img-circle($width) {
+  width: $width;
+  height: $width;
+  img {
+    width: $width;
+    height: $width;
+  }
+}
+
+div.circle {
+  border-radius: 50%;
+  overflow: hidden;
+  @include img-circle($img-thumb-width);
+  &.medium {
+    @include img-circle($img-medium-width);
+  }
+  &.large {
+    @include img-circle($img-large-width);
+  }
+}

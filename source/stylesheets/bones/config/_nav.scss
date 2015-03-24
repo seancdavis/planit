@@ -1,0 +1,117 @@
+/* Default Nav Menu
+============================ */
+// container
+$nav-default-background: transparent; // background of entire bar
+// basic styles
+$nav-default-padding: 0.35em 0;
+$nav-default-margin: 0 1.25em;
+$nav-default-fontSize: 1.1em;
+// effects
+$nav-default-background: transparent;
+$nav-default-color: $color-light-darkest;
+$nav-default-transition: all 0.35s linear; // keep set to "all" if you want all styles/effects to transition
+$nav-default-underline: 2px solid transparent; // stylish substitute for underline -- a "border-bottom" style, NOT "text-decoration"
+// hover state
+$nav-default-background-hover: transparent;
+$nav-default-color-hover: $color-1;
+$nav-default-transition-hover: $nav-default-transition;
+$nav-default-underline-hover: 2px solid $color-1;
+
+
+/* Navbar
+============================ */
+// container
+$nav-bar-container-background: $color-1;
+// basic styles
+$nav-bar-padding: 0.35em 1.25em;
+$nav-bar-margin: 0;
+$nav-bar-fontSize: 1.1em;
+// effects
+$nav-bar-background: transparent;
+$nav-bar-color: $color-light-dark;
+$nav-bar-transition: all 0.35s linear;
+$nav-bar-underline: none;
+// hover state
+$nav-bar-background-hover: $color-1-lighter;
+$nav-bar-color-hover: $nav-bar-color;
+$nav-bar-transition-hover: $nav-bar-transition;
+$nav-bar-underline-hover: none;
+
+
+/* Vertical Nav
+============================ */
+// container
+$nav-vertical-container-background: transparent;
+// basic styles
+$nav-vertical-padding: 0.35em 1.25em;
+$nav-vertical-margin: 0;
+$nav-vertical-fontSize: 1.1em;
+// effects
+$nav-vertical-background: transparent;
+$nav-vertical-color: $color-light-darker;
+$nav-vertical-transition: all 0.35s linear;
+$nav-vertical-underline: none;
+// hover state
+$nav-vertical-background-hover: transparent;
+$nav-vertical-color-hover: $color-1;
+$nav-vertical-transition-hover: $nav-vertical-transition;
+$nav-vertical-underline-hover: none;
+
+
+/* Filters
+============================ */
+// container
+$nav-filter-container-background: transparent;
+// basic styles
+$nav-filter-padding: 0.5em;
+$nav-filter-margin: 0 0.5em;
+$nav-filter-fontSize: 0.9em;
+// effects
+$nav-filter-background: transparent;
+$nav-filter-color: $color-1;
+$nav-filter-transition: all 0.35s linear;
+$nav-filter-underline: none;
+// hover state
+$nav-filter-background-hover: $color-1;
+$nav-filter-color-hover: $color-light;
+$nav-filter-transition-hover: $nav-filter-transition;
+$nav-filter-underline-hover: none;
+// active state
+$nav-filter-font-weight-active: 600;
+$nav-filter-background-active: transparent;
+$nav-filter-color-active: $color-1;
+$nav-filter-underline-active: none;
+// disabled state
+$nav-filter-background-disabled: transparent;
+$nav-filter-color-disabled: $color-light-dark;
+$nav-filter-underline-disabled: none;
+
+
+/* Breadcrumbs
+============================ */
+// container
+$nav-breadcrumbs-container-background: transparent;
+// basic styles
+$nav-breadcrumbs-padding: 0.5em;
+$nav-breadcrumbs-margin: 0 0.5em;
+$nav-breadcrumbs-fontSize: 0.9em;
+$nav-breadcrumbs-separator: " \002F ";
+// effects
+$nav-breadcrumbs-background: transparent;
+$nav-breadcrumbs-color: $color-light-darkest;
+$nav-breadcrumbs-transition: all 0.35s linear;
+$nav-breadcrumbs-underline: none;
+// hover state
+$nav-breadcrumbs-background-hover: transparent;
+$nav-breadcrumbs-color-hover: $color-1;
+$nav-breadcrumbs-transition-hover: $nav-breadcrumbs-transition;
+$nav-breadcrumbs-underline-hover: none;
+// active state
+$nav-breadcrumbs-font-weight-active: 600;
+$nav-breadcrumbs-background-active: transparent;
+$nav-breadcrumbs-color-active: $color-1;
+$nav-breadcrumbs-underline-active: none;
+// disabled state
+$nav-breadcrumbs-background-disabled: transparent;
+$nav-breadcrumbs-color-disabled: $color-light-dark;
+$nav-breadcrumbs-underline-disabled: none;

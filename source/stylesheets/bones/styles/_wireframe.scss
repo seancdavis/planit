@@ -1,0 +1,57 @@
+/* Containers
+============================ */
+@mixin container() {
+  clear: both;
+  display: block;
+}
+
+html, body {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+div {
+  box-sizing: border-box;
+}
+
+.container {
+  max-width: $wireframe-container-width;
+  margin: $wireframe-container-margin;
+  padding: $wireframe-container-padding;
+  @include container;
+}
+
+/* Content
+============================ */
+.content {
+  width: 100%;
+  @include container;
+}
+
+/* Grid
+============================ */
+.row {
+  @include clearfix;
+  width: 100%;
+  position: relative;
+}
+
+/*
+ * This loop enables us to adjust to any value as the base
+ * number of columns.
+ *
+ */
+@for $i from 1 through $wireframe-grid-numberOfCols {
+  .column-#{$i} {
+    $col-width: percentage( (100 / $wireframe-grid-numberOfCols) / 100 );
+    width: ($col-width * $i) - (2 $wireframe-column-marginLeftRight);
+    display: inline-block;
+    float: left;
+    height: 100%;
+    margin: $wireframe-column-marginTopBottom $wireframe-column-marginLeftRight;
+    padding: $wireframe-column-paddingTopBottom $wireframe-column-paddingLeftRight;
+  }
+}

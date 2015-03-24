@@ -1,0 +1,25 @@
+/* Notifications
+============================ */
+@mixin notification($bg) {
+  width: 100%;
+  box-sizing: border-box;
+  padding: $component-notification-padding;
+  margin: $component-notification-margin;  
+  background: $bg;
+  color: $color-light;
+}
+
+p, div {
+  &.notification, &.notice, &.alert {
+    @include notification($color-1);
+  }
+  &.danger {
+    @include notification($color-danger);
+  }
+  &.warning {
+    @include notification($color-warning);
+  }
+  &.success {
+    @include notification($color-success);
+  }
+}

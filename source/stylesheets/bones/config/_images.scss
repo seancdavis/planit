@@ -1,0 +1,23 @@
+/* Sizes
+============================ */
+// thumb
+$img-thumb-width: 150px;
+// medium
+$img-medium-width: 250px;
+// large
+$img-large-width: 400px;
+
+/* Styles
+============================ */
+// frame
+$img-frame-width: 0.5em;
+$img-frame-outline: 1px solid $color-light-dark;
+$img-frame-color: white;
+// polaroid
+$img-polaroid-frameWidth: 0.75em;
+$img-polaroid-frameColor: white;
+$img-polaroid-bottomHeight: 2.75em;
+$img-polaroid-outline: 1px solid $color-light-dark;
+// panoramic
+$img-panoramic-height: 200px;
+$img-panoramic-top: -40%;

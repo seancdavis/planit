@@ -1,0 +1,27 @@
+@mixin clearfix() {
+  display: inline-block;  
+  &:after {
+    content: ".";
+    display: block;
+    clear: both;
+    visibility: hidden;
+    line-height: 0;
+    height: 0;
+ }
+}
+
+@mixin border($color: $color-light-dark, $weight: 1px, $style: solid) {
+  border: $weight $style $color;
+}
+
+* {
+  font-family: $default-fontFamily;
+  font-size: $default-fontSize;
+  font-weight: $default-fontWeight;
+  color: $default-color;
+  line-height: $default-lineHeight;
+}
+
+.clearfix {
+  @include clearfix();
+}

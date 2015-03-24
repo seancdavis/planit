@@ -1,0 +1,69 @@
+@mixin form-global() {
+  display: block;
+  margin: $form-input-margin;
+  width: $form-input-width;
+  box-sizing: $form-input-boxSizing;
+  border: $form-input-border;
+  &:focus {
+    outline: $form-input-outline-focus;
+    border: $form-input-border-focus;
+  }
+}
+
+@mixin form-input() {
+  padding: $form-input-padding;
+}
+
+form {
+  input[type=text] {
+    @include form-global();
+    @include form-input();
+  }
+  input[type=email] {
+    @include form-global();
+    @include form-input();
+  }
+  input[type=password] {
+    @include form-global();
+    @include form-input();
+  }
+  input[type=search] {
+    @include form-global();
+    @include form-input();
+  }
+  input[type=url] {
+    @include form-global();
+    @include form-input();
+  }
+  textarea {
+    @include form-global();
+    @include form-input();
+    height: 350px;
+  }
+  select {
+    @include form-global();
+  }
+  input[type=radio], input[type=checkbox] {
+    @include form-global();
+    display: inline;
+    width: auto;
+    margin: $form-radio-margin;
+  }
+  label {
+    display: block;
+  }
+  label.inline {
+    display: inline;
+  }
+  label.boolean {
+    display: inline;
+    margin-left: 5px;
+  }
+  fieldset {
+    border: $form-fieldset-border;
+    legend {
+      font-weight: $form-legend-fontWeight;
+      padding: $form-legend-padding;
+    }
+  }
+}

@@ -1,0 +1,12 @@
+/* Standard Tables
+============================ */
+// default
+$table-default-width: 100%;
+$table-default-border: 1px solid $color-light-darker;
+// headers
+$table-header-background: $color-1;
+$table-header-color: $color-light;
+$table-header-fontWeight: 400;
+// cells
+$table-cell-padding: 5px 10px;
+$table-cell-altBackground: $color-light; // each even row will have this background

@@ -1,0 +1,18 @@
+/* Containers
+============================ */
+$wireframe-container-width: 1200px; // maximum container width -- container will shrink as needed
+$wireframe-container-margin: 0 auto;
+$wireframe-container-padding: 20px;
+
+/* Content
+============================ */
+$wireframe-content-margin: $wireframe-container-margin;
+$wireframe-content-padding: $wireframe-container-padding;
+
+/* Grid
+============================ */
+$wireframe-grid-numberOfCols: 12; // number of columns as base of building grid -- any number is permitted
+$wireframe-column-marginLeftRight: 0.5%; // margin on each column -- must be one percentage
+$wireframe-column-paddingLeftRight: 0.5%; // padding on each column -- must be one percentage
+$wireframe-column-marginTopBottom: 0.5%; // top/bottom margin on each column
+$wireframe-column-paddingTopBottom: 0.5%; // top/bottom padding on each column

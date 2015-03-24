@@ -1,0 +1,210 @@
+/* Mixins
+============================ */
+@mixin normalize-ul() {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  li {
+    margin: 0;
+    padding: 0;
+  }
+}
+
+@mixin effect($bg, $color, $transition) {
+  background: $bg;
+  color: $color;
+  transition: $transition;
+}
+
+@mixin nav-a(
+  $fontSize: $nav-default-fontSize,
+  $margin: $mav-margin,
+  $padding: $nav-default-padding,
+  $background: $nav-default-background,
+  $color: $nav-default-color,
+  $underline: $nav-default-underline,
+  $transition: $nav-default-transition,
+  $hover-background: $nav-default-background-hover,
+  $hover-color: $nav-default-color-hover,
+  $hover-underline: $nav-default-underline-hover,
+  $hover-transition: $nav-default-transition-hover
+) {
+  font-size: $fontSize;
+  padding: $padding;
+  margin: $margin;
+  @include effect($background, $color, $transition);
+  border-bottom: $underline;
+  &:hover {
+    @include effect($hover-background, $hover-color, $hover-transition);
+    border-bottom: $hover-underline;
+    span, i {
+      @include effect($hover-background, $hover-color, $hover-transition);
+    }
+  }
+  span, i {
+    @include effect($background, $color, $transition)
+  }
+}
+
+/* Default Nav Menu
+============================ */
+nav, div.nav {
+  width: 100%;
+  background: $nav-default-background;
+  overflow: hidden;
+  ul {
+    @include normalize-ul();
+    float: left;
+    &.right {
+      float: right;
+    }
+    li {
+      display: inline-block;
+      a {
+        display: inline-block;
+        @include nav-a(
+          $nav-default-fontSize,
+          $nav-default-margin,
+          $nav-default-padding,
+          $nav-default-background,
+          $nav-default-color, 
+          $nav-default-underline,
+          $nav-default-transition,
+          $nav-default-background-hover,
+          $nav-default-color-hover,
+          $nav-default-underline-hover,
+          $nav-default-transition-hover
+        );
+      }
+    }
+  }
+}
+
+/* Navbar
+============================ */
+nav.bar, div.nav.bar {
+  background: $nav-bar-background;
+  ul {
+    li a {
+      @include nav-a(
+        $nav-bar-fontSize,
+        $nav-bar-margin,
+        $nav-bar-padding,
+        $nav-bar-background,
+        $nav-bar-color, 
+        $nav-bar-underline,
+        $nav-bar-transition,
+        $nav-bar-background-hover,
+        $nav-bar-color-hover,
+        $nav-bar-underline-hover,
+        $nav-bar-transition-hover
+      );
+    }
+  }
+}
+
+/* Vertical / Sidebar
+============================ */
+nav.vertical, div.nav.vertical {
+  background: $nav-vertical-background;
+  ul {
+    li {
+      display: block;
+      a {
+        display: block;
+        @include nav-a(
+          $nav-vertical-fontSize,
+          $nav-vertical-margin,
+          $nav-vertical-padding,
+          $nav-vertical-background,
+          $nav-vertical-color, 
+          $nav-vertical-underline,
+          $nav-vertical-transition,
+          $nav-vertical-background-hover,
+          $nav-vertical-color-hover,
+          $nav-vertical-underline-hover,
+          $nav-vertical-transition-hover
+        );
+      }
+    }
+  }
+}
+
+/* Filters
+============================ */
+ul.filter {
+  @include normalize-ul();
+  li {
+    display: inline-block;
+    a {
+      display: inline-block;
+      @include nav-a(
+        $nav-filter-fontSize,
+        $nav-filter-margin,
+        $nav-filter-padding,
+        $nav-filter-background,
+        $nav-filter-color, 
+        $nav-filter-underline,
+        $nav-filter-transition,
+        $nav-filter-background-hover,
+        $nav-filter-color-hover,
+        $nav-filter-underline-hover,
+        $nav-filter-transition-hover
+      );
+    }
+    &.active a {
+      background:     $nav-filter-background-active;
+      color:          $nav-filter-color-active;
+      font-weight:    $nav-filter-font-weight-active;
+      border-bottom:  $nav-filter-underline-active;
+    }
+    &.disabled a {
+      background:     $nav-filter-background-disabled;
+      color:          $nav-filter-color-disabled;
+      border-bottom:  $nav-filter-underline-disabled;
+    }
+  }
+}
+
+/* Breadcrumbs
+============================ */
+ul.breadcrumbs {
+  @include normalize-ul();
+  li {
+    display: inline-block;
+    a {
+      display: inline-block;
+      @include nav-a(
+        $nav-breadcrumbs-fontSize,
+        $nav-breadcrumbs-margin,
+        $nav-breadcrumbs-padding,
+        $nav-breadcrumbs-background,
+        $nav-breadcrumbs-color, 
+        $nav-breadcrumbs-underline,
+        $nav-breadcrumbs-transition,
+        $nav-breadcrumbs-background-hover,
+        $nav-breadcrumbs-color-hover,
+        $nav-breadcrumbs-underline-hover,
+        $nav-breadcrumbs-transition-hover
+      );
+    }
+    &:after {
+      content: $nav-breadcrumbs-separator;
+      color: $color-light-darker;
+    }
+    &:last-child:after {
+      content: "";
+    }
+    &.active a {
+      background:     $nav-breadcrumbs-background-active;
+      color:          $nav-breadcrumbs-color-active;
+      font-weight:    $nav-breadcrumbs-font-weight-active;
+      border-bottom:  $nav-breadcrumbs-underline-active;
+    }
+    &.disabled a {
+      background:     $nav-breadcrumbs-background-disabled;
+      color:          $nav-breadcrumbs-color-disabled;
+      border-bottom:  $nav-breadcrumbs-underline-disabled;
+    }
+  }
+}

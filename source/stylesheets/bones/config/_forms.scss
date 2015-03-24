@@ -1,0 +1,28 @@
+/* Inputs / Text Fields
+============================ */
+/*
+ * Where it makes sense, these styles are also
+ * applied to textarea elements.
+ *
+ * And although submit buttons are inputs,
+ * their styles are handled in config/_buttons
+ *
+ */
+$form-input-margin: $default-margin;
+$form-input-width: 100%;
+$form-input-boxSizing: border-box;
+$form-input-border: 1px solid $color-light-darker;
+$form-input-outline-focus: none;
+$form-input-border-focus: 1px solid $color-1;
+$form-input-padding: 4px;
+
+/* Radio Buttons
+============================ */
+$form-radio-margin: 0 0 0.5em 0;
+
+/* Fieldsets
+============================ */
+$form-fieldset-border: 1px solid $color-light-darker;
+// fieldset legens
+$form-legend-fontWeight: 600;
+$form-legend-padding: 0 5px;

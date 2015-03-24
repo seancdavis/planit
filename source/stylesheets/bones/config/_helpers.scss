@@ -1,0 +1,31 @@
+/* Border
+============================ */
+$helper-border-width: 1px;
+$helper-border-style: solid;
+
+/* Margin
+============================ */
+$helper-margin-small: 0.25em;
+$helper-margin-medium: 0.5em;
+$helper-margin-large: 0.75em;
+
+/* Padding
+============================ */
+$helper-padding-small: 0.5em;
+$helper-padding-medium: 1em;
+$helper-padding-large: 1.5em;
+
+/* Size
+============================ */
+/*
+ * The helper classes available are looped
+ * by going from 1 to max, where the value
+ * is multiplied by the index.
+ *
+ * The smaller the index and the larger the 
+ * max, the more choices available (but that
+ * makes the bones.css file larger, too).
+ *
+ */
+$helper-size-index: 10;
+$helper-size-max: 100;

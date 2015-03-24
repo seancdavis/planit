@@ -1,0 +1,83 @@
+/* Headings
+============================ */
+// default
+$type-heading-margin: $default-margin;
+$type-heading-color: $default-color;
+$type-heading-textTransform: none;
+$type-heading-fontWeight: 600;
+// individual headings
+$type-h1-fontSize: 2.75em;
+$type-h2-fontSize: 2.4em;
+$type-h3-fontSize: 2.05em;
+$type-h4-fontSize: 1.7em;
+$type-h5-fontSize: 1.35em;
+$type-h6-fontSize: 1.0em;
+
+/* Subheadings
+============================ */
+$type-subheading-color: $color-dark-lightest;
+$type-subheading-fontWeight: 200;
+$type-subheading-sizeFactor: 0.75;
+
+/* Block-Level Elements
+============================ */
+// paragraph
+$type-paragraph-font: $default-fontSize;
+$type-paragraph-fontWeight: $default-fontWeight;
+$type-paragraph-margin: $default-margin;
+$type-paragraph-lineHeight: $default-lineHeight;
+$type-paragraph-color: $default-color;
+// blockquote
+$type-blockquote-padding: 0.25em 0.75em;
+$type-blockquote-margin: $default-margin;
+$type-blockquote-background: $color-light;
+$type-blockquote-borderLeft: 7.5px solid $color-light-dark;
+$type-blockquote-fontSize: $default-fontSize;
+// code block
+$type-codeBlock-margin: 1.25em 0;
+$type-codeBlock-padding: 1.25em 0.75em;
+$type-codeBlock-fontFamily: Consolas, monospace;
+$type-codeBlock-color: $default-color;
+$type-codeBlock-background: $color-light;
+$type-codeBlock-border: $color-light-dark;
+$type-codeBlock-fontSize: 13px;
+$type-codeBlock-lineHeight: 19px;
+
+/* Inline Elements
+============================ */
+// links
+$type-link-color: $color-1;
+$type-link-color-hover: $color-1-darker;
+$type-link-underline: false;
+$type-link-underline-hover: false;
+// code
+$type-code-font-family: Consolas, monospace;
+$type-code-color: $color-2;
+$type-code-fontSize: 12px;
+$type-code-background: $color-light;
+$type-code-padding: 1px 2px;
+$type-code-border: $color-light-dark;
+// small
+$type-small-fontFactor: 60%;
+// big
+$type-big-fontFactor: 140%;
+// strong
+$type-strong-fontWeight: 600;
+
+/* Lists
+============================ */
+// unordered lists
+$type-ul-marginLeft-1: -20px;
+$type-ul-marginLeft-2: 0;
+$type-ul-styleType: disc;
+$type-ul-lineHeight: 1.5;
+// ordered lists
+$type-ol-marginLeft-1: $type-ul-marginLeft-1;
+$type-ol-marginLeft-2: $type-ul-marginLeft-2;
+$type-ol-lineHeight: $type-ul-lineHeight;
+
+/* Horizontal Rule
+============================ */
+$type-hr-color: $color-light-dark;
+$type-hr-height: 1px;
+$type-hr-margin: $default-margin;

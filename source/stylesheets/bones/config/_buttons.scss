@@ -1,0 +1,21 @@
+/* Default Styles
+============================ */
+$button-default-color: $color-light; // default font color
+$button-default-fontSize: $default-fontSize; // default font size
+$button-default-background: $color-dark-lightest; // default button bg
+$button-default-background-hover: $color-1; // default button bg on hover
+$button-default-background-active: $color-1-dark; // bg on click
+/*
+ * Here you can use shorthand where you normally
+ * would with css. for example, you could use
+ * "1px solid #FFF" for border.
+ */
+$button-default-padding: 0.65em 1em;
+$button-default-margin: $default-margin;
+$button-default-border: none;
+
+/* Size Factors
+============================ */
+$button-sizeFactor-huge:   200%; // huge
+$button-sizeFactor-large:  150%; // large
+$button-sizeFactor-small:  75%;  // small
