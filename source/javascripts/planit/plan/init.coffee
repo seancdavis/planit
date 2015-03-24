@@ -111,5 +111,7 @@
   initEvents = ->
     if @container.find(".#{Planit.imageContainer} > img").length > 0
       @image = @container.find(".#{Planit.imageContainer} > img").first()
-    $(document).on('mousemove', @mousemove)
-    $(document).on('mouseup', @mouseup)
+    $(document).on 'mousemove', (e) =>
+      mousemove.call(@, e)
+    $(document).on 'mouseup', (e) =>
+      mouseup.call(@, e)

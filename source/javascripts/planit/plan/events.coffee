@@ -1,20 +1,17 @@
 
-  # ------------------------------------------ Refs
+  # ======================================================== Marker References
 
-  markers: =>
-    @markersContainer.find(".#{Planit.markerClass}")
-
-  draggingMarker: =>
+  # (private) The marker(s) that are being dragged, found by
+  # Planit's dragging class.
+  #
+  draggingMarker = ->
     @markersContainer.find(".#{Planit.markerClass}.#{Planit.draggingClass}")
 
-  getEventPosition: (e) =>
-    # container dimensions
-    wCont = parseFloat(@markersContainer.width())
-    hCont = parseFloat(@markersContainer.height())
-    # if(
-    #   @markersContainer.css('backgroundImage') &&
-    #   @markersContainer.css('backgroundImage') != 'none'
-    # )
+  # (private) Coordinates of an event as a percentage of the
+  # dimensions of the container, relative to the top left
+  # corner of the image
+  #
+  getEventPosition = (e) ->
     if @image
       # if there is an image, we need to calculate with image in mind
       xPx = e.pageX - @container.offset().left
@@ -27,24 +24,27 @@
       yPc = ((yPx + Math.abs(yImg)) / hImg) * 100
     else
       # or we can just look at the container
-      xPc = (e.pageX - @container.offset().left) / wCont
-      yPc =  (e.pageY - @container.offset().top) / hCont
+      xPc = (e.pageX - @container.offset().left) / @calc(containerWidth)
+      yPc =  (e.pageY - @container.offset().top) / @calc(containerHeight)
     [xPc, yPc]
 
-  # ------------------------------------------ Events
+  # ======================================================== Events
 
-  mouseup: (e) =>
+  # (private) Called at the end of a click, when it occurs
+  # on top of the plan.
+  #
+  mouseup = (e) ->
     # dealing with markers, esp. dragging markers
     marker = @markersContainer.find(".#{Planit.draggingClass}").first()
-    if @draggingMarker().length > 0
+    if draggingMarker.call(@).length > 0
       m = new Planit.Marker(@container, marker.attr('data-marker'))
       @options.markerDragEnd(e, m)
       m.savePosition()
       m.positionInfobox()
-      @draggingMarker().removeClass(Planit.draggingClass)
+      draggingMarker.call(@).removeClass(Planit.draggingClass)
     # if click is on the container
     if $(e.target).hasClass(Planit.markerContainerClass)
-      @options.canvasClick(e, @getEventPosition(e))
+      @options.canvasClick(e, getEventPosition.call(@, e))
     # if click is on the markers
     if(
       $(e.target).hasClass(Planit.markerClass) ||
@@ -58,7 +58,9 @@
       @options.markerClick(e, m)
     true
 
-  mousemove: (e) =>
+  # (private) Called whenever the mouse moves over the plan.
+  #
+  mousemove = (e) ->
     markers = @markersContainer.find(".#{Planit.markerClass}.#{Planit.draggingClass}")
 
     if markers.length > 0
@@ -114,17 +116,3 @@
       marker.css
         left: markerX
         top: markerY
-
-  # ------------------------------------------ Event Callbacks
-
-  markerDragEnd: (event, marker) =>
-    if @options.markerDragEnd
-      @options.markerDragEnd(event, marker)
-
-  markerClick: (event, marker) =>
-    if @options.markerClick
-      @options.markerClick(event, marker)
-
-  canvasClick: (event, coords) =>
-    if @options.canvasClick
-      @options.canvasClick(event, coords)

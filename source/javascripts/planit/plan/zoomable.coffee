@@ -181,11 +181,11 @@
   imgOffsetTop = ->
     Math.abs(parseFloat(@image.css('top')))
 
-  # Coordinates of an event as a percentage of the
+  # (private) Coordinates of an event as a percentage of the
   # dimensions of the container, relative to the top left
   # corner of the container
   #
-  getEventContainerPosition: (e) =>
+  zEventPosition = (e) ->
     left: (e.pageX - @container.offset().left) / @calc(containerWidth)
     top:  (e.pageY - @container.offset().top) / @calc(containerHeight)
 
@@ -195,7 +195,7 @@
   #
   zDblClick = (e) ->
     if $(e.target).attr('data-zoom-id') == @zoomId
-      click = @getEventContainerPosition(e)
+      click = zEventPosition.call(@, e)
       @zoomIn('click', click.left, click.top)
 
   # (private) Listener for the start of a click on the plan
@@ -203,7 +203,7 @@
   zMouseDown = (e) ->
     if $(e.target).attr('data-zoom-id') == @zoomId && e.which == 1
       @isDragging = true
-      coords = @getEventContainerPosition(e)
+      coords = zEventPosition.call(@, e)
       @dragCoords =
         pointRef: coords
         imgRef:
@@ -223,7 +223,7 @@
   #
   zMouseMove = (e) ->
     if @isDragging
-      coords = @getEventContainerPosition(e)
+      coords = zEventPosition.call(@, e)
       dragLeft = coords.left * @calc(containerWidth)
       dragTop = coords.top * @calc(containerHeight)
       if dragLeft >= @dragCoords.max.left && dragLeft <= @dragCoords.max.right
