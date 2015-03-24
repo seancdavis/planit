@@ -47,9 +47,9 @@
     markers = @container.find(".#{Planit.markerClass}")
     if markers.length > 0
       for marker in markers
-        left = (@imgWidth() * ($(marker).attr('data-xPc') / 100)) +
+        left = (@calc(imgWidth) * ($(marker).attr('data-xPc') / 100)) +
           @imagePosition.leftPx - ($(marker).outerWidth() / 2)
-        top = (@imgHeight() * ($(marker).attr('data-yPc') / 100)) +
+        top = (@calc(imgHeight) * ($(marker).attr('data-yPc') / 100)) +
           @imagePosition.topPx - ($(marker).outerHeight() / 2)
         $(marker).css
           left: "#{left}px"
@@ -64,9 +64,9 @@
       for marker in markers
         m = new Planit.Marker(@container, $(marker).attr('data-marker'))
         m.hideInfobox()
-        left = (@imgWidth() * ($(marker).attr('data-xPc') / 100)) +
+        left = (@calc(imgWidth) * ($(marker).attr('data-xPc') / 100)) +
           @imagePosition.leftPx - ($(marker).outerWidth() / 2)
-        top = (@imgHeight() * ($(marker).attr('data-yPc') / 100)) +
+        top = (@calc(imgHeight) * ($(marker).attr('data-yPc') / 100)) +
           @imagePosition.topPx - ($(marker).outerHeight() / 2)
         do (m) ->
           $(marker).animate
@@ -96,27 +96,27 @@
   centerOn: (coords) =>
     if coords[0] >= 50 then x = 100 - coords[0] else x = coords[0]
     if coords[1] >= 50 then y = 100 - coords[1] else y = coords[1]
-    wMin = 50 * (@containerWidth() / x)
-    hMin = 50 * (@containerHeight() / y)
+    wMin = 50 * (@calc(containerWidth) / x)
+    hMin = 50 * (@calc(containerHeight) / y)
     # hides other active infoboxes, but will still show
     # this infobox
     @container.find(".#{Planit.infoboxClass}").removeClass('active')
     # Get our initial position
     @imagePosition.leftPx = - (
-      (@imgWidth() * (coords[0] / 100)) - (@containerWidth() / 2)
+      (@calc(imgWidth) * (coords[0] / 100)) - (@calc(containerWidth) / 2)
     )
     @imagePosition.topPx = - (
-      (@imgHeight() * (coords[1] / 100)) - (@containerHeight() / 2)
+      (@calc(imgHeight) * (coords[1] / 100)) - (@calc(containerHeight) / 2)
     )
     # keep theoretically making the image bigger until it is
     # large enough to center on our point
-    while (@imgWidth() < wMin) || (@imgHeight() < hMin)
+    while (@calc(imgWidth) < wMin) || (@calc(imgHeight) < hMin)
       @imagePosition.scale  = @imagePosition.scale + @imagePosition.increment
       @imagePosition.leftPx = - (
-        (@imgWidth() * (coords[0] / 100)) - (@containerWidth() / 2)
+        (@calc(imgWidth) * (coords[0] / 100)) - (@calc(containerWidth) / 2)
       )
       @imagePosition.topPx = - (
-        (@imgHeight() * (coords[1] / 100)) - (@containerHeight() / 2)
+        (@calc(imgHeight) * (coords[1] / 100)) - (@calc(containerHeight) / 2)
       )
     animateBackground.call(@)
     coords
@@ -133,123 +133,155 @@
 
   # ======================================================== Calculations
 
-  imgWidth: =>
+  # Method for accessing the private calculation methods
+  #
+  calc: (method) =>
+    method.call(@)
+
+  # (private) Width of the image
+  #
+  imgWidth = ->
     parseFloat(@imagePosition.width * @imagePosition.scale)
 
-  imgWidthClickIncrement: =>
+  # (private) The number of pixels added with each zoom level
+  #
+  imgWidthClickIncrement = ->
     parseFloat(@imagePosition.width * @imagePosition.increment)
 
-  imgWidthScrollIncrement: =>
-    parseFloat(@imagePosition.width * @imagePosition.scrollIncrement)
-
-  containerWidth: =>
+  # (private) The width of the container
+  #
+  containerWidth = ->
     parseFloat(@markersContainer.width())
 
-  # ---------- Left / Right
-
-  imgOffsetLeft: =>
+  # (private) Number of pixels left side of image is from
+  # left side of the container
+  #
+  imgOffsetLeft = ->
     Math.abs(parseFloat(@image.css('left')))
 
-  # ---------- Height
-
-  imgHeight: =>
+  # (private) Height of the image
+  #
+  imgHeight = ->
     parseFloat(@imagePosition.height * @imagePosition.scale)
 
-  imgHeightClickIncrement: =>
+  # (private) The number of pixels added or removed with
+  # each zoom level
+  #
+  imgHeightClickIncrement = ->
     parseFloat(@imagePosition.height * @imagePosition.increment)
 
-  imgHeightScrollIncrement: =>
-    parseFloat(@imagePosition.height * @imagePosition.scrollIncrement)
-
-  containerHeight: =>
+  # (private) The height of the container (pixels)
+  #
+  containerHeight = ->
     parseFloat(@markersContainer.height())
 
-  # ---------- Top / Bottom
-
-  imgOffsetTop: =>
+  # (private) The number of pixels the top of the image is
+  # from the top of the container
+  #
+  imgOffsetTop = ->
     Math.abs(parseFloat(@image.css('top')))
 
-  # ---------- Other
-
+  # Coordinates of an event as a percentage of the
+  # dimensions of the container, relative to the top left
+  # corner of the container
+  #
   getEventContainerPosition: (e) =>
-    left: (e.pageX - @container.offset().left) / @containerWidth()
-    top:  (e.pageY - @container.offset().top) / @containerHeight()
+    left: (e.pageX - @container.offset().left) / @calc(containerWidth)
+    top:  (e.pageY - @container.offset().top) / @calc(containerHeight)
 
-  # ------------------------------------------ Events
+  # ======================================================== Events
 
-  dblclick: (e) =>
+  # (private) Listener for double-clicking on the plan
+  #
+  zDblClick = (e) ->
     if $(e.target).attr('data-zoom-id') == @zoomId
       click = @getEventContainerPosition(e)
       @zoomIn('click', click.left, click.top)
 
-  mousedown: (e) =>
+  # (private) Listener for the start of a click on the plan
+  #
+  zMouseDown = (e) ->
     if $(e.target).attr('data-zoom-id') == @zoomId && e.which == 1
       @isDragging = true
       coords = @getEventContainerPosition(e)
       @dragCoords =
         pointRef: coords
         imgRef:
-          left: 0 - @imgOffsetLeft()
-          top: 0 - @imgOffsetTop()
+          left: 0 - @calc(imgOffsetLeft)
+          top: 0 - @calc(imgOffsetTop)
         max:
-          right: (coords.left * @containerWidth()) + @imgOffsetLeft()
-          left: (coords.left * @containerWidth()) - (@imgWidth() -
-                      (@containerWidth() + @imgOffsetLeft()))
-          bottom: (coords.top * @containerHeight()) + @imgOffsetTop()
-          top: (coords.top * @containerHeight()) - (@imgHeight() -
-                      (@containerHeight() + @imgOffsetTop()))
+          right: (coords.left * @calc(containerWidth)) + @calc(imgOffsetLeft)
+          left: (coords.left * @calc(containerWidth)) - (@calc(imgWidth) -
+                      (@calc(containerWidth) + @calc(imgOffsetLeft)))
+          bottom: (coords.top * @calc(containerHeight)) + @calc(imgOffsetTop)
+          top: (coords.top * @calc(containerHeight)) - (@calc(imgHeight) -
+                      (@calc(containerHeight) + @calc(imgOffsetTop)))
     true
 
-  mousemove: (e) =>
+  # (private) Listener for when the mouse moves anywhere on
+  # the document
+  #
+  zMouseMove = (e) ->
     if @isDragging
       coords = @getEventContainerPosition(e)
-      dragLeft = coords.left * @containerWidth()
-      dragTop = coords.top * @containerHeight()
+      dragLeft = coords.left * @calc(containerWidth)
+      dragTop = coords.top * @calc(containerHeight)
       if dragLeft >= @dragCoords.max.left && dragLeft <= @dragCoords.max.right
-        left = (coords.left - @dragCoords.pointRef.left) * @containerWidth()
+        left = (coords.left - @dragCoords.pointRef.left) * @calc(containerWidth)
         @imagePosition.leftPx = @dragCoords.imgRef.left + left
       else if dragLeft < @dragCoords.max.left
-        @imagePosition.leftPx = @containerWidth() - @imgWidth()
+        @imagePosition.leftPx = @calc(containerWidth) - @calc(imgWidth)
       else if dragLeft > @dragCoords.max.right
         @imagePosition.leftPx = 0
       if dragTop >= @dragCoords.max.top && dragTop <= @dragCoords.max.bottom
-        top = (coords.top - @dragCoords.pointRef.top) * @containerHeight()
+        top = (coords.top - @dragCoords.pointRef.top) * @calc(containerHeight)
         @imagePosition.topPx = @dragCoords.imgRef.top + top
       else if dragTop < @dragCoords.max.top
-        @imagePosition.topPx = @containerHeight() - @imgHeight()
+        @imagePosition.topPx = @calc(containerHeight) - @calc(imgHeight)
       else if dragTop > @dragCoords.max.bottom
         @imagePosition.topPx = 0
       setBackground.call(@)
     true
 
-  mouseup: (e) =>
+  # (private) Listener for the end of a click anywhere on
+  # the document
+  #
+  zMouseUp = (e) ->
     @isDragging = false
     positionInfoboxes.call(@)
     true
 
-  # ------------------------------------------ Zooming
+  # ======================================================== Zooming
 
+  # Takes current zoom position and zooms in to the center
+  # one level deeper
+  #
   zoomIn: =>
     @imagePosition.scale  = @imagePosition.scale + @imagePosition.increment
-    @imagePosition.leftPx = - @imgOffsetLeft() - (@imgWidthClickIncrement() / 2)
-    @imagePosition.topPx  = - @imgOffsetTop() - (@imgHeightClickIncrement() / 2)
+    @imagePosition.leftPx = - @calc(imgOffsetLeft) -
+      (@calc(imgWidthClickIncrement) / 2)
+    @imagePosition.topPx  = - @calc(imgOffsetTop) -
+      (@calc(imgHeightClickIncrement) / 2)
     animateBackground.call(@)
 
+  # Zooms out one level. Attempts to zoom out from the
+  # center, but will adjust based on available image space.
+  #
   zoomOut: () =>
     if @imagePosition.scale > 1
       @imagePosition.scale  = @imagePosition.scale - @imagePosition.increment
-      leftPx = - @imgOffsetLeft() + (@imgWidthClickIncrement() / 2)
-      topPx  = - @imgOffsetTop() + (@imgHeightClickIncrement() / 2)
+      leftPx = - @calc(imgOffsetLeft) + (@calc(imgWidthClickIncrement) / 2)
+      topPx  = - @calc(imgOffsetTop) + (@calc(imgHeightClickIncrement) / 2)
       if leftPx > 0
         @imagePosition.leftPx = 0
-      else if leftPx < @containerWidth() - @imgWidth()
-        @imagePosition.leftPx = @containerWidth() - @imgWidth()
+      else if leftPx < @calc(containerWidth) - @calc(imgWidth)
+        @imagePosition.leftPx = @calc(containerWidth) - @calc(imgWidth)
       else
         @imagePosition.leftPx = leftPx
       if topPx > 0
         @imagePosition.topPx = 0
-      else if topPx < @containerHeight() - @imgHeight()
-        @imagePosition.topPx = @containerHeight() - @imgHeight()
+      else if topPx < @calc(containerHeight) - @calc(imgHeight)
+        @imagePosition.topPx = @calc(containerHeight) - @calc(imgHeight)
       else
         @imagePosition.topPx = topPx
       animateBackground.call(@)

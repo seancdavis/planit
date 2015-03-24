@@ -75,10 +75,14 @@
       e.preventDefault()
       @zoomOut()
     # bind draggable events
-    @container.on('dblclick', @dblclick)
-    @container.on('mousedown', @mousedown)
-    $(document).on('mousemove', @mousemove)
-    $(document).on('mouseup', @mouseup)
+    @container.on   'dblclick', (e) =>
+      zDblClick.call(@, e)
+    @container.on   'mousedown', (e) =>
+      zMouseDown.call(@, e)
+    $(document).on  'mousemove', (e) =>
+      zMouseMove.call(@, e)
+    $(document).on  'mouseup', (e) =>
+      zMouseUp.call(@, e)
 
   # ======================================================== Markers
 
