@@ -1,12 +1,12 @@
 /* Default Values
 ============================ */
 /*
- * Many items within these configuration files 
+ * Many items within these configuration files
  * are relative to values here.
  *
  */
 $default-fontSize: 16px; // ALL SIZING IS RELATIVE TO THIS VALUE
-$default-fontFamily: "Lato", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+$default-fontFamily: Roboto, "Open Sans", sans-serif;
 $default-fontWeight: 200;
 $default-lineHeight: 1.25em;
 $default-color: $color-dark;

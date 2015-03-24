@@ -1,10 +1,24 @@
 ---
-title: Welcome to Middleman
+title: Planit.js
 ---
 
-<div class="welcome">
-  <h1>Middleman is Watching</h1>
-  <p class="doc">
-    <%= link_to "Read Online Documentation", "http://middlemanapp.com/" %>
-  </p><!-- .doc -->
-</div><!-- .welcome -->
+<div class="logo">
+  <h1>Planit.js</h1>
+  <h2>Interactive markers on an image or blank canvas.</h2>
+</div>
+
+<div class="cta">
+  <%= link_to(
+    'Download v1.0',
+    'https://github.com/seancdavis/planit/blob/master/dist/planit.js.zip?raw=true',
+    :target => :blank,
+    :class => 'button download'
+  ) %>
+  <%= link_to(
+    'View on GitHub',
+    'https://github.com/seancdavis/planit',
+    :target => :blank,
+    :class => 'button github'
+  ) %>
+  <%= link_to('Read Docs', '/docs', :class => 'button docs') %>
+</div>
