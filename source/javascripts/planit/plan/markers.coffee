@@ -7,3 +7,11 @@
     options.container = @container
     marker = Planit.Marker.create(options)
     return marker
+
+  # Returns an array of all Marker objects within the plan
+  #
+  allMarkers: =>
+    markers = []
+    for marker in @container.find(".#{Planit.markerClass}")
+      markers.push(new Planit.Marker(@container, $(marker).attr('data-marker')))
+    markers
