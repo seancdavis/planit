@@ -52,6 +52,7 @@ class Planit.Marker
     )
     # find the marker
     marker = markersContainer.find(".#{Planit.markerClass}").last()
+    markerObj = new Planit.Marker(container, options.planitID)
     # add content and styles if passed as options
     if options.id
       marker.attr('data-id': options.id)
@@ -97,9 +98,8 @@ class Planit.Marker
         container.find(".#{Planit.infoboxClass}").last().attr
           'data-offset-y': infobox.offsetY
       marker.attr('data-infobox', "info-#{id}")
-      m = new Planit.Marker(container, options.planitID)
-      m.positionInfobox()
-      m
+      markerObj.positionInfobox()
+    markerObj
 
   # ======================================================== Calculations
 

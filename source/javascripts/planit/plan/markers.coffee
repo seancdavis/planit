@@ -3,6 +3,7 @@
 
   # Adds a marker to the plan
   #
-  addMarker: (options) =>
+  addMarker: (options = {}) =>
     options.container = @container
-    Planit.Marker.create(options)
+    marker = Planit.Marker.create(options)
+    return marker
