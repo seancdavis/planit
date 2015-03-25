@@ -9,8 +9,9 @@ class Planit.Marker
   # It's for this reason that the create action is a class
   # method (the marker doesn't physically exist yet)
   #
-  constructor: (@container, id) ->
+  constructor: (@plan, id) ->
     # Set Options
+    @container = @plan.container
     @markersContainer = @container.find(".#{Planit.markerContainerClass}")
     if @container.find(".#{Planit.imageContainer} > img").length > 0
       @image = @container.find(".#{Planit.imageContainer} > img").first()
@@ -29,7 +30,8 @@ class Planit.Marker
   #
   @create: (options) ->
     # local references
-    container = options.container
+    plan = options.plan
+    container = plan.container
     markersContainer = container.find(".#{Planit.markerContainerClass}").first()
     # set options
     options.planitID = Planit.randomString(20) unless options.planitID
@@ -52,7 +54,7 @@ class Planit.Marker
     )
     # find the marker
     marker = markersContainer.find(".#{Planit.markerClass}").last()
-    markerObj = new Planit.Marker(container, options.planitID)
+    markerObj = new Planit.Marker(plan, options.planitID)
     # add content and styles if passed as options
     if options.id
       marker.attr('data-id': options.id)
@@ -74,6 +76,15 @@ class Planit.Marker
           marker.attr
             'data-drag-start-x': e.pageX
             'data-drag-start-y': e.pageY
+    # bind marker events
+    if plan.options.markerMouseOver
+      marker.on 'mouseover', (e) =>
+        plan.options.markerMouseOver(e, markerObj)
+        true
+    if plan.options.markerMouseOut
+      marker.on 'mouseout', (e) =>
+        plan.options.markerMouseOut(e, markerObj)
+        true
     # setup infobox if necessary
     if options.infobox
       id = Planit.randomString(16)

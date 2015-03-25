@@ -99,7 +99,7 @@
   initMarkers = ->
     if @options.markers && @options.markers.length > 0
       for marker in @options.markers
-        marker.container = @container
+        marker.plan = @
         Planit.Marker.create(marker)
 
   # ======================================================== Plan Events

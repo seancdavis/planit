@@ -4,7 +4,7 @@
   # Adds a marker to the plan
   #
   addMarker: (options = {}) =>
-    options.container = @container
+    options.plan = @
     marker = Planit.Marker.create(options)
     return marker
 
@@ -13,5 +13,5 @@
   allMarkers: =>
     markers = []
     for marker in @container.find(".#{Planit.markerClass}")
-      markers.push(new Planit.Marker(@container, $(marker).attr('data-marker')))
+      markers.push(new Planit.Marker(@, $(marker).attr('data-marker')))
     markers

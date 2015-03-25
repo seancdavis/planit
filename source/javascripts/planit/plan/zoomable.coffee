@@ -63,7 +63,7 @@
     markers = @container.find(".#{Planit.markerClass}")
     if markers.length > 0
       for marker in markers
-        m = new Planit.Marker(@container, $(marker).attr('data-marker'))
+        m = new Planit.Marker(@, $(marker).attr('data-marker'))
         m.hideInfobox()
         left = (@calc(imgWidth) * ($(marker).attr('data-xPc') / 100)) +
           @imagePosition.leftPx - ($(marker).outerWidth() / 2)
@@ -84,7 +84,7 @@
   #
   positionInfoboxes = ->
     for marker in @container.find(".#{Planit.markerClass}")
-      m = new Planit.Marker(@container, $(marker).attr('data-marker'))
+      m = new Planit.Marker(@, $(marker).attr('data-marker'))
       m.positionInfobox()
     true
 
