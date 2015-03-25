@@ -23,6 +23,7 @@ gulp.task('coffee', function() {
     'source/javascripts/planit/plan/init.coffee',
     'source/javascripts/planit/plan/zoomable.coffee',
     'source/javascripts/planit/plan/events.coffee',
+    'source/javascripts/planit/plan/markers.coffee',
     // Marker
     'source/javascripts/planit/marker.coffee',
     // Init
