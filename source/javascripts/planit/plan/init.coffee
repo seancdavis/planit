@@ -115,3 +115,5 @@
       mousemove.call(@, e)
     $(document).on 'mouseup', (e) =>
       mouseup.call(@, e)
+    $(window).resize (e) =>
+      resize.call(@, e)

@@ -119,3 +119,11 @@
       marker.css
         left: markerX
         top: markerY
+
+  resize = (e) ->
+    if @image
+      @resetImage()
+      @container.height(@image.height())
+    for marker in @markersContainer.find('.planit-marker')
+      m = new Planit.Marker(@container, $(marker).attr('data-marker'))
+      m.set()

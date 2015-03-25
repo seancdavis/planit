@@ -281,10 +281,16 @@ class Planit.Marker
   # attributes
   #
   set: =>
-    left = (@image.width() * (@marker.attr('data-xPc') / 100)) +
-      parseFloat(@image.css('left')) - (@marker.outerWidth() / 2)
-    top = (@image.height() * (@marker.attr('data-yPc') / 100)) +
-      parseFloat(@image.css('top')) - (@marker.outerHeight() / 2)
+    if @image
+      left = (@image.width() * (@marker.attr('data-xPc') / 100)) +
+        parseFloat(@image.css('left')) - (@marker.outerWidth() / 2)
+      top = (@image.height() * (@marker.attr('data-yPc') / 100)) +
+        parseFloat(@image.css('top')) - (@marker.outerHeight() / 2)
+    else
+      left = (@container.width() * (@marker.attr('data-xPc') / 100)) -
+        (@marker.outerWidth() / 2)
+      top = (@container.height() * (@marker.attr('data-yPc') / 100)) - 
+        (@marker.outerHeight() / 2)
     @marker.css
       left: "#{left}px"
       top: "#{top}px"
