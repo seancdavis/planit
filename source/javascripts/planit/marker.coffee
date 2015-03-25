@@ -150,7 +150,7 @@ class Planit.Marker
   id: =>
     @marker.attr('data-id')
 
-  # Whether or not the marker is currently being dragged
+  # Whether or not the marker is allowed to be dragged
   #
   isDraggable: =>
     @marker.hasClass('draggable')
@@ -178,20 +178,32 @@ class Planit.Marker
   # Hides the infobox if it is visible.
   #
   hideInfobox: =>
-    @infobox().addClass('hidden') if @infoboxVisible()
+    if @infoboxVisible()
+      @infobox().addClass('hidden')
+      true
+    else
+      false
 
   # Shows the infobox if it is hidden.
   #
   showInfobox: =>
-    @infobox().addClass('active') if @infobox() && !@infoboxVisible()
-    @unhideInfobox()
+    if @infobox() && !@infoboxVisible()
+      @infobox().addClass('active')
+      @unhideInfobox()
+      true
+    else
+      false
 
   # Similar to showInfobox, but less agressive. It takes
   # away its hidden class, instead of adding an active
   # class.
   #
   unhideInfobox: =>
-    @infobox().removeClass('hidden') if @infoboxVisible()
+    if @infoboxVisible()
+      @infobox().removeClass('hidden')
+      true
+    else
+      false
 
   # Find the appropriate coordinates at which to display the
   # infobox, based on options.
@@ -287,6 +299,7 @@ class Planit.Marker
     @marker.attr
       'data-xPc': coords[0]
       'data-yPc': coords[1]
+    coords
 
   # Allows you to change the attributes of the marker on the
   # fly.
@@ -306,9 +319,11 @@ class Planit.Marker
       @marker.css
         left: "#{left}px"
         top: "#{top}px"
+    true
 
   # Removes the marker from the plan.
   #
   remove: =>
     @infobox().remove() if @infobox()
     @marker.remove()
+    true

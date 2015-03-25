@@ -1,7 +1,7 @@
 
   # ======================================================== Setting Image
 
-  # Zooma the image out all the way and sets the markers
+  # Zoom the image out all the way and sets the markers
   # appropriately
   #
   resetImage: =>
@@ -13,6 +13,7 @@
       scale:          1
       increment:      0.5
     setBackground.call(@)
+    true
 
   # (private) Moves the background and markers without
   # animation to the location set by the imagePosition
@@ -263,6 +264,7 @@
     @imagePosition.topPx  = - @calc(imgOffsetTop) -
       (@calc(imgHeightClickIncrement) / 2)
     animateBackground.call(@)
+    true
 
   # Zooms out one level. Attempts to zoom out from the
   # center, but will adjust based on available image space.
@@ -285,3 +287,6 @@
       else
         @imagePosition.topPx = topPx
       animateBackground.call(@)
+      true
+    else
+      false

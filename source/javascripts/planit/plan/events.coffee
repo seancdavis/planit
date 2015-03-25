@@ -38,13 +38,15 @@
     marker = @markersContainer.find(".#{Planit.draggingClass}").first()
     if draggingMarker.call(@).length > 0
       m = new Planit.Marker(@container, marker.attr('data-marker'))
-      @options.markerDragEnd(e, m)
+      if @options.markerDragEnd
+        @options.markerDragEnd(e, m)
       m.savePosition()
       m.positionInfobox()
       draggingMarker.call(@).removeClass(Planit.draggingClass)
     # if click is on the container
     if $(e.target).hasClass(Planit.markerContainerClass)
-      @options.canvasClick(e, getEventPosition.call(@, e))
+      if @options.canvasClick
+        @options.canvasClick(e, getEventPosition.call(@, e))
     # if click is on the markers
     if(
       $(e.target).hasClass(Planit.markerClass) ||
@@ -55,7 +57,8 @@
       else
         marker = $(e.target).parents(".#{Planit.markerClass}").first()
       m = new Planit.Marker(@container, marker.attr('data-marker'))
-      @options.markerClick(e, m)
+      if @options.markerClick
+        @options.markerClick(e, m)
     true
 
   # (private) Called whenever the mouse moves over the plan.
