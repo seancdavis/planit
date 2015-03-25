@@ -1,0 +1,43 @@
+<!doctype html>
+<html class="no-js" lang="">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Planit / Basic Example</title>
+
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="../planit.css">
+    <script src="js/jquery-1.11.2.min.js"></script>
+    <script src="../planit.js"></script>
+    <script src="js/modernizr-2.8.3.min.js"></script>
+
+    <style>
+      #planit {
+        width: 90%;
+      }
+    </style>
+  </head>
+  <body>
+
+<div style="text-align: center;">
+  <a href="#" id="add-marker" class="button">Add Marker!</a>
+</div>
+    <div id="planit"></div>
+
+    <script>
+      p = planit.new();
+
+      $('#add-marker').click(function(e){
+        e.preventDefault();
+        randomX = Math.random() * 100;
+        randomY = Math.random() * 100;
+        p.addMarker({
+          coords: [randomX, randomY],
+          color: '#12abe3'
+        })
+      });
+    </script>
+  </body>
+</html>
