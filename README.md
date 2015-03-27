@@ -14,10 +14,9 @@ examples at [planit.seancdavis.me](http://planit.seancdavis.me).
 Installation
 ----------
 
-### Scripts
-
 Make sure you load jQuery, then you're ready to add Planit.js. Best practice is
-to add your scripts to the bottom of your `<body>`.
+to add your scripts to the bottom of your `<body>`. And don't forget the
+styles.
 
 *If you take this approach you'll need to ensure the script for your page is
 loaded after the Planit library is loaded. It's not a bad idea to take
@@ -26,26 +25,10 @@ correct order. Checkout [RequireJS](http://requirejs.org/) for more
 information.*
 
 ```html
-    <!-- ... -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/jquery.planit/1.0.1/planit.min.css">
 
-    <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
-    <script src="https://raw.githubusercontent.com/seancdavis/planit/master/dist/planit.min.js"></script>
-    <!-- The rest of your app's scripts -->
-  </body>
-</html>
-```
-
-### Styles
-
-Don't forget the styles! Styles should be loaded in the head of your markup.
-
-```html
-<html>
-  <head>
-    <!-- ... -->
-    <link rel="stylesheet" href="https://raw.githubusercontent.com/seancdavis/planit/master/dist/planit.min.css">
-
-    <!-- ... -->
+<script src="//cdn.jsdelivr.net/jquery/1.11.2/jquery.min.js"></script>
+<script src="//cdn.jsdelivr.net/jquery.planit/1.0.1/planit.min.js"></script>
 ```
 
 ### Downloads
@@ -53,10 +36,10 @@ Don't forget the styles! Styles should be loaded in the head of your markup.
 You can download both of these items using the links below. v1.0 will come with
 hosted releases of the distribution.
 
-* [planit.min.js](https://raw.githubusercontent.com/seancdavis/planit/master/di
-  st/planit.min.js)
-* [planit.min.css](https://raw.githubusercontent.com/seancdavis/planit/master/d
-  ist/planit.min.css)
+* [planit.min.js](http://cdn.jsdelivr.net/jquery.planit/1.0.1/planit.min.js)
+* [planit.min.css](http://cdn.jsdelivr.net/jquery.planit/1.0.1/planit.min.css)
+
+There's also a [zip](http://cdn.jsdelivr.net/jquery.planit/1.0.1/jquery.planit.zip) of the two files together.
 
 Usage
 ----------------
