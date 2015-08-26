@@ -1,0 +1,125 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <title>hideInfobox</title>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, user-scalable=no,
+      minimum-scale=1.0, maximum-scale=1.0, initial-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+
+    <!-- <link href="" rel="shortcut icon"
+      type="image/png"> -->
+
+    <link href="../../assets/viewer/planitjs/application-8c2429588fc1e3b9d76f80a76de7cbb2.css" media="all" rel="stylesheet" />
+    <script src="../../assets/viewer/planitjs/application-987e29d090bc0d13a3492dfae6228bc6.js"></script>
+    <script src="../../assets/modernizr-b7e936629a2c2fa6623b83ea794fb16f.js"></script>
+
+      <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-54661520-3', 'auto');
+        ga('send', 'pageview');
+      </script>
+
+    <meta content="authenticity_token" name="csrf-param" />
+<meta content="Eafu5cb6jKkbB676X8fnBoWtlc/dkYsH7sy4+mi2xgw=" name="csrf-token" />
+  <body class="api_method">
+
+    <header class="main">
+  <div class="content">
+    <h1 class="logo"><a href="../../index.html">Planit.js</a></h1>
+    <nav>
+      <ul>
+        <li><a class="active" href="../../api_reference.html">API Reference</a></li>
+        <li><a href="../../examples.html">Examples</a></li>
+        <li><a href="https://github.com/seancdavis/planit" target="blank">GitHub</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+
+    <div id="container">
+      
+<div class="content">
+  <aside class="doc-sidebar">
+    <section>
+      <h3><a href="../planit.html">Planit</a></h3>
+      <ul>
+          <li><a href="../planit/new.html">new</a></li>
+      </ul>
+    </section>
+    <section>
+      <h3><a href="../plan.html">Plan</a></h3>
+      <ul>
+          <li><a href="../plan/add-marker.html">addMarker</a></li>
+          <li><a href="../plan/all-markers.html">allMarkers</a></li>
+          <li><a href="../plan/center-on.html">centerOn</a></li>
+          <li><a href="../plan/reset-image.html">resetImage</a></li>
+          <li><a href="../plan/zoom-in.html">zoomIn</a></li>
+          <li><a href="../plan/zoom-out.html">zoomOut</a></li>
+          <li><a href="../plan/zoom-to.html">zoomTo</a></li>
+      </ul>
+    </section>
+    <section>
+      <h3><a class="active" href="../marker.html">Marker</a></h3>
+      <ul>
+          <li><a href="animate-infobox.html">animateInfobox</a></li>
+          <li><a href="color.html">color</a></li>
+          <li><a class="active" href="hide-infobox.html">hideInfobox</a></li>
+          <li><a href="id.html">id</a></li>
+          <li><a href="infobox.html">infobox</a></li>
+          <li><a href="infobox-coords.html">infoboxCoords</a></li>
+          <li><a href="infobox-html.html">infoboxHTML</a></li>
+          <li><a href="infobox-visible.html">infoboxVisible</a></li>
+          <li><a href="is-draggable.html">isDraggable</a></li>
+          <li><a href="planit-id.html">planitID</a></li>
+          <li><a href="position.html">position</a></li>
+          <li><a href="position-infobox.html">positionInfobox</a></li>
+          <li><a href="relative-position.html">relativePosition</a></li>
+          <li><a href="remove.html">remove</a></li>
+          <li><a href="save-position.html">savePosition</a></li>
+          <li><a href="set.html">set</a></li>
+          <li><a href="show-infobox.html">showInfobox</a></li>
+          <li><a href="unhide-infobox.html">unhide Infobox</a></li>
+          <li><a href="update.html">update</a></li>
+      </ul>
+    </section>
+</aside>
+
+  <main class="docs">
+    <h1>
+      hideInfobox
+      <span>()</span>
+    </h1>
+    <section class="klass">
+      <h2>
+        Class:
+        <code><a href="../marker.html">Marker</a></code>
+      </h2>
+    </section>
+    <section class="summary">
+      <div><p>Will hide the infobox, regardless of whether it is visible of not. Infoboxes are hidden <strong>not</strong> by taking away the <code>active</code> class, but by <em>adding</em> a <code>hidden</code> class to the infobox container.</p>
+</div>
+</section>        <section class="return">
+      <h2>Returns: <span>Boolean (whether infobox exists)</span></h2>
+    </section>
+    <section class="example">
+      <h2>Example</h2>
+      <div><div class="highlight"><pre><span class="c1">// assuming you already have access to `marker` as a Marker object</span>
+<span class="nx">marker</span><span class="p">.</span><span class="nx">hideInfobox</span><span class="p">()</span>
+</pre></div></div>
+</section>  </main>
+</div>
+
+    </div>
+  </body>
+</html>
