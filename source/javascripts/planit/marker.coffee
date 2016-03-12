@@ -69,13 +69,7 @@ class Planit.Marker
     # setup draggable if necessary
     if options.draggable
       marker.addClass('draggable')
-      marker.on 'mousedown', (e) =>
-        if e.which == 1
-          marker = $(e.target).closest(".#{Planit.markerClass}")
-          marker.addClass(Planit.draggingClass)
-          marker.attr
-            'data-drag-start-x': e.pageX
-            'data-drag-start-y': e.pageY
+      markerObj.enableDragging(marker)
     # bind marker events
     if plan.options.markerMouseOver
       marker.on 'mouseover', (e) =>
@@ -111,6 +105,15 @@ class Planit.Marker
       marker.attr('data-infobox', "info-#{id}")
       markerObj.positionInfobox()
     markerObj
+
+  enableDragging: (marker) =>
+    marker.on 'mousedown', (e) =>
+      if e.which == 1
+        marker = $(e.target).closest(".#{Planit.markerClass}")
+        marker.addClass(Planit.draggingClass)
+        marker.attr
+          'data-drag-start-x': e.pageX
+          'data-drag-start-y': e.pageY
 
   # ======================================================== Calculations
 
@@ -327,9 +330,13 @@ class Planit.Marker
     if options.infobox
       @marker.find(".#{Planit.infoboxClass}").html(options.infobox)
       @positionInfobox()
-    if options.draggable
-      @marker.removeClass('draggable')
-      @marker.addClass('draggable') if options.draggable == true
+    if options.draggable != undefined
+      if options.draggable == true
+        @marker.addClass('draggable')
+        @.enableDragging(@marker)
+      else
+        @marker.removeClass('draggable')
+        @marker.off('mousedown')
     if options.coords
       left = ((parseFloat(options.coords[0]) / 100) * @container.width()) - 15
       top = ((parseFloat(options.coords[1]) / 100) * @container.height()) - 15
